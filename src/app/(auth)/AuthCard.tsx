@@ -1,4 +1,11 @@
-const AuthCard = ({ logo, children }) => (
+import React, { FunctionComponent } from 'react';
+
+type AuthCardProps = {
+    logo: React.ReactNode;
+    children: React.ReactNode;
+}
+
+const AuthCard: FunctionComponent<AuthCardProps> = ({ logo, children }) => (
     <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>{logo}</div>
 

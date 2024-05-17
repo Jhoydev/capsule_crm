@@ -1,4 +1,11 @@
-const AuthSessionStatus = ({ status, className, ...props }) => (
+import { FunctionComponent } from 'react';
+
+type AuthSessionStatusProps = {
+    status: string | null;
+    className: string;
+}
+
+const AuthSessionStatus: FunctionComponent<AuthSessionStatusProps> = ({ status, className, ...props }) => (
     <>
         {status && (
             <div

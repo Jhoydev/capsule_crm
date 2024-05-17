@@ -9,24 +9,37 @@ type UseAuthOptions = {
 };
 
 type RegisterLoginProps = {
+    name?: string;
     email: string;
     password: string;
-    setErrors: (errors: any[]) => void;
-    setStatus?: (status: string | null) => void;
-};
+    password_confirmation?: string;
+    remember?: boolean;
+} & SettersAuthTypes;
+
+type SettersAuthTypes = {
+    setErrors: (errors: ApiErrors) => void;
+    setStatus: (status: string | null) => void;
+}
 
 type ForgotPasswordProps = {
     email: string;
-    setErrors: (errors: any[]) => void;
-    setStatus: (status: string | null) => void;
-};
+} & SettersAuthTypes;
 
-type ResetPasswordProps = RegisterLoginProps & {
-    token: string;
-};
+
+type ResetPasswordProps = {
+    email: string;
+    password: string;
+    password_confirmation: string;
+} & SettersAuthTypes;
 
 type ResendEmailVerificationProps = {
     setStatus: (status: string) => void;
+};
+
+type FieldErrorMessages = string[];
+
+export type ApiErrors = {
+    [field: string]: FieldErrorMessages;
 };
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions = {}) => {
@@ -46,10 +59,12 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
 
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
-    const register = async ({ setErrors, ...props } : RegisterLoginProps) => {
+    const register = async (
+        { setErrors, ...props }: Omit<RegisterLoginProps, 'setStatus'>
+    ): Promise<void> => {
         await csrf()
 
-        setErrors([])
+        setErrors({})
 
         axios
             .post('/register', props)
@@ -64,7 +79,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
     const login = async ({ setErrors, setStatus, ...props }: RegisterLoginProps) => {
         await csrf()
 
-        setErrors([])
+        setErrors({})
         setStatus && setStatus(null);
 
         axios
@@ -80,7 +95,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
     const forgotPassword = async ({ setErrors, setStatus, email }: ForgotPasswordProps) => {
         await csrf()
 
-        setErrors([])
+        setErrors({})
         setStatus(null)
 
         axios
@@ -96,10 +111,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
     const resetPassword = async ({ setErrors, setStatus, ...props }: ResetPasswordProps) => {
         await csrf()
 
-        setErrors([])
+        setErrors({})
         setStatus(null)
 
         axios
+            // @ts-ignore
             .post('/reset-password', { token: params.token, ...props })
             .then(response =>
                 router.push('/login?reset=' + btoa(response.data.status)),
@@ -127,7 +143,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
 
     useEffect(() => {
         if (middleware === 'guest' && redirectIfAuthenticated && user)
-            router.push(redirectIfAuthenticated)
+            //router.push(redirectIfAuthenticated)
         if (
             window.location.pathname === '/verify-email' &&
             user?.email_verified_at
