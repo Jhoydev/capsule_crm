@@ -7,7 +7,7 @@ export default function Home() {
           <LoginLinks />
 
           <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <h1>Capsule CRM</h1>
+            <h1>Capsule CRM 2</h1>
           </div>
         </div>
       </>
