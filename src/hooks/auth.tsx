@@ -1,46 +1,8 @@
 import useSWR from 'swr'
 import axios from '@/lib/axios'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-
-type UseAuthOptions = {
-    middleware?: 'auth' | 'guest';
-    redirectIfAuthenticated?: string;
-};
-
-type RegisterLoginProps = {
-    name?: string;
-    email: string;
-    password: string;
-    password_confirmation?: string;
-    remember?: boolean;
-} & SettersAuthTypes;
-
-type SettersAuthTypes = {
-    setErrors: (errors: ApiErrors) => void;
-    setStatus: (status: string | null) => void;
-}
-
-type ForgotPasswordProps = {
-    email: string;
-} & SettersAuthTypes;
-
-
-type ResetPasswordProps = {
-    email: string;
-    password: string;
-    password_confirmation: string;
-} & SettersAuthTypes;
-
-type ResendEmailVerificationProps = {
-    setStatus: (status: string) => void;
-};
-
-type FieldErrorMessages = string[];
-
-export type ApiErrors = {
-    [field: string]: FieldErrorMessages;
-};
+import { ForgotPasswordProps, RegisterLoginProps, ResendEmailVerificationProps, ResetPasswordProps, UseAuthOptions } from '@/types/auth.types';
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions = {}) => {
     const router = useRouter()
@@ -133,24 +95,36 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
             .then(response => setStatus(response.data.status))
     }
 
-    const logout = async () => {
+    const logout = useCallback(async () => {
         if (!error) {
-            await axios.post('/logout').then(() => mutate())
+            await axios.post('/logout').then(() => mutate());
         }
 
-        window.location.pathname = '/login'
-    }
+        window.location.pathname = '/login';
+    }, [error, mutate]);
 
-    useEffect(() => {
-        if (middleware === 'guest' && redirectIfAuthenticated && user)
-            router.push(redirectIfAuthenticated)
+    const handleRedirects = useCallback(async () => {
+        if (middleware === 'guest' && redirectIfAuthenticated && user) {
+            router.push(redirectIfAuthenticated);
+            return;
+        }
+
         if (
             window.location.pathname === '/verify-email' &&
             user?.email_verified_at
-        )
-            router.push(redirectIfAuthenticated || '')
-        if (middleware === 'auth' && error) logout()
-    }, [user, error])
+        ) {
+            router.push(redirectIfAuthenticated || '');
+            return;
+        }
+
+        if (middleware === 'auth' && error) {
+            await logout();
+        }
+    }, [user, error, middleware, redirectIfAuthenticated, router, logout]);
+
+    useEffect(() => {
+        handleRedirects().catch(console.error);
+    }, [handleRedirects])
 
     return {
         user,

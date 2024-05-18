@@ -4,10 +4,11 @@ import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
-import { ApiErrors, useAuth } from '@/hooks/auth'
+import { useAuth } from '@/hooks/auth'
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
+import { ApiErrors } from '@/types/auth.types';
 
 const PasswordReset = () => {
     const searchParams = useSearchParams()
@@ -37,8 +38,9 @@ const PasswordReset = () => {
     }
 
     useEffect(() => {
-        setEmail(searchParams.get('email'))
-    }, [searchParams.get('email')])
+        const emailParam = searchParams.get('email');
+        setEmail(emailParam)
+    }, [searchParams])
 
     return (
         <>

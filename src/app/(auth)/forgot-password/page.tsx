@@ -4,9 +4,10 @@ import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
-import { ApiErrors, useAuth } from '@/hooks/auth'
+import { useAuth } from '@/hooks/auth'
 import React, { useState } from 'react'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
+import { ApiErrors } from '@/types/auth.types';
 
 const Page = () => {
     const { forgotPassword } = useAuth({
