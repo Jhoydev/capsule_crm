@@ -1,8 +1,8 @@
 'use client'
 
 import { useAuth } from '@/hooks/auth'
-import Navigation from '@/app/(app)/Navigation'
-import Loading from '@/app/(app)/Loading'
+import Navigation from '@/components/structure/navigation'
+import Loading from '@/components/shared/loading';
 import React from 'react';
 
 type DashboardType = {
