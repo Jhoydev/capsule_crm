@@ -1,12 +1,13 @@
 'use client'
 
-import Button from '@/components/Button'
-import Input from '@/components/Input'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
 import Link from 'next/link'
-import { ApiErrors, useAuth } from '@/hooks/auth'
+import { useAuth } from '@/hooks/auth'
 import React, { useState } from 'react'
+import { ApiErrors } from '@/types/auth.types';
 
 const Page = () => {
     const { register } = useAuth({

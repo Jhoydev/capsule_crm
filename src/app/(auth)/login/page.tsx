@@ -1,15 +1,16 @@
 'use client'
 
-import Button from '@/components/Button'
-import Input from '@/components/Input'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
 import Link from 'next/link'
-import { ApiErrors, useAuth } from '@/hooks/auth'
+import { useAuth } from '@/hooks/auth'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { ApiErrors } from '@/types/auth.types';
 
 const Login = () => {
     const router: AppRouterInstance = useRouter()
@@ -111,7 +112,7 @@ const Login = () => {
                         Forgot your password?
                     </Link>
 
-                    <Button className="ml-3">Login</Button>
+                    <Button type="submit" className="ml-3">Login</Button>
                 </div>
             </form>
         </>
