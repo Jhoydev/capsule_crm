@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Navigation from "@/components/structure/navigation";
 import React from "react";
 import {useAuth} from "@/hooks/auth";
-import Loading from "@/components/shared/Loading";
+import Loading from "@/components/shared/loading";
 
 
 const Header = () => {

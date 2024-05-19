@@ -5,7 +5,7 @@ import {Contact} from "./contact";
 
 export const columns: ColumnDef<Contact>[] = [
     {
-        accessorKey: "id",
+        accessorKey: "avatar",
         header: "",
         cell: ({ row }) => {
             return (

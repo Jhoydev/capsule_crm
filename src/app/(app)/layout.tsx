@@ -1,9 +1,12 @@
 'use client'
 
 import { useAuth } from '@/hooks/auth'
-import Navigation from '@/components/structure/navigation'
+
 import Loading from '@/components/shared/loading';
 import React from 'react';
+import Header from "@/components/structure/header";
+import Footer from '@/components/structure/footer';
+import Sidebar from "@/components/structure/sidebar";
 
 type DashboardType = {
     children?: React.ReactNode;
@@ -18,11 +21,16 @@ const AppLayout = ({ children, header }: DashboardType) => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <Navigation user={user} />
 
-            <main>{children}</main>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <Header />
+            <div style={{ display: 'flex', flexGrow: 1 }}>
+                <Sidebar />
+                <main style={{ flexGrow: 1, padding: '20px' }}>{children}</main>
+            </div>
+            <Footer />
         </div>
+
     )
 }
 

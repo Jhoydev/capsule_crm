@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from 'react';
 import DataTable from "@/components/shared/table/dataTable";
 import { getProperties, Property } from "@/components/shared/table/property";

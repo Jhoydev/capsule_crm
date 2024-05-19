@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from 'react';
 import DataTable from "@/components/shared/table/dataTable";
 import { getContacts, Contact } from "@/components/shared/table/contact";

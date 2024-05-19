@@ -3,11 +3,11 @@ import Link from 'next/link';
 
 const Sidebar = () => {
     return (
-        <aside style={{ width: '250px', padding: '20px', backgroundColor: '#e0e0e0' }}>
+        <aside className='bg-slate-100 w-64 p-5'>
             <ul style={{ listStyleType: 'none', padding: 0 }}>
-                <li><Link href="/properties">Propiedades</Link></li>
-                <li><Link href="/users">Usuarios</Link></li>
-                <li><Link href="/contacts">Contactos</Link></li>
+                <li className='m-5'><Link href="/properties">Propiedades</Link></li>
+                <li className='m-5'><Link href="/users">Usuarios</Link></li>
+                <li className='m-5'><Link href="/contacts">Contactos</Link></li>
             </ul>
         </aside>
     );
