@@ -2,18 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import DataTable from "@/components/shared/table/dataTable";
-import { getContacts, Contact } from "@/components/shared/table/contact";
+import { Contact } from "@/models/Contact";
+import { getContacts } from "@/lib/api";
 import { columns } from "@/components/shared/table/columnsContact";
 import { Button } from "@/components/ui/button"
-import { Plus } from 'lucide-react'
+import { IoIosSearch } from "react-icons/io";
+import { CiCirclePlus } from "react-icons/ci";
 import { DatePickerWithRange } from "@/components/shared/dataRangePicker"
+import { Input } from "@/components/ui/input"
 
 const Contactos = () => {
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [date, setDate] = React.useState<Date | undefined>(new Date())
 
     useEffect(() => {
-        const loadContacts = async () => {
+        const fetchContacts = async () => {
             try {
                 const datos = await getContacts();
                 setContacts(datos);
@@ -22,7 +25,7 @@ const Contactos = () => {
             }
         };
 
-        loadContacts();
+        fetchContacts();
     }, []); // Este array vacío asegura que el efecto se ejecute solo una vez después del montaje del componente.
 
     return (
@@ -42,14 +45,20 @@ const Contactos = () => {
                 </div>
             </div>
             <div>
-                <div className='flex justify-between'>
-                    <h2>Contactos</h2>
-                    <Button className=''>
-                        Crear contacto
-                        <Plus className='ml-2'/>
+                <div className='flex w-full max-w-lg items-center space-x-2 mb-5 justify-center'>
+                    <Input type='text' placeholder='Buscar...' className='w-full'/>
+                    <Button type="submit">
+                        <IoIosSearch />
                     </Button>
                 </div>
-                <div>
+                <div className='flex justify-between mb-5 items-center'>
+                    <h2>Contactos</h2>
+                    <Button className=''>
+                    Crear contacto
+                        <CiCirclePlus className='ml-2'/>
+                    </Button>
+                </div>
+                <div className='w-full'>
                     <DataTable caption={""} data={contacts} columns={columns}/>
                 </div>
             </div>

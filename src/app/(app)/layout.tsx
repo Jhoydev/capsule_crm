@@ -26,7 +26,7 @@ const AppLayout = ({ children, header }: DashboardType) => {
             <Header />
             <div style={{ display: 'flex', flexGrow: 1 }}>
                 <Sidebar />
-                <main style={{ flexGrow: 1, padding: '20px' }}>{children}</main>
+                <main className='w-full p-[20px]'>{children}</main>
             </div>
             <Footer />
         </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import {Contact} from "./contact";
+import {Contact} from "@/models/Contact";
 
 export const columns: ColumnDef<Contact>[] = [
     {
@@ -20,11 +20,20 @@ export const columns: ColumnDef<Contact>[] = [
         header: "Referencia",
     },
     {
-        accessorKey: "nombre",
+        accessorKey: "first_name",
         header: "Nombre",
+        cell: ({ row }) => {
+            const nombreCompleto = row.original.first_name + " " + row.original.last_name;
+
+            return (
+                <div>
+                    {nombreCompleto}
+                </div>
+            );
+        },
     },
     {
-        accessorKey: "telefono",
+        accessorKey: "phone",
         header: "Telefono",
     },
     {

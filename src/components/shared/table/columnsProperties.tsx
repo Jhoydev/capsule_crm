@@ -1,7 +1,10 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import {Property} from "./property";
+import {Property} from "@/models/Property";
+import { PiToiletLight } from "react-icons/pi";
+import { IoBed } from "react-icons/io5";
+import { PiBathtubBold } from "react-icons/pi";
 
 export const columns: ColumnDef<Property>[] = [
     {
@@ -30,15 +33,35 @@ export const columns: ColumnDef<Property>[] = [
         },
     },
     {
-        accessorKey: "ref",
+        accessorKey: "reference",
         header: "Referencia",
     },
     {
-        accessorKey: "titulo",
+        accessorKey: "title",
         header: "Titulo",
     },
     {
         accessorKey: "calidades",
         header: "Calidades",
+        cell: ({ row }) => {
+            const habitaciones = row["original"]["bedrooms"] > 0 ? (
+                <div className='flex items-center ml-2'>{row["original"]["bedrooms"]}<IoBed className='ml-1.5' /></div>
+            ) : '';
+            const bathrooms = row["original"]["bathrooms"] > 0 ? (
+                <div className='flex items-center ml-2'>{row["original"]["bathrooms"]}<PiBathtubBold  className='ml-1.5' /></div>
+            ) : '';
+            const toilets = row["original"]["toilets"] > 0 ? (
+                <div className='flex items-center ml-2'>{row["original"]["toilets"]}<PiToiletLight className='ml-1.5' /></div>
+            ) : '';
+
+
+            return (
+                <div className="flex text-right font-medium">
+                    {habitaciones}
+                    {bathrooms}
+                    {toilets}
+                </div>
+            );
+        },
     },
 ]
