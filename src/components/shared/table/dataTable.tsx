@@ -1,6 +1,6 @@
 "use cliente";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BiFirstPage, BiLastPage } from "react-icons/bi";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import {
