@@ -1,6 +1,5 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
 import DataTable from "@/components/shared/table/dataTable";
 import { columns } from "@/components/shared/table/columnsContact";
 import { Button } from "@/components/ui/button"
