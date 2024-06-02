@@ -22,18 +22,22 @@ import {
 import { fetchPaginatedData } from '@/lib/api';  // Importa la función API genérica
 import { PaginatedResponse } from '@/models/PaginatedData';
 import {Button} from "@/components/ui/button";
+import {useRouter} from "next/navigation";
 
 interface DatatableProps<T> {
-    endpoint: string;
+    endPoint: string;
+    typeTable: string;
     columns: ColumnDef<T, any>[];
     caption?: string;
 }
 
 export default function DataTable<T>({
-                                         endpoint,
+                                         endPoint,
+                                         typeTable,
                                          columns,
                                          caption,
                                      }: DatatableProps<T>) {
+    const router = useRouter();
     const [pagination, setPagination] = useState({
         pageIndex: 0, // initial page index
         pageSize: 10, // default page size
@@ -48,7 +52,7 @@ export default function DataTable<T>({
             setIsLoading(true);
             setIsError(false);
             try {
-                const response: PaginatedResponse<T> = await fetchPaginatedData<T>(endpoint, pagination.pageIndex, pagination.pageSize);
+                const response: PaginatedResponse<T> = await fetchPaginatedData<T>(endPoint, pagination.pageIndex, pagination.pageSize);
                 setData(response.data);
                 setPageCount(response.last_page);
             } catch (error) {
@@ -59,7 +63,21 @@ export default function DataTable<T>({
         };
 
         fetchDataFromAPI();
-    }, [endpoint, pagination.pageIndex, pagination.pageSize]);
+    }, [endPoint, pagination.pageIndex, pagination.pageSize]);
+
+    const handleRowClick = (id: number) => {
+        let url = '';
+
+        switch (typeTable) {
+            case 'contacts':
+                url = `/contacts/${id}`;
+                break;
+            default:
+                return;
+        }
+
+        router.push(url);
+    };
 
     const table = useReactTable({
         data,
@@ -72,6 +90,7 @@ export default function DataTable<T>({
         },
         pageCount,
     });
+
 
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error loading data</div>;
@@ -105,6 +124,8 @@ export default function DataTable<T>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
+                                    onClick={() => handleRowClick(Number(row.id) + 1)}
+                                    className="cursor-pointer hover:bg-gray-100"
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
