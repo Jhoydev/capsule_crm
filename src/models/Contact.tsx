@@ -6,3 +6,9 @@ export interface Contact {
     phone: string
     email: string;
 }
+
+export interface ApiResponseContact {
+    message: string;
+    contact: Contact;
+    status: number;
+}

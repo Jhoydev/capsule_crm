@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { getContact } from '@/lib/api';
+import {getContact, updateContact} from '@/lib/api';
 import { Contact } from '@/models/Contact';
 import axios from 'axios';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
@@ -28,10 +28,10 @@ const ContactDetails = () => {
                     const data = await getContact(Number(id));
                     setContact(data);
                     setFormData({
-                        first_name: data.first_name,
-                        last_name: data.last_name,
-                        phone: data.phone,
-                        email: data.email
+                        first_name: data.first_name || '',
+                        last_name: data.last_name || '',
+                        phone: data.phone || '',
+                        email: data.email || ''
                     });
                     setLoading(false);
                 } catch (error) {
@@ -50,10 +50,10 @@ const ContactDetails = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSave = async () => {
+    const handleSave = async (id: number) => {
         try {
-            await axios.put(`/api/contacts/${id}`, formData);
-            setContact({ ...contact, ...formData } as Contact);
+            const response = await updateContact(id, formData as Contact);
+            setContact(response.contact);
             setIsEditing(false);
         } catch (error) {
             console.error('Error saving data:', error);
@@ -71,11 +71,11 @@ const ContactDetails = () => {
             </div>
             <div className="w-full">
                 <div className="flex justify-between items-center mb-4 bg-slate-100 p-4 rounded-md shadow-md">
-                    <h1 className="text-2xl font-bold">Contacto {id}</h1>
+                    <h1 className="text-2xl font-bold">Contacto {contact.id}</h1>
                     {isEditing ? (
                         <div className="flex space-x-2">
                             <button
-                                onClick={handleSave}
+                                onClick={() => handleSave(contact.id)}
                                 className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center"
                             >
                                 <FaSave className="mr-2"/> Guardar
