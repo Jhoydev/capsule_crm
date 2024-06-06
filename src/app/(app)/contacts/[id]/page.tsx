@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import {getContact, updateContact} from '@/lib/api';
 import { Contact } from '@/models/Contact';
-import axios from 'axios';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
+import { SkeletonCard } from '@/components/shared/skeleton/skelotonContacto';
 
 const ContactDetails = () => {
     const { id } = useParams();
@@ -61,7 +61,16 @@ const ContactDetails = () => {
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) {
+        return (
+            <div>
+                <div className='mb-2'>
+                    <Breadcrumbs/>
+                </div>
+                <SkeletonCard></SkeletonCard>
+            </div>
+        );
+    }
     if (error || !contact) return <div>Error loading contact details</div>;
 
     return (

@@ -12,6 +12,8 @@ import { useAuth } from '@/hooks/auth'
 import { usePathname } from 'next/navigation'
 import React, { useState } from 'react'
 import { UserType } from '@/types/user.type';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { IoMdExit } from "react-icons/io";
 
 const Navigation = ({ user }: { user: UserType }) => {
     const { logout } = useAuth()
@@ -49,8 +51,12 @@ const Navigation = ({ user }: { user: UserType }) => {
                                 width={48}
                                 trigger={
                                     <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
-                                        <div>{user?.name}</div>
-
+                                        <div>
+                                            <Avatar>
+                                                <AvatarImage src="https://github.com/shadcn.png" />
+                                                <AvatarFallback>{user?.name.substring(0,2)}</AvatarFallback>
+                                            </Avatar>
+                                        </div>
                                         <div className="ml-1">
                                             <svg
                                                 className="fill-current h-4 w-4"
@@ -65,18 +71,34 @@ const Navigation = ({ user }: { user: UserType }) => {
                                         </div>
                                     </button>
                                 }>
-                                {/* Authentication */}
-                                <DropdownButton onClick={logout}>
-                                    Logout
-                                </DropdownButton>
+                                <div className='w-[200px]'>
+                                    <div className='flex flex-col items-center'>
+                                        <Avatar className='mt-5'>
+                                            <AvatarImage src="https://github.com/shadcn.png" />
+                                            <AvatarFallback>{user?.name.substring(0,2)}</AvatarFallback>
+                                        </Avatar>
+                                        <div className='h-10 mt-2'>
+                                            {user?.name}
+                                        </div>
+                                    </div>
+                                    {/* Authentication */}
+                                    <div className='bg-slate-100 text-center'>
+                                        <DropdownButton onClick={logout}>
+                                            <div className='flex justify-center items-center'>
+                                                <IoMdExit className='mr-2' />
+                                                <span>Logout</span>
+                                            </div>
+                                        </DropdownButton>
+                                    </div>
+                                </div>
                             </Dropdown>
                         </div>
 
                         {/* Hamburger */}
                         <div className="-mr-2 flex items-center sm:hidden">
-                        <button
-                            onClick={() => setOpen(open => !open)}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                            <button
+                                onClick={() => setOpen(open => !open)}
+                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                             <svg
                                 className="h-6 w-6"
                                 stroke="currentColor"
