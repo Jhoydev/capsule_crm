@@ -1,39 +1,50 @@
-import React from 'react';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import {
+    Breadcrumb,
+    BreadcrumbEllipsis,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {usePathname} from "next/navigation";
+import Link from "next/link";
+import React from "react";
+import {Slash} from "lucide-react";
 
 const Breadcrumbs = () => {
     const pathname = usePathname();
     const pathParts = pathname.split('/').filter((part) => part);
 
     return (
-        <nav aria-label="Breadcrumb">
-            <ol className="flex space-x-2">
-                <li>
-                    <Link href="/" className="text-blue-500 hover:underline">
-                        Home
-                    </Link>
-                </li>
+        <Breadcrumb>
+            <BreadcrumbList>
+                <BreadcrumbItem>
+                    <BreadcrumbLink href="/">Inicio</BreadcrumbLink>
+                </BreadcrumbItem>
                 {pathParts.map((part, index) => {
                     const path = `/${pathParts.slice(0, index + 1).join('/')}`;
                     const isLast = index === pathParts.length - 1;
-
                     return (
-                        <li key={path}>
-                            <span className="mx-2">/</span>
-                            {isLast ? (
-                                <span className="text-gray-500">{part}</span>
-                            ) : (
-                                <Link href={path} className="text-blue-500 hover:underline">
-                                    {part}
-                                </Link>
-                            )}
-                        </li>
+                        <React.Fragment key={index}>
+                            <BreadcrumbSeparator>
+                                <Slash />
+                            </BreadcrumbSeparator>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink href={isLast ? undefined : path}>{part}</BreadcrumbLink>
+                            </BreadcrumbItem>
+                        </React.Fragment>
                     );
                 })}
-            </ol>
-        </nav>
+            </BreadcrumbList>
+        </Breadcrumb>
     );
-};
+}
 
 export default Breadcrumbs;
