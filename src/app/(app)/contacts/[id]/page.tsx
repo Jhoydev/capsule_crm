@@ -45,6 +45,9 @@ const ContactDetails = () => {
         fetchContact();
     }, [id]);
 
+    const alerta = () => {
+        alert("HOLA");
+    }
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -98,7 +101,7 @@ const ContactDetails = () => {
                         </div>
                     ) : (
                         <button
-                            onClick={() => setIsEditing(true)}
+                            onClick={() => {setIsEditing(true);}}
                             className="bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-600 flex items-center"
                         >
                             <FaEdit className="mr-2"/> Editar

@@ -26,7 +26,7 @@ const Breadcrumbs = () => {
         <Breadcrumb>
             <BreadcrumbList>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/">Inicio</BreadcrumbLink>
+                    <BreadcrumbLink href="/dashboard">Inicio</BreadcrumbLink>
                 </BreadcrumbItem>
                 {pathParts.map((part, index) => {
                     const path = `/${pathParts.slice(0, index + 1).join('/')}`;
