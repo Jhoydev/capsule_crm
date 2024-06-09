@@ -1,3 +1,6 @@
+import { Overview } from "@/components/sections/dashboard/overview";
+import {RecentSales} from "@/components/sections/dashboard/recent-sales";
+import {TotalSold, TotalRent } from "@/components/sections/dashboard/totalCards";
 
 
 export const metadata = {
@@ -12,6 +15,14 @@ const Dashboard = () => {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">
                             Bienvenido!
+                        </div>
+                        <div className='flex'>
+                            <TotalSold></TotalSold>
+                            <TotalRent></TotalRent>
+                        </div>
+                        <div className='flex mt-5'>
+                            <Overview></Overview>
+                            <RecentSales></RecentSales>
                         </div>
                     </div>
                 </div>
