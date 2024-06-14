@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '@/lib/axios'
 import { PaginatedResponse } from '@/models/PaginatedData';
 import { Contact, ApiResponseContact } from '@/models/Contact';
 
