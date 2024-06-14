@@ -14,9 +14,9 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {usePathname} from "next/navigation";
-import Link from "next/link";
 import React from "react";
 import {Slash} from "lucide-react";
+import Link from 'next/link'
 
 const Breadcrumbs = () => {
     const pathname = usePathname();
@@ -26,7 +26,9 @@ const Breadcrumbs = () => {
         <Breadcrumb>
             <BreadcrumbList>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/dashboard">Inicio</BreadcrumbLink>
+                    <BreadcrumbLink asChild>
+                        <Link href="/dashboard">Inicio</Link>
+                    </BreadcrumbLink>
                 </BreadcrumbItem>
                 {pathParts.map((part, index) => {
                     const path = `/${pathParts.slice(0, index + 1).join('/')}`;
@@ -37,7 +39,9 @@ const Breadcrumbs = () => {
                                 <Slash />
                             </BreadcrumbSeparator>
                             <BreadcrumbItem>
-                                <BreadcrumbLink href={isLast ? undefined : path}>{part}</BreadcrumbLink>
+                                <BreadcrumbLink asChild>
+                                    <Link href={isLast ? '' : path}>{part}</Link>
+                                </BreadcrumbLink>
                             </BreadcrumbItem>
                         </React.Fragment>
                     );

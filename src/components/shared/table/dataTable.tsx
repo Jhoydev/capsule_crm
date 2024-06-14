@@ -16,13 +16,14 @@ import {
 import {
     ColumnDef,
     flexRender,
-    getCoreRowModel,
+    getCoreRowModel, Row,
     useReactTable,
 } from "@tanstack/react-table";
 import { fetchPaginatedData } from '@/lib/api';  // Importa la función API genérica
 import { PaginatedResponse } from '@/models/PaginatedData';
 import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
+import {Contact} from "@/models/Contact";
 
 interface DatatableProps<T> {
     endPoint: string;
@@ -65,11 +66,13 @@ export default function DataTable<T>({
         fetchDataFromAPI();
     }, [endPoint, pagination.pageIndex, pagination.pageSize]);
 
-    const handleRowClick = (id: number) => {
+    const handleRowClick = (row: Row<T>) => {
         let url = '';
 
         switch (typeTable) {
             case 'contacts':
+                const contact = row.original as Contact;
+                const id = contact.id;
                 url = `/contacts/${id}`;
                 break;
             default:
@@ -124,7 +127,7 @@ export default function DataTable<T>({
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
-                                    onClick={() => handleRowClick(Number(row.id) + 1)}
+                                    onClick={() => handleRowClick(row)}
                                     className="cursor-pointer hover:bg-gray-100"
                                 >
                                     {row.getVisibleCells().map((cell) => (
