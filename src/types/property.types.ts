@@ -1,5 +1,5 @@
 
-export interface Property {
+export type Property = {
     id: number;
     reference: string;
     type: string;

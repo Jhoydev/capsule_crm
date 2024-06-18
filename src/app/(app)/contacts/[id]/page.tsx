@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import {getContact, updateContact} from '@/lib/api';
-import { Contact } from '@/models/Contact';
+import {getContact, updateContact} from '@/lib/contactApi';
+import { Contact } from '@/types/contact.types';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { SkeletonCard } from '@/components/shared/skeleton/skelotonContacto';

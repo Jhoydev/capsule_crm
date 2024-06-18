@@ -1,5 +1,5 @@
 
-export interface Contact {
+export type Contact = {
     id: number;
     first_name: string;
     last_name: string;
@@ -30,7 +30,7 @@ export interface Contact {
 // }
 
 
-export interface ApiResponseContact {
+export type ApiResponseContact = {
     message: string;
     contact: Contact;
     status: number;

@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import {Property} from "@/models/Property";
+import {Property} from "@/types/property.types";
 import { PiToiletLight } from "react-icons/pi";
 import { IoBed } from "react-icons/io5";
 import { PiBathtubBold } from "react-icons/pi";
