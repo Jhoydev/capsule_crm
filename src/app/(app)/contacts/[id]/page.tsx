@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import {getContact, updateContact} from '@/lib/contactApi';
+import {getContact, updateContact} from '@/modules/contacts/services/contactApi';
 import { Contact } from '@/types/contact.types';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
-import { SkeletonCard } from '@/components/shared/skeleton/skelotonContacto';
+import { SkeletonCard } from '@/modules/contacts/components/skeleton';
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {MdEmail} from "react-icons/md";
+import {TabContact} from "@/modules/contacts/components/tab";
 
 const ContactDetails = () => {
     const { id } = useParams();
@@ -45,9 +48,6 @@ const ContactDetails = () => {
         fetchContact();
     }, [id]);
 
-    const alerta = () => {
-        alert("HOLA");
-    }
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -108,61 +108,98 @@ const ContactDetails = () => {
                         </button>
                     )}
                 </div>
-                <div className='flex justify-center'>
-                    {isEditing ? (
-                        <div className='w-1/2'>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Nombre:</label>
-                                <input
-                                    type="text"
-                                    name="first_name"
-                                    value={formData.first_name}
-                                    onChange={handleInputChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Apellidos:</label>
-                                <input
-                                    type="text"
-                                    name="last_name"
-                                    value={formData.last_name}
-                                    onChange={handleInputChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Teléfono:</label>
-                                <input
-                                    type="text"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleInputChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700">Email:</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                />
-                            </div>
-                        </div>
+                {/*<div className='flex justify-center'>*/}
+                {/*    {isEditing ? (*/}
+                {/*        <div className='w-1/2'>*/}
+                {/*            <div className="mb-4">*/}
+                {/*                <label className="block text-gray-700">Nombre:</label>*/}
+                {/*                <input*/}
+                {/*                    type="text"*/}
+                {/*                    name="first_name"*/}
+                {/*                    value={formData.first_name}*/}
+                {/*                    onChange={handleInputChange}*/}
+                {/*                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"*/}
+                {/*                />*/}
+                {/*            </div>*/}
+                {/*            <div className="mb-4">*/}
+                {/*                <label className="block text-gray-700">Apellidos:</label>*/}
+                {/*                <input*/}
+                {/*                    type="text"*/}
+                {/*                    name="last_name"*/}
+                {/*                    value={formData.last_name}*/}
+                {/*                    onChange={handleInputChange}*/}
+                {/*                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"*/}
+                {/*                />*/}
+                {/*            </div>*/}
+                {/*            <div className="mb-4">*/}
+                {/*                <label className="block text-gray-700">Teléfono:</label>*/}
+                {/*                <input*/}
+                {/*                    type="text"*/}
+                {/*                    name="phone"*/}
+                {/*                    value={formData.phone}*/}
+                {/*                    onChange={handleInputChange}*/}
+                {/*                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"*/}
+                {/*                />*/}
+                {/*            </div>*/}
+                {/*            <div className="mb-4">*/}
+                {/*                <label className="block text-gray-700">Email:</label>*/}
+                {/*                <input*/}
+                {/*                    type="email"*/}
+                {/*                    name="email"*/}
+                {/*                    value={formData.email}*/}
+                {/*                    onChange={handleInputChange}*/}
+                {/*                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"*/}
+                {/*                />*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
 
-                        ) : (
-                        <div>
-                            <p className="mb-2"><strong>Nombre:</strong> {contact.first_name}</p>
-                            <p className="mb-2"><strong>Apellidos:</strong> {contact.last_name}</p>
-                            <p className="mb-2"><strong>Teléfono:</strong> {contact.phone}</p>
-                            <p className="mb-2"><strong>Email:</strong> {contact.email}</p>
+                {/*        ) : (*/}
+                {/*        <div>*/}
+                {/*            <p className="mb-2"><strong>Nombre:</strong> {contact.first_name}</p>*/}
+                {/*            <p className="mb-2"><strong>Apellidos:</strong> {contact.last_name}</p>*/}
+                {/*            <p className="mb-2"><strong>Teléfono:</strong> {contact.phone}</p>*/}
+                {/*            <p className="mb-2"><strong>Email:</strong> {contact.email}</p>*/}
+                {/*        </div>*/}
+                {/*    )}*/}
+                {/*</div>*/}
+
+                <div className='h-auto flex'>
+                    <div className='w-1/5 border flex items-center flex-col'>
+                        <div className='flex items-center p-10'>
+                            <Avatar className='h-[80px] w-[80px]'>
+                                <AvatarImage src="/avatars/01.png"/>
+                                <AvatarFallback>OM</AvatarFallback>
+                            </Avatar>
+                            <div className='ml-5'>
+                                <h2>Claudia García</h2>
+                                <h3>clauida@gmail.com</h3>
+                                <h3>746257852</h3>
+                            </div>
                         </div>
-                    )}
+                        <div className='mt-10 border-t-4 w-full p-10'>
+                            <div className='flex flex-col'>
+                                <p>19/06/2024</p>
+                                <div className='flex items-center'>
+                                    <MdEmail className="text-2xl mr-5"/>
+                                    <div className='flex items-center border p-[10px]'>
+                                        <Avatar className='mr-5'>
+                                            <AvatarImage src="/avatars/01.png"/>
+                                            <AvatarFallback>JA</AvatarFallback>
+                                        </Avatar>
+                                        <div>
+                                            <p>Envio de correo al cliente</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div className='w-full bg-slate-100 border'>
+                        <TabContact></TabContact>
+                    </div>
                 </div>
-        </div>
+            </div>
         </div>
     );
 };
