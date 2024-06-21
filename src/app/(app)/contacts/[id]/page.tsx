@@ -25,7 +25,7 @@ const ContactDetails = () => {
         const fetchContact = async () => {
             if (id) {
                 try {
-                    const data = await getContact(Number(id));
+                    const data: Contact = await getContact(Number(id));
                     setContact(data);
                     setFormData({
                         first_name: data.first_name || '',
@@ -33,10 +33,10 @@ const ContactDetails = () => {
                         phone: data.phone || '',
                         email: data.email || ''
                     });
-                    setLoading(false);
                 } catch (error) {
                     console.error('Error fetching data:', error);
                     setError(true);
+                } finally {
                     setLoading(false);
                 }
             }
