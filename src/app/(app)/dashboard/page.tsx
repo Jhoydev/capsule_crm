@@ -1,6 +1,6 @@
-import { Overview } from "@/components/sections/dashboard/overview";
-import {RecentSales} from "@/components/sections/dashboard/recent-sales";
-import {TotalSold, TotalRent } from "@/components/sections/dashboard/totalCards";
+import { Overview } from "@/modules/dashboard/components/overview";
+import {RecentSales} from "@/modules/dashboard/components/recentSales";
+import {TotalSold, TotalRent } from "@/modules/dashboard/components/totalCards";
 
 
 export const metadata = {

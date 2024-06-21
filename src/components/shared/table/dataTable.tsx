@@ -19,11 +19,11 @@ import {
     getCoreRowModel, Row,
     useReactTable,
 } from "@tanstack/react-table";
-import { fetchPaginatedData } from '@/lib/paginationApi';  // Importa la función API genérica
+import { fetchPaginatedData } from '@/services/paginationApi';  // Importa la función API genérica
 import { PaginatedResponse } from '@/types/pagination.types';
 import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
-import {Contact} from "@/models/Contact";
+import {Contact} from "@/types/contact.types";
 
 interface DatatableProps<T> {
     endPoint: string;
