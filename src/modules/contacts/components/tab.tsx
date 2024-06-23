@@ -18,12 +18,15 @@ import {
 
 export function TabContact() {
     return (
-        <Tabs defaultValue="account" className="w-[400px]">
-            <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="account">Account</TabsTrigger>
-                <TabsTrigger value="password">Password</TabsTrigger>
+        <Tabs defaultValue="account" className="w-full">
+            <TabsList className="grid w-full grid-cols-5">
+                <TabsTrigger value="data">Datos personales</TabsTrigger>
+                <TabsTrigger value="task">Tareas</TabsTrigger>
+                <TabsTrigger value="actions">Acciones</TabsTrigger>
+                <TabsTrigger value="relations">Relaciones</TabsTrigger>
+                <TabsTrigger value="documents">Documentos</TabsTrigger>
             </TabsList>
-            <TabsContent value="account">
+            <TabsContent value="data">
                 <Card>
                     <CardHeader>
                         <CardTitle>Account</CardTitle>
@@ -46,7 +49,7 @@ export function TabContact() {
                     </CardFooter>
                 </Card>
             </TabsContent>
-            <TabsContent value="password">
+            <TabsContent value="task">
                 <Card>
                     <CardHeader>
                         <CardTitle>Password</CardTitle>
@@ -69,6 +72,76 @@ export function TabContact() {
                     </CardFooter>
                 </Card>
             </TabsContent>
+            <TabsContent value="actions">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Password</CardTitle>
+                        <CardDescription>
+                            Change your password here. After saving, you'll be logged out.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                        <div className="space-y-1">
+                            <Label htmlFor="current">Current password</Label>
+                            <Input id="current" type="password" />
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="new">New password</Label>
+                            <Input id="new" type="password" />
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button>Save password</Button>
+                    </CardFooter>
+                </Card>
+            </TabsContent>
+            <TabsContent value="relations">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Password</CardTitle>
+                        <CardDescription>
+                            Change your password here. After saving, you'll be logged out.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                        <div className="space-y-1">
+                            <Label htmlFor="current">Current password</Label>
+                            <Input id="current" type="password" />
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="new">New password</Label>
+                            <Input id="new" type="password" />
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button>Save password</Button>
+                    </CardFooter>
+                </Card>
+            </TabsContent>
+            <TabsContent value="documents">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Password</CardTitle>
+                        <CardDescription>
+                            Change your password here. After saving, you'll be logged out.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                        <div className="space-y-1">
+                            <Label htmlFor="current">Current password</Label>
+                            <Input id="current" type="password" />
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="new">New password</Label>
+                            <Input id="new" type="password" />
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button>Save password</Button>
+                    </CardFooter>
+                </Card>
+            </TabsContent>
+
         </Tabs>
     );
 }

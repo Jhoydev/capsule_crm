@@ -1,9 +1,10 @@
 import {
     DropdownMenu,
     DropdownMenuContent,
+    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuSeparator,
+    DropdownMenuSeparator, DropdownMenuShortcut,
     DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
@@ -20,6 +21,9 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { UserType } from '@/types/user.type';
 import { useAuth } from '@/hooks/auth';
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
+import {CreditCard, LogOut, PlusCircle, Settings, User} from "lucide-react";
+import React from "react";
 
 const AvatarDropdownMenu = ({ user }: { user: UserType }) => {
     const { logout } = useAuth()
@@ -28,21 +32,43 @@ const AvatarDropdownMenu = ({ user }: { user: UserType }) => {
         <Dialog>
             <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="secondary" size="icon" className="rounded-full ml-auto">
-                        <CircleUserIcon className="h-5 w-5"/>
-                        <span className="sr-only">Toggle user menu</span>
+                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                        <Avatar className="h-8 w-8">
+                            <AvatarImage src="/avatars/01.png" alt="@shadcn" />
+                            <AvatarFallback>SC</AvatarFallback>
+                        </Avatar>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator/>
-                    <DialogTrigger asChild>
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
-                    </DialogTrigger>
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                    <DropdownMenuItem>Support</DropdownMenuItem>
-                    <DropdownMenuSeparator/>
-                    <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuLabel className="font-normal">
+                        <div className="flex flex-col space-y-1">
+                            <p className="text-sm font-medium leading-none">{user.name}</p>
+                            <p className="text-xs leading-none text-muted-foreground">
+                                {user.email}
+                            </p>
+                        </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                        <DialogTrigger asChild>
+                            <DropdownMenuItem>
+                                <User className="mr-2 h-4 w-4" />
+                                <span>Profile</span>
+                                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                            </DropdownMenuItem>
+                        </DialogTrigger>
+                        <DropdownMenuItem>
+                            <Settings className="mr-2 h-4 w-4" />
+                            <span>Settings</span>
+                            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={logout}>
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Log out</span>
+                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
             <DialogContent className="sm:max-w-[425px]">
@@ -84,24 +110,3 @@ const AvatarDropdownMenu = ({ user }: { user: UserType }) => {
 }
 
 export default AvatarDropdownMenu
-
-function CircleUserIcon(props: any) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <circle cx="12" cy="12" r="10"/>
-            <circle cx="12" cy="10" r="3"/>
-            <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/>
-        </svg>
-    )
-}

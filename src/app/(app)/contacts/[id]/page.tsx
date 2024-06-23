@@ -78,36 +78,7 @@ const ContactDetails = () => {
 
     return (
         <div className='flex flex-col'>
-            <div className='mb-2'>
-                <Breadcrumbs/>
-            </div>
             <div className="w-full">
-                <div className="flex justify-between items-center mb-4 bg-slate-100 p-4 rounded-md shadow-md">
-                    <h1 className="text-2xl font-bold">Contacto {contact.id}</h1>
-                    {isEditing ? (
-                        <div className="flex space-x-2">
-                            <button
-                                onClick={() => handleSave(contact.id)}
-                                className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center"
-                            >
-                                <FaSave className="mr-2"/> Guardar
-                            </button>
-                            <button
-                                onClick={() => setIsEditing(false)}
-                                className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
-                            >
-                                <FaTimes className="mr-2"/> Cancelar
-                            </button>
-                        </div>
-                    ) : (
-                        <button
-                            onClick={() => {setIsEditing(true);}}
-                            className="bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-600 flex items-center"
-                        >
-                            <FaEdit className="mr-2"/> Editar
-                        </button>
-                    )}
-                </div>
                 {/*<div className='flex justify-center'>*/}
                 {/*    {isEditing ? (*/}
                 {/*        <div className='w-1/2'>*/}
@@ -163,41 +134,70 @@ const ContactDetails = () => {
                 {/*    )}*/}
                 {/*</div>*/}
 
-                <div className='h-auto flex'>
-                    <div className='w-1/5 border flex items-center flex-col'>
-                        <div className='flex items-center p-10'>
-                            <Avatar className='h-[80px] w-[80px]'>
-                                <AvatarImage src="/avatars/01.png"/>
-                                <AvatarFallback>OM</AvatarFallback>
-                            </Avatar>
-                            <div className='ml-5'>
-                                <h2>Claudia García</h2>
-                                <h3>clauida@gmail.com</h3>
-                                <h3>746257852</h3>
-                            </div>
+                <div className='grid grid-rows-2 grid-cols-4 h-full'>
+                    <div className='row-span-1 col-span-1 p-10'>
+                        <div className='mb-2'>
+                            <Breadcrumbs/>
                         </div>
-                        <div className='mt-10 border-t-4 w-full p-10'>
-                            <div className='flex flex-col'>
-                                <p>19/06/2024</p>
-                                <div className='flex items-center'>
-                                    <MdEmail className="text-2xl mr-5"/>
-                                    <div className='flex items-center border p-[10px]'>
-                                        <Avatar className='mr-5'>
-                                            <AvatarImage src="/avatars/01.png"/>
-                                            <AvatarFallback>JA</AvatarFallback>
-                                        </Avatar>
-                                        <div>
-                                            <p>Envio de correo al cliente</p>
-                                        </div>
+                        <Avatar className='h-[80px] w-[80px]'>
+                            <AvatarImage src="/avatars/01.png"/>
+                            <AvatarFallback>OM</AvatarFallback>
+                        </Avatar>
+                        <div className='ml-5'>
+                            <h2>Claudia García</h2>
+                            <h3>clauida@gmail.com</h3>
+                            <h3>746257852</h3>
+                        </div>
+                    </div>
+                    <div className='row-span-2 col-span-3'>
+                        <div className="flex justify-end items-center mb-4 p-4">
+                            {isEditing ? (
+                                <div className="flex space-x-2">
+                                    <button
+                                        onClick={() => handleSave(contact.id)}
+                                        className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center"
+                                    >
+                                        <FaSave className="mr-2"/> Guardar
+                                    </button>
+                                    <button
+                                        onClick={() => setIsEditing(false)}
+                                        className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
+                                    >
+                                        <FaTimes className="mr-2"/> Cancelar
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        setIsEditing(true);
+                                    }}
+                                    className="bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-600 flex items-center"
+                                >
+                                    <FaEdit className="mr-2"/> Editar
+                                </button>
+                            )}
+                        </div>
+                        <TabContact></TabContact>
+                    </div>
+                    <div className='row-span-1 col-span-1 p-10'>
+                        <div className='flex flex-col'>
+                            <p>19/06/2024</p>
+                            <div className='flex items-center'>
+                                <MdEmail className="text-2xl mr-5"/>
+                                <div className='flex items-center border p-[10px]'>
+                                    <Avatar className='mr-5'>
+                                        <AvatarImage src="/avatars/01.png"/>
+                                        <AvatarFallback>JA</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <p>Envio de correo al cliente</p>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    <div className='w-full bg-slate-100 border'>
-                        <TabContact></TabContact>
-                    </div>
+
+
                 </div>
             </div>
         </div>
