@@ -10,14 +10,18 @@ import ResponsiveNavLink, {
 import { DropdownButton } from '@/components/DropdownLink'
 import { useAuth } from '@/hooks/auth'
 import { usePathname } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { UserType } from '@/types/user.type';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { IoMdExit } from "react-icons/io";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ProfileDialog } from '@/components/structure/profile-dialog';
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from '@/components/ui/context-menu';
 
 const Navigation = ({ user }: { user: UserType }) => {
     const { logout } = useAuth()
-
     const [open, setOpen] = useState(false)
     const pathname = usePathname()
 
@@ -30,100 +34,60 @@ const Navigation = ({ user }: { user: UserType }) => {
                         {/* Logo */}
                         <div className="flex-shrink-0 flex items-center">
                             <Link href="/dashboard">
-                                <ApplicationLogo className="block h-10 w-auto fill-current text-gray-600" />
+                                <ApplicationLogo className="block h-10 w-auto fill-current text-gray-600"/>
                             </Link>
-                        </div>
-
-                        {/* Navigation Links */}
-                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink
-                                href="/dashboard"
-                                active={usePathname() === '/dashboard'}>
-                                Dashboard
-                            </NavLink>
                         </div>
                     </div>
                     <div className="flex">
                         {/* Settings Dropdown */}
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
-                            <Dropdown
-                                align="right"
-                                width={48}
-                                trigger={
-                                    <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
-                                        <div>
-                                            <Avatar>
-                                                <AvatarImage src="https://github.com/shadcn.png" />
-                                                <AvatarFallback>{user?.name.substring(0,2)}</AvatarFallback>
-                                            </Avatar>
-                                        </div>
-                                        <div className="ml-1">
-                                            <svg
-                                                className="fill-current h-4 w-4"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                }>
-                                <div className='w-[200px]'>
-                                    <div className='flex flex-col items-center'>
-                                        <Avatar className='mt-5'>
-                                            <AvatarImage src="https://github.com/shadcn.png" />
-                                            <AvatarFallback>{user?.name.substring(0,2)}</AvatarFallback>
-                                        </Avatar>
-                                        <div className='h-10 mt-2'>
-                                            {user?.name}
-                                        </div>
-                                    </div>
-                                    {/* Authentication */}
-                                    <div className='bg-slate-100 text-center'>
-                                        <DropdownButton onClick={logout}>
-                                            <div className='flex justify-center items-center'>
-                                                <IoMdExit className='mr-2' />
-                                                <span>Logout</span>
-                                            </div>
-                                        </DropdownButton>
-                                    </div>
-                                </div>
-                            </Dropdown>
+                            <Dialog open={open} onOpenChange={setOpen}>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Edit profile</DialogTitle>
+                                        <DialogDescription>
+                                            Make changes to your profile here. Click save when you're done.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter>
+                                        <Button type="submit">Save changes</Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
+                            <DropdownMenu modal={false}>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
+                                        <img
+                                            src="https://github.com/shadcn.png"
+                                            width={36}
+                                            height={36}
+                                            alt="Avatar"
+                                            className="overflow-hidden rounded-full"
+                                        />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>
+                                        <div className="font-bold">My Account</div>
+                                        <div className="text-gray-500">{user?.name}</div>
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator/>
+                                    <DropdownMenuItem>
+                                        <button
+                                            onClick={() => setOpen(true)}
+                                            className="w-full justify-start flex text-red-500 rounded-md p-2 transition-all
+                                                duration-75 hover:bg-neutral-100"
+                                        >
+                                            Profile
+                                        </button>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                                    <DropdownMenuItem>Support</DropdownMenuItem>
+                                    <DropdownMenuSeparator/>
+                                    <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
-
-                        {/* Hamburger */}
-                        <div className="-mr-2 flex items-center sm:hidden">
-                            <button
-                                onClick={() => setOpen(open => !open)}
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                            <svg
-                                className="h-6 w-6"
-                                stroke="currentColor"
-                                fill="none"
-                                viewBox="0 0 24 24">
-                                {open ? (
-                                    <path
-                                        className="inline-flex"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                ) : (
-                                    <path
-                                        className="inline-flex"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                )}
-                            </svg>
-                        </button>
-                    </div>
                     </div>
                 </div>
             </div>

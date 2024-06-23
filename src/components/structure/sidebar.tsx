@@ -10,7 +10,6 @@ const Sidebar = () => {
                 <li className='m-5'><Link href="/properties" className='flex'><GiApolloCapsule className='text-2xl mr-2'></GiApolloCapsule>Propiedades</Link></li>
                 <li className='m-5'><Link href="/contacts" className='flex'><FaUserAstronaut className='text-2xl mr-2'></FaUserAstronaut>Contactos</Link></li>
                 <li className='m-5'><Link href="/users">Usuarios</Link></li>
-
             </ul>
         </aside>
     );

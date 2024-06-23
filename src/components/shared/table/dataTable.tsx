@@ -21,9 +21,9 @@ import {
 } from "@tanstack/react-table";
 import { fetchPaginatedData } from '@/services/paginationApi';  // Importa la función API genérica
 import { PaginatedResponse } from '@/types/pagination.types';
-import {Button} from "@/components/ui/button";
-import {useRouter} from "next/navigation";
-import {Contact} from "@/types/contact.types";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { Contact } from "@/types/contact.types";
 
 interface DatatableProps<T> {
     endPoint: string;
@@ -33,7 +33,7 @@ interface DatatableProps<T> {
 }
 
 export default function DataTable<T>({
-                                         endPoint,
+ endPoint,
                                          typeTable,
                                          columns,
                                          caption,
@@ -177,7 +177,7 @@ export default function DataTable<T>({
                     disabled={!table.getCanNextPage()}
                     className='mr-5'
                 >
-                    <BiLastPage className='text-xl' />
+                    <BiLastPage className='text-xl'/>
                 </Button>
                 {/*<select*/}
                 {/*    value={table.getState().pagination.pageSize}*/}

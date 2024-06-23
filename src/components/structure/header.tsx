@@ -1,22 +1,11 @@
-// /components/Header.tsx
-import Link from 'next/link';
-import Image from 'next/image';
 import Navigation from "@/components/structure/navigation";
 import React from "react";
-import {useAuth} from "@/hooks/auth";
-import Loading from "@/components/shared/loading";
+import { UserType } from '@/types/user.type';
 
-
-const Header = () => {
-    const { user } = useAuth({ middleware: 'auth' })
-
-    if (!user) {
-        return <Loading />
-    }
-
+const Header = ({ user }: { user: UserType }) => {
     return (
         <header>
-            <Navigation user={user} />
+            <Navigation user={user}/>
         </header>
     );
 };
