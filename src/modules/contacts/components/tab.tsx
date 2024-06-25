@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -7,18 +9,25 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
+import { Contact } from "@/types/contact.types"
 
-export function TabContact() {
+interface TabContactProps {
+    contact: Contact
+}
+
+const TabContact: React.FC<TabContactProps> = ({ contact }) => {
+    const renderField = (label: string, value: string | number | null | undefined) => (
+        <p><span className="font-semibold">{label}:</span> {value || '-'}</p>
+    );
+
     return (
-        <Tabs defaultValue="account" className="w-full">
+        <Tabs defaultValue="data" className="w-full">
             <TabsList className="grid w-full grid-cols-5">
                 <TabsTrigger value="data">Datos personales</TabsTrigger>
                 <TabsTrigger value="task">Tareas</TabsTrigger>
@@ -27,121 +36,128 @@ export function TabContact() {
                 <TabsTrigger value="documents">Documentos</TabsTrigger>
             </TabsList>
             <TabsContent value="data">
-                <Card>
+                <Card className="bg-gray-50 shadow-md">
                     <CardHeader>
-                        <CardTitle>Account</CardTitle>
+                        <CardTitle>Datos personales</CardTitle>
                         <CardDescription>
-                            Make changes to your account here. Click save when you're done.
+                            Información del contacto.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                            <Label htmlFor="name">Name</Label>
-                            <Input id="name" defaultValue="Pedro Duarte" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="username">Username</Label>
-                            <Input id="username" defaultValue="@peduarte" />
+                    <CardContent className="space-y-4">
+                        <div className="grid grid-cols-1 gap-4">
+                            <div className="p-4 bg-white rounded shadow">
+                                <h3 className="font-bold text-blue-600">Datos de Contacto</h3>
+                                {renderField('Email', contact.email)}
+                                {renderField('Teléfono', contact.phone)}
+                                {renderField('Móvil', contact.mobile)}
+                                {renderField('Medio de Contacto', contact.contact_medium)}
+                                {renderField('Idioma', contact.language)}
+                            </div>
+                            <div className="p-4 bg-white rounded shadow">
+                                <h3 className="font-bold text-blue-600">Información Personal</h3>
+                                {renderField('NIF', contact.nif)}
+                                {renderField('Fecha de Nacimiento', contact.birthday)}
+                                {renderField('Género', contact.gender)}
+                            </div>
+                            <div className="p-4 bg-white rounded shadow">
+                                <h3 className="font-bold text-blue-600">Profesión</h3>
+                                {renderField('Profesión', contact.profession)}
+                                {renderField('Compañía', contact.company)}
+                            </div>
+                            <div className="p-4 bg-white rounded shadow">
+                                <h3 className="font-bold text-blue-600">Notas</h3>
+                                {renderField('Notas', contact.notes)}
+                            </div>
+                            <div className="p-4 bg-white rounded shadow">
+                                <h3 className="font-bold text-blue-600">RGPD</h3>
+                                {renderField('RGPD', contact.rgpd)}
+                            </div>
                         </div>
                     </CardContent>
-                    <CardFooter>
-                        <Button>Save changes</Button>
-                    </CardFooter>
                 </Card>
             </TabsContent>
             <TabsContent value="task">
-                <Card>
+                <Card className="bg-gray-50 shadow-md">
                     <CardHeader>
-                        <CardTitle>Password</CardTitle>
+                        <CardTitle>Tareas</CardTitle>
                         <CardDescription>
-                            Change your password here. After saving, you'll be logged out.
+                            Listado de tareas pendientes.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                            <Label htmlFor="current">Current password</Label>
-                            <Input id="current" type="password" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="new">New password</Label>
-                            <Input id="new" type="password" />
+                    <CardContent className="space-y-4">
+                        <div className="p-4 bg-white rounded shadow">
+                            <ul className="list-disc pl-5">
+                                <li>Tarea 1: Llamar al cliente</li>
+                                <li>Tarea 2: Enviar correo de seguimiento</li>
+                                <li>Tarea 3: Programar reunión</li>
+                                {/* Añade más tareas según sea necesario */}
+                            </ul>
                         </div>
                     </CardContent>
-                    <CardFooter>
-                        <Button>Save password</Button>
-                    </CardFooter>
                 </Card>
             </TabsContent>
             <TabsContent value="actions">
-                <Card>
+                <Card className="bg-gray-50 shadow-md">
                     <CardHeader>
-                        <CardTitle>Password</CardTitle>
+                        <CardTitle>Acciones</CardTitle>
                         <CardDescription>
-                            Change your password here. After saving, you'll be logged out.
+                            Historial de acciones realizadas.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                            <Label htmlFor="current">Current password</Label>
-                            <Input id="current" type="password" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="new">New password</Label>
-                            <Input id="new" type="password" />
+                    <CardContent className="space-y-4">
+                        <div className="p-4 bg-white rounded shadow">
+                            <ul className="list-disc pl-5">
+                                <li>Enviado correo el 01/06/2024</li>
+                                <li>Realizada llamada el 03/06/2024</li>
+                                <li>Programada visita el 05/06/2024</li>
+                                {/* Añade más acciones según sea necesario */}
+                            </ul>
                         </div>
                     </CardContent>
-                    <CardFooter>
-                        <Button>Save password</Button>
-                    </CardFooter>
                 </Card>
             </TabsContent>
             <TabsContent value="relations">
-                <Card>
+                <Card className="bg-gray-50 shadow-md">
                     <CardHeader>
-                        <CardTitle>Password</CardTitle>
+                        <CardTitle>Relaciones</CardTitle>
                         <CardDescription>
-                            Change your password here. After saving, you'll be logged out.
+                            Personas y entidades relacionadas.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                            <Label htmlFor="current">Current password</Label>
-                            <Input id="current" type="password" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="new">New password</Label>
-                            <Input id="new" type="password" />
+                    <CardContent className="space-y-4">
+                        <div className="p-4 bg-white rounded shadow">
+                            <ul className="list-disc pl-5">
+                                <li>Relacionado con: Proyecto A</li>
+                                <li>Contacto: Juan Pérez</li>
+                                <li>Empresa: Tech Solutions</li>
+                                {/* Añade más relaciones según sea necesario */}
+                            </ul>
                         </div>
                     </CardContent>
-                    <CardFooter>
-                        <Button>Save password</Button>
-                    </CardFooter>
                 </Card>
             </TabsContent>
             <TabsContent value="documents">
-                <Card>
+                <Card className="bg-gray-50 shadow-md">
                     <CardHeader>
-                        <CardTitle>Password</CardTitle>
+                        <CardTitle>Documentos</CardTitle>
                         <CardDescription>
-                            Change your password here. After saving, you'll be logged out.
+                            Documentos del contacto.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                            <Label htmlFor="current">Current password</Label>
-                            <Input id="current" type="password" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="new">New password</Label>
-                            <Input id="new" type="password" />
+                    <CardContent className="space-y-4">
+                        <div className="p-4 bg-white rounded shadow">
+                            <ul className="list-disc pl-5">
+                                <li>Contrato firmado</li>
+                                <li>Presupuesto enviado</li>
+                                <li>Informe de seguimiento</li>
+                                {/* Añade más documentos según sea necesario */}
+                            </ul>
                         </div>
                     </CardContent>
-                    <CardFooter>
-                        <Button>Save password</Button>
-                    </CardFooter>
                 </Card>
             </TabsContent>
-
         </Tabs>
-    );
+    )
 }
+
+export default TabContact
