@@ -18,7 +18,7 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1 w-full ">
             <div className="flex justify-between items-center mb-5 p-4">
                 <Breadcrumbs/>
                 <div className="flex justify-end items-center">
@@ -31,9 +31,10 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
                 </div>
             </div>
             <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow overflow-hidden">
-                <div className="p-10">
-                    <div className='flex items-center'>
-                            <Avatar className="h-[70px] w-[70px]">
+                <div className="row-span-2 col-span-1">
+                    <div className='flex h-[250px] justify-center items-center'>
+                        <div className='flex'>
+                            <Avatar className="h-[80px] w-[80px]">
                                 <AvatarImage src={data.avatar_url}/>
                                 <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
                             </Avatar>
@@ -42,27 +43,44 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
                                 <p>{data.email}</p>
                                 <p>{data.phone}</p>
                             </div>
+                        </div>
                     </div>
-                </div>
-                <div className="row-span-2 col-span-3 overflow-auto">
-                    <TabContact contact={data}/>
-                </div>
-                <div className="row-span-1 col-span-1 p-10">
-                    <div className="flex flex-col">
-                        <p>19/06/2024</p>
-                        <div className="flex items-center">
-                            <MdEmail className="text-2xl mr-5"/>
-                            <div className="flex items-center border p-[10px]">
-                                <Avatar className="mr-5">
-                                    <AvatarImage src={data.avatar_url}/>
-                                    <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <p>Envio de correo al cliente</p>
+                    <div className="border-solid border-t flex flex-col items-center p-10">
+                        <div className='flex flex-col w-full border-l pl-2'>
+                            <p className='mt-5'>19/06/2024</p>
+                            <div className="flex items-center">
+                                <MdEmail className="text-2xl mr-5"/>
+                                <div className="flex items-center border p-[10px]">
+                                    <Avatar className="mr-5">
+                                        <AvatarImage src={data.avatar_url}/>
+                                        <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <p>Envio de correo al cliente</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div className='flex flex-col w-full border-l pl-2'>
+                            <p className='mt-5'>21/06/2024</p>
+                            <div className="flex items-center">
+                                <MdEmail className="text-2xl mr-5"/>
+                                <div className="flex items-center border p-[10px]">
+                                    <Avatar className="mr-5">
+                                        <AvatarImage src={data.avatar_url}/>
+                                        <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <p>Creada Tarea Visita</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                </div>
+                <div className="row-span-2 col-span-3 border bg-muted/40">
+                    <TabContact contact={data}/>
                 </div>
             </div>
 

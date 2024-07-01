@@ -12,7 +12,7 @@ import Breadcrumbs from "@/components/shared/breadCrumbs";
 const Contactos = () => {
     const endPointTable = "/contacts";
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col gap-4 p-4 lg:gap-6 lg:p-6'>
             <div className='mb-5'>
                 <Breadcrumbs/>
             </div>

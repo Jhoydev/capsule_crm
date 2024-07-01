@@ -8,7 +8,7 @@ export const metadata = {
 
 const Dashboard = () => {
     return (
-        <div className="w-full">
+        <div className="w-full gap-4 p-4 lg:gap-6 lg:p-6">
             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div className='flex'>
                     <TotalSold></TotalSold>

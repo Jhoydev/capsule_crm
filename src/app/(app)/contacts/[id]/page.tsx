@@ -75,30 +75,28 @@ const ContactDetails = () => {
     if (error || !contact) return <div>Error loading contact details</div>;
 
     return (
-        <div className='flex flex-col'>
-            <div className="w-full">
-                {isEditing ? (
-                    <div className="flex justify-between items-center mb-5">
-                        <Breadcrumbs/>
-                        <div className="flex justify-end items-center">
-                            <button
-                                onClick={() => handleSave(contact.id)}
-                                className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center mr-2"
-                            >
-                                <FaSave className="mr-2"/> Guardar
-                            </button>
-                            <button
-                                onClick={() => setIsEditing(false)}
-                                className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
-                            >
-                                <FaTimes className="mr-2"/> Cancelar
-                            </button>
-                        </div>
+        <div className="flex flex-1 w-full">
+            {isEditing ? (
+                <div className="flex justify-between items-center mb-5">
+                    <Breadcrumbs/>
+                    <div className="flex justify-end items-center">
+                        <button
+                            onClick={() => handleSave(contact.id)}
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center mr-2"
+                        >
+                            <FaSave className="mr-2"/> Guardar
+                        </button>
+                        <button
+                            onClick={() => setIsEditing(false)}
+                            className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
+                        >
+                            <FaTimes className="mr-2"/> Cancelar
+                        </button>
                     </div>
-                ) : (
-                    <ContactView editFunction={setIsEditing} data={contact}/>
-                )}
-            </div>
+                </div>
+            ) : (
+                <ContactView editFunction={setIsEditing} data={contact}/>
+            )}
         </div>
     );
 };
