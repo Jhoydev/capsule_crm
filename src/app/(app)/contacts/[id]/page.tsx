@@ -75,7 +75,7 @@ const ContactDetails = () => {
     if (error || !contact) return <div>Error loading contact details</div>;
 
     return (
-        <div className="flex flex-1 w-full">
+        <div className="flex flex-1 w-full h-full">
             {isEditing ? (
                 <div className="flex justify-between items-center mb-5">
                     <Breadcrumbs/>

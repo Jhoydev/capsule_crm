@@ -18,7 +18,7 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
     }
 
     return (
-        <div className="flex flex-col flex-1 w-full ">
+        <div className="flex flex-col flex-1 w-full h-full">
             <div className="flex justify-between items-center mb-5 p-4">
                 <Breadcrumbs/>
                 <div className="flex justify-end items-center">
@@ -45,12 +45,12 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="border-solid border-t flex flex-col items-center p-10">
+                    <div className="border-solid border-t hidden md:flex flex-col items-center p-10">
                         <div className='flex flex-col w-full border-l pl-2'>
-                            <p className='mt-5'>19/06/2024</p>
+                            <p className='mt-5 text-sm text-slate-400'>19/06/2024</p>
                             <div className="flex items-center">
                                 <MdEmail className="text-2xl mr-5"/>
-                                <div className="flex items-center border p-[10px]">
+                                <div className="flex items-center border p-[10px] w-full">
                                     <Avatar className="mr-5">
                                         <AvatarImage src={data.avatar_url}/>
                                         <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
@@ -62,10 +62,10 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
                             </div>
                         </div>
                         <div className='flex flex-col w-full border-l pl-2'>
-                            <p className='mt-5'>21/06/2024</p>
+                            <p className='mt-5 text-sm text-slate-400'>21/06/2024</p>
                             <div className="flex items-center">
                                 <MdEmail className="text-2xl mr-5"/>
-                                <div className="flex items-center border p-[10px]">
+                                <div className="flex items-center border p-[10px] w-full">
                                     <Avatar className="mr-5">
                                         <AvatarImage src={data.avatar_url}/>
                                         <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
