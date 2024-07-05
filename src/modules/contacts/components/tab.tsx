@@ -50,6 +50,7 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                                     <h3 className="font-bold text-blue-600">Datos de Contacto</h3>
                                     <div className="flex flex-wrap min-h-[80px] p-5">
                                         {renderField('Email', contact.email)}
+                                        {renderField('Email alternativo', contact.alternate_email)}
                                         {renderField('Teléfono', contact.phone)}
                                         {renderField('Móvil', contact.mobile)}
                                         {renderField('Medio de Contacto', contact.contact_medium)}

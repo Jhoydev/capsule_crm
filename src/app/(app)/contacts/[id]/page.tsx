@@ -8,6 +8,7 @@ import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { SkeletonCard } from '@/modules/contacts/components/skeleton';
 import ContactView from "@/modules/contacts/components/contactView";
+import ContactEdition from "@/modules/contacts/components/contactEdition";
 
 const ContactDetails = () => {
     const { id } = useParams();
@@ -77,23 +78,7 @@ const ContactDetails = () => {
     return (
         <div className="flex flex-1 w-full h-full">
             {isEditing ? (
-                <div className="flex justify-between items-center mb-5">
-                    <Breadcrumbs/>
-                    <div className="flex justify-end items-center">
-                        <button
-                            onClick={() => handleSave(contact.id)}
-                            className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center mr-2"
-                        >
-                            <FaSave className="mr-2"/> Guardar
-                        </button>
-                        <button
-                            onClick={() => setIsEditing(false)}
-                            className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
-                        >
-                            <FaTimes className="mr-2"/> Cancelar
-                        </button>
-                    </div>
-                </div>
+                <ContactEdition editFunction={setIsEditing} data={contact} />
             ) : (
                 <ContactView editFunction={setIsEditing} data={contact}/>
             )}

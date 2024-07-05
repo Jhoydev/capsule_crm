@@ -14,7 +14,7 @@ export type Contact = {
     last_name: string;
     nif: string;
     email: string;
-    alternate_email: string | null;
+    alternate_email: string;
     phone: string;
     mobile: string;
     avatar_url: string;
@@ -22,7 +22,7 @@ export type Contact = {
     contact_medium: 'email' | 'phone' | 'sms' | 'other';
     language: string;
     notes: string;
-    rgpd: string | null;
+    rgpd: string;
     profession: string;
     company: string;
     gender: 'male' | 'female' | 'other';
