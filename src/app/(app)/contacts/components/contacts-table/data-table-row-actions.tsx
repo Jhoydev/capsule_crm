@@ -11,6 +11,8 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Link from 'next/link';
+import React from 'react';
 
 interface DataTableRowActionsProps<TData> {
     row: Row<TData>
@@ -29,7 +31,11 @@ export function DataTableRowActions<TData>({ row, }: DataTableRowActionsProps<TD
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[160px]">
-                <DropdownMenuItem>Edit</DropdownMenuItem>
+                <DropdownMenuItem>
+                    <Link href={`/contacts/${row.getValue('id')}`}>
+                        Edit
+                    </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem>Make a copy</DropdownMenuItem>
                 <DropdownMenuItem>Favorite</DropdownMenuItem>
                 <DropdownMenuItem>
