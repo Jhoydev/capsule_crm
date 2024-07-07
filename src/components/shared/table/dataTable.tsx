@@ -33,7 +33,7 @@ interface DatatableProps<T> {
 }
 
 export default function DataTable<T>({
- endPoint,
+                                         endPoint,
                                          typeTable,
                                          columns,
                                          caption,
@@ -93,7 +93,6 @@ export default function DataTable<T>({
         },
         pageCount,
     });
-
 
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error loading data</div>;
@@ -179,18 +178,6 @@ export default function DataTable<T>({
                 >
                     <BiLastPage className='text-xl'/>
                 </Button>
-                {/*<select*/}
-                {/*    value={table.getState().pagination.pageSize}*/}
-                {/*    onChange={e => {*/}
-                {/*        table.setPageSize(Number(e.target.value))*/}
-                {/*    }}*/}
-                {/*>*/}
-                {/*    {[10, 20, 30, 40, 50].map(pageSize => (*/}
-                {/*        <option key={pageSize} value={pageSize}>*/}
-                {/*            Show {pageSize}*/}
-                {/*        </option>*/}
-                {/*    ))}*/}
-                {/*</select>*/}
             </div>
         </div>
     )
