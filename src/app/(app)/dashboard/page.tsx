@@ -23,11 +23,6 @@ const Dashboard = () => {
     return (
         <div className="w-full gap-4 p-4 lg:gap-6 lg:p-6">
             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div className="flex items-center justify-between">
-                    <DataTable data={tasks} columns={columns}>
-                        <DataTableToolbar/>
-                    </DataTable>
-                </div>
                 <div className='flex'>
                     <TotalSold></TotalSold>
                     <TotalRent></TotalRent>

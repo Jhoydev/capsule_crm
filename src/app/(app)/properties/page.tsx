@@ -5,7 +5,7 @@ import { columns } from "@/components/shared/table/columnsProperties";
 import Breadcrumbs from "@/components/shared/breadCrumbs";
 
 const Propiedades = () => {
-    const endPointTable = "/properties";
+    const endPointTable = "properties";
     return (
         <div className='container flex flex-col gap-4 p-4 lg:gap-6 lg:p-6'>
             <div className='mb-5'>
