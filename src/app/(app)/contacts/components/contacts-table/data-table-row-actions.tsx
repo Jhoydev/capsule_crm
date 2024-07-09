@@ -36,8 +36,6 @@ export function DataTableRowActions<TData>({ row, }: DataTableRowActionsProps<TD
                         Edit
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>Make a copy</DropdownMenuItem>
-                <DropdownMenuItem>Favorite</DropdownMenuItem>
                 <DropdownMenuItem>
                     Delete
                     <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

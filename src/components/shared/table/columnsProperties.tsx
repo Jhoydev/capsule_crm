@@ -23,6 +23,9 @@ export const columns: ColumnDef<Property>[] = [
                 case 3:
                     foto = "https://fotos15.apinmo.com/413/11769612/27-1s.jpg";
                     break;
+                default:
+                    foto = "https://fotos15.apinmo.com/413/11769612/27-1s.jpg";
+                    break;
             }
 
             return (
