@@ -17,7 +17,7 @@ const Contactos = () => {
                 <Breadcrumbs/>
             </div>
             <div className='flex'>
-                <div className='flex flex-col'>
+                <div className='flex flex-col hidden'>
                     <div>Filtros</div>
                     <div className='flex flex-col'>
                         <span>Estados</span>
@@ -38,8 +38,7 @@ const Contactos = () => {
                             <IoIosSearch/>
                         </Button>
                     </div>
-                    <div className='flex justify-between mb-5 items-center'>
-                        <h2>Contactos</h2>
+                    <div className='flex justify-end mb-5 items-center'>
                         <Button className=''>
                             Crear contacto
                             <CiCirclePlus className='ml-2'/>
