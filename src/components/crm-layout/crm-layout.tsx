@@ -41,7 +41,7 @@ export default function CrmLayout({ user, children }: { user: UserType, children
                     <AvatarDropdownMenu user={user}/>
                     <ToogleTheme/>
                 </header>
-                <main className="flex flex-1 flex-col">
+                <main className="flex flex-1 flex-col overflow-auto">
                     {children}
                 </main>
             </div>
