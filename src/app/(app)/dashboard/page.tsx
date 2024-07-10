@@ -1,12 +1,9 @@
 import { Overview } from "@/modules/dashboard/components/overview";
 import { RecentSales } from "@/modules/dashboard/components/recentSales";
 import { TotalRent, TotalSold } from "@/modules/dashboard/components/totalCards";
-import { DataTable } from '@/components/shared/data-table/data-table';
 import { task } from '@/components/shared/data-table/data/tasks';
 import { taskSchema } from '@/components/shared/data-table/data/schema';
 import { z } from 'zod';
-import { columns } from '@/components/shared/data-table/data/columns';
-import { DataTableToolbar } from '@/components/shared/data-table/data-table-toolbar';
 import * as React from 'react';
 
 export const metadata = {

@@ -8,6 +8,7 @@ import { Bell, Pill } from 'lucide-react';
 import { UserType } from '@/types/user.type';
 import { ThemeProvider } from "@/components/structure/theme-provider";
 import {ToogleTheme} from "@/components/shared/toggleTheme";
+import { Toaster } from "@/components/ui/sonner"
 
 export default function CrmLayout({ user, children }: { user: UserType, children: ReactNode }) {
     return (
@@ -43,6 +44,7 @@ export default function CrmLayout({ user, children }: { user: UserType, children
                 </header>
                 <main className="flex flex-1 flex-col overflow-auto">
                     {children}
+                    <Toaster />
                 </main>
             </div>
         </div>
