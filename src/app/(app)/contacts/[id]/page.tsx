@@ -73,7 +73,7 @@ const ContactDetails = () => {
             </div>
         );
     }
-    if (error || !contact) return <div>Error loading contact details</div>;
+    if (error || !contact) return <div>Error al cargar contacto</div>;
 
     return (
         <div className="flex flex-1 w-full h-full">
