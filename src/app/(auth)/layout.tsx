@@ -2,23 +2,17 @@ import Link from 'next/link'
 import AuthCard from '@/app/(auth)/AuthCard'
 import ApplicationLogo from '@/components/ApplicationLogo'
 import React from 'react';
+import { Pill } from 'lucide-react';
 
 export const metadata = {
-    title: 'Laravel',
+    title: 'Capsule CRM - Login',
 }
 
 const Layout = ({ children }: { children: React.ReactNode}) => {
     return (
         <div>
             <div className="font-sans text-gray-900 antialiased">
-                <AuthCard
-                    logo={
-                        <Link href="/">
-                            <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-                        </Link>
-                    }>
-                    {children}
-                </AuthCard>
+                {children}
             </div>
         </div>
     )

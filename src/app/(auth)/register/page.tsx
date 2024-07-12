@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import React, { useState } from 'react'
 import { ApiErrors } from '@/types/auth.types';
+import AuthLayout from '../components/auth-layout'
 
 const Page = () => {
     const { register } = useAuth({
@@ -20,6 +21,7 @@ const Page = () => {
     const [password, setPassword] = useState<string>('')
     const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
     const [errors, setErrors] = useState<ApiErrors>({})
+    const [loading, setLoading] = useState<boolean>(false)
 
     const submitForm = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault()
@@ -30,11 +32,13 @@ const Page = () => {
             password,
             password_confirmation: passwordConfirmation,
             setErrors,
+            setLoading
         })
     }
 
     return (
-        <form onSubmit={submitForm}>
+        <AuthLayout>
+            <form onSubmit={submitForm}>
             {/* Name */}
             <div>
                 <Label className htmlFor="name">Name</Label>
@@ -116,6 +120,7 @@ const Page = () => {
                 <Button className="ml-4">Register</Button>
             </div>
         </form>
+        </AuthLayout>
     )
 }
 

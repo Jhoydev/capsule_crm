@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import axios from '@/lib/axios'
 import { useCallback, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { ForgotPasswordProps, RegisterLoginProps, ResendEmailVerificationProps, ResetPasswordProps, UseAuthOptions } from '@/types/auth.types';
+import { ApiErrors, ForgotPasswordProps, RegisterLoginProps, ResendEmailVerificationProps, ResetPasswordProps, UseAuthOptions } from '@/types/auth.types';
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions = {}) => {
     const router = useRouter()
@@ -38,20 +38,23 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
             })
     }
 
-    const login = async ({ setErrors, setStatus, ...props }: RegisterLoginProps) => {
-        await csrf()
+    const login = async ({ setErrors, setStatus, setLoading, ...props }: RegisterLoginProps) => {
+        try {
+            setLoading(true)
 
-        setErrors({})
-        setStatus && setStatus(null);
+            await csrf()
+            setErrors({})
+            setStatus && setStatus(null);
 
-        axios
-            .post('/login', props)
-            .then(() => mutate())
-            .catch(error => {
-                if (error.response.status !== 422) throw error
+            await axios.post('/login', props)
+            await mutate()
+        } catch (error: any) {
+            if (error?.response?.status !== 422) throw error
 
-                setErrors(error.response.data.errors)
-            })
+            setErrors(error?.response?.data?.errors)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const forgotPassword = async ({ setErrors, setStatus, email }: ForgotPasswordProps) => {

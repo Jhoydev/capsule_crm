@@ -9,6 +9,7 @@ export type RegisterLoginProps = {
     password: string;
     password_confirmation?: string;
     remember?: boolean;
+    setLoading: (status: boolean) => void
 } & SettersAuthTypes;
 
 export type SettersAuthTypes = {

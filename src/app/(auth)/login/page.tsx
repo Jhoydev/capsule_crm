@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { ApiErrors } from '@/types/auth.types';
+import { Loader, LoaderCircle } from 'lucide-react';
+import AuthLayout from '@/app/(auth)/components/auth-layout';
 
 const Login = () => {
     const router: AppRouterInstance = useRouter()
@@ -21,6 +23,7 @@ const Login = () => {
     })
 
     const [email, setEmail] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
     const [password, setPassword] = useState<string>('')
     const [shouldRemember, setShouldRemember] = useState<boolean>(false)
     const [errors, setErrors] = useState<ApiErrors>({})
@@ -43,34 +46,36 @@ const Login = () => {
             remember: shouldRemember,
             setErrors,
             setStatus,
+            setLoading,
         })
     }
 
     return (
-        <>
-            <AuthSessionStatus className="mb-4" status={status} />
-            <form onSubmit={submitForm}>
-                {/* Email Address */}
-                <div>
+        <AuthLayout>
+            <div className="grid gap-2 text-center">
+                <h1 className="text-3xl font-bold">Login</h1>
+                <p className="text-balance text-muted-foreground">Enter your email below to login to your account</p>
+            </div>
+            <form className="grid gap-4" onSubmit={submitForm}>
+                <div className="grid gap-2">
                     <Label className htmlFor="email">Email</Label>
-
                     <Input
                         id="email"
                         type="email"
                         value={email}
-                        className="block mt-1 w-full"
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
                         required
                         autoFocus
                     />
-
-                    <InputError messages={errors.email} className="mt-2" />
+                    <InputError messages={errors.email} className="mt-2"/>
                 </div>
-
-                {/* Password */}
-                <div className="mt-4">
-                    <Label className htmlFor="password">Password</Label>
-
+                <div className="grid gap-2">
+                    <div className="flex items-center">
+                        <Label className htmlFor="password">Password</Label>
+                        <Link href="#" className="ml-auto inline-block text-sm underline" prefetch={false}>
+                            Forgot your password?
+                        </Link>
+                    </div>
                     <Input
                         id="password"
                         type="password"
@@ -78,44 +83,21 @@ const Login = () => {
                         className="block mt-1 w-full"
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
                         required
-                        autoComplete="current-password"
-                    />
-
-                    <InputError messages={errors.password} className="mt-2" />
+                        autoComplete="current-password"/>
+                    <InputError messages={errors.password} className="mt-2"/>
                 </div>
-
-                {/* Remember Me */}
-                <div className="block mt-4">
-                    <label
-                        htmlFor="remember_me"
-                        className="inline-flex items-center">
-                        <input
-                            id="remember_me"
-                            type="checkbox"
-                            name="remember"
-                            className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                            onChange={event =>
-                                setShouldRemember(event.target.checked)
-                            }
-                        />
-
-                        <span className="ml-2 text-sm text-gray-600">
-                            Remember me
-                        </span>
-                    </label>
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href="/forgot-password"
-                        className="underline text-sm text-gray-600 hover:text-gray-900">
-                        Forgot your password?
-                    </Link>
-
-                    <Button type="submit" className="ml-3">Login</Button>
-                </div>
+                <Button type="submit" className="w-full" disabled={loading}>
+                    Login
+                    {loading && <LoaderCircle className="animate-spin"/>}
+                </Button>
             </form>
-        </>
+            <div className="mt-4 text-center text-sm">
+                Don&apos;t have an account?{" "}
+                <Link href="/register" className="underline" prefetch={false}>
+                    Sign up
+                </Link>
+            </div>
+        </AuthLayout>
     )
 }
 
