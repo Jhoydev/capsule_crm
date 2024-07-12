@@ -3,7 +3,7 @@
 import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaEdit } from "react-icons/fa";
-import TabContact from "@/modules/contacts/components/tab";
+import TabContact from "@/app/(app)/contacts/components/tab";
 import { MdEmail } from "react-icons/md";
 import { Contact } from "@/types/contact.types";
 

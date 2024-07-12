@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { getContact, updateContact } from '@/modules/contacts/services/contactApi';
+import { getContact, updateContact } from '@/app/(app)/contacts/services/contactApi';
 import { Contact } from '@/types/contact.types';
-import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
-import { SkeletonCard } from '@/modules/contacts/components/skeleton';
-import ContactView from "@/modules/contacts/components/contactView";
-import ContactEdition from "@/modules/contacts/components/contactEdition";
+import { SkeletonCard } from '@/app/(app)/contacts/components/skeleton';
+import ContactView from "@/app/(app)/contacts/components/contactView";
+import ContactEdition from "@/app/(app)/contacts/components/contactEdition";
 
 const ContactDetails = () => {
     const { id } = useParams();

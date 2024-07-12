@@ -1,7 +1,7 @@
 import { DataTable } from '@/components/shared/data-table/data-table';
 import { contactColumns } from '@/app/(app)/contacts/components/contacts-table/data/contact-columns';
 import { useEffect, useState } from 'react';
-import { getAll } from '@/modules/contacts/services/contactApi';
+import { getAll } from '@/app/(app)/contacts/services/contactApi';
 import { Contact } from '@/app/(app)/contacts/components/contacts-table/data/schema';
 import { Contact as ApiContact } from '@/types/contact.types';
 

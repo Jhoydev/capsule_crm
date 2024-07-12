@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaSave, FaTimes } from "react-icons/fa";
 import { Contact, getDefaultValues, contactSchema } from "@/types/contact.types";
-import { updateContact } from "@/modules/contacts/services/contactApi";
+import { updateContact } from "@/app/(app)/contacts/services/contactApi";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";

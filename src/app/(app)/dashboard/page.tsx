@@ -1,6 +1,6 @@
-import { Overview } from "@/modules/dashboard/components/overview";
-import { RecentSales } from "@/modules/dashboard/components/recentSales";
-import { TotalRent, TotalSold } from "@/modules/dashboard/components/totalCards";
+import { Overview } from "@/app/(app)/dashboard/components/overview";
+import { RecentSales } from "@/app/(app)/dashboard/components/recentSales";
+import { TotalRent, TotalSold } from "@/app/(app)/dashboard/components/totalCards";
 import { task } from '@/components/shared/data-table/data/tasks';
 import { taskSchema } from '@/components/shared/data-table/data/schema';
 import { z } from 'zod';
