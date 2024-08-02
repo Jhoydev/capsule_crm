@@ -28,12 +28,18 @@ import { DataTableProps } from '@/types/data-table-props.type';
 import { useEffect, useState } from 'react';
 
 
-export function DataTable<TData, TValue>({ columns, data, pagination, setPagination, total, children }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+    columns,
+    data,
+    pagination,
+    setPagination,
+    columnFilters,
+    setColumnFilters,
+    total,
+    children
+}: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = useState({})
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    )
     const [sorting, setSorting] = useState<SortingState>([])
 
     const table = useReactTable({
@@ -48,6 +54,7 @@ export function DataTable<TData, TValue>({ columns, data, pagination, setPaginat
         },
         enableRowSelection: true,
         manualPagination: true,
+        manualFiltering: true,
         rowCount: pagination.pageSize,
         pageCount: Math.ceil(total/ pagination.pageSize),
         onRowSelectionChange: setRowSelection,

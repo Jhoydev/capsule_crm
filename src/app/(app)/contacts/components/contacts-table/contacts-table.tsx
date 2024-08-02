@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { getAll } from '@/app/(app)/contacts/services/contactApi';
 import { Contact } from '@/app/(app)/contacts/components/contacts-table/data/schema';
 import { Contact as ApiContact } from '@/types/contact.types';
+import { DataTableToolbar } from '@/app/(app)/contacts/components/contacts-table/data-table-toolbar';
+import { ColumnFilter, ColumnFiltersState } from '@tanstack/react-table';
+import { ApiParamsContactType, ContactService } from '@/services/contact.service';
 
 function parseContactData(data: ApiContact[]) {
     return data.map(c => {
@@ -24,31 +27,57 @@ export function ContactTable() {
         pageIndex: 0,
         pageSize: 10,
     });
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+        []
+    );
 
-    useEffect( () => {
-        setIsLoading(true)
-        const fetchContact = async () => {
-            const response = await getAll({
-                pageIndex: pagination.pageIndex,
-                pageSize: pagination.pageSize
-            })
-            const data = parseContactData(response.data)
-            setContacts(data)
-            setTotal(response.total)
-            setIsLoading(false)
+    const fetchContact = async () => {
+        const contactService = new ContactService();
+        const params: ApiParamsContactType = {
+            page: pagination.pageIndex,
+            perPage: pagination.pageSize
         }
 
+        columnFilters.forEach((el: ColumnFilter) => {
+            if (typeof el.value === "string") {
+                params[el.id] = el.value;
+            }
+        })
+
+        const response = await contactService.getContacts(params)
+
+        const data = parseContactData(response.data)
+        setContacts(data)
+        setTotal(response.total)
+        setIsLoading(false)
+    }
+
+    useEffect( () => {
         void fetchContact()
     },[pagination])
+
+    useEffect( () => {
+        console.log(columnFilters)
+        const timer =  setTimeout(() => { void fetchContact() }, 1000);
+
+        return () => clearTimeout(timer);
+    },[columnFilters])
 
     if (isLoading) {
         return 'Loading...'
     }
 
-    return <DataTable
-        data={contacts}
-        columns={contactColumns}
-        pagination={pagination}
-        total={total}
-        setPagination={setPagination} />
+    return (
+        <DataTable
+            data={contacts}
+            columns={contactColumns}
+            pagination={pagination}
+            total={total}
+            setPagination={setPagination}
+            columnFilters={columnFilters}
+            setColumnFilters={setColumnFilters}
+        >
+            <DataTableToolbar></DataTableToolbar>
+        </DataTable>
+    )
 }

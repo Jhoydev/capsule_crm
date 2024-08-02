@@ -6,6 +6,8 @@ export interface DataTableProps<TData, TValue> {
     data: TData[]
     pagination: any
     setPagination: any
+    columnFilters: any
+    setColumnFilters: any
     total: number
     children?: React.ReactElement
 }
