@@ -1,0 +1,169 @@
+'use client'
+
+import Breadcrumbs from "@/components/shared/breadCrumbs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FaSave, FaTimes } from "react-icons/fa";
+import { Property, getDefaultValues, propertySchema } from "@/types/property.types";
+import { updateContact } from "@/app/(app)/contacts/services/contactApi";
+import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { renderField } from "@/lib/renderFormField";
+import { Form } from "@/components/ui/form";
+import * as z from "zod";
+import { toast } from "sonner";
+
+interface PropertyEditionProps {
+    editFunction: (isEditing: boolean) => void;
+    data: Property;
+}
+
+const formSchema = z.object(propertySchema);
+
+const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data }) => {
+    const methods = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: getDefaultValues(data),
+    });
+
+    useEffect(() => {
+        methods.reset(getDefaultValues(data));
+    }, [data, methods]);
+
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            const updatedContact: Property = {
+                id: data.id,
+                user_id: data.user_id,
+                ...values,
+            };
+
+            // const result = await updateContact(data.id, updatedContact);
+            // toast("Contacto modificado con exito.");
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Error saving data:', error);
+        }
+    };
+
+    const setIsEditing = (param: boolean) => {
+        editFunction(param);
+    };
+
+    const contactMediumOptions = [
+        { value: "other", label: "Otro" },
+        { value: "email", label: "Email" },
+        { value: "phone", label: "Teléfono" },
+        { value: "sms", label: "SMS" },
+    ];
+
+    const genderOptions = [
+        { value: "other", label: "Otro" },
+        { value: "male", label: "Masculino" },
+        { value: "female", label: "Femenino" },
+    ];
+
+    const renderFormField = (
+        name: keyof z.infer<typeof formSchema>,
+        label: string,
+        placeholder: string,
+        type: string = "text",
+        options?: { value: string, label: string }[]
+    ) => {
+        const { control } = methods;
+        return renderField({ name, label, placeholder, type, options, control });
+    };
+
+    return (
+        <div className="flex flex-col flex-1 w-full">
+            <FormProvider {...methods}>
+                <Form {...methods}>
+                    <form onSubmit={methods.handleSubmit(handleSubmit)}>
+                        <div className="flex justify-between items-center mb-5 p-4">
+                            <Breadcrumbs />
+                            <div className="flex justify-end items-center">
+                                <button
+                                    type="submit"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center mr-2"
+                                >
+                                    <FaSave className="mr-2" /> Guardar
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsEditing(false)}
+                                    className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
+                                >
+                                    <FaTimes className="mr-2" /> Cancelar
+                                </button>
+                            </div>
+                        </div>
+                        <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow">
+                            <div className="row-span-2 col-span-1">
+                                <div className='flex h-[250px] justify-center items-center'>
+                                    <div className='flex'>
+                                        <Avatar className="h-[80px] w-[80px]">
+                                            <AvatarImage src={data.avatar_url} />
+                                            <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
+                                        </Avatar>
+                                        <div className="ml-5">
+                                            <p className='text-xl font-bold'>{data.first_name} {data.last_name}</p>
+                                            <p>{data.email}</p>
+                                            <p>{data.phone}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row-span-2 col-span-3 border bg-muted/40 p-5">
+                                <div className="grid grid-cols-1 gap-4 overflow-auto h-[calc(100vh-200px)]">
+                                    <div className="p-4 bg-white rounded shadow">
+                                        <h3 className="font-bold text-blue-600">Datos de Contacto</h3>
+                                        <div className="flex flex-wrap min-h-[80px] p-5">
+                                            {renderFormField("first_name", "Nombre", "Nombre")}
+                                            {renderFormField("last_name", "Apellidos", "Apellidos")}
+                                            {renderFormField("email", "Email address", "Email address", "email")}
+                                            {renderFormField("alternate_email", "Email alternativo", "Email alternativo", "email")}
+                                            {renderFormField("phone", "Teléfono", "Teléfono")}
+                                            {renderFormField("mobile", "Móvil", "Móvil")}
+                                        </div>
+                                    </div>
+                                    <div className="p-4 bg-white rounded shadow">
+                                        <h3 className="font-bold text-blue-600">Información Personal</h3>
+                                        <div className="flex flex-wrap min-h-[80px] p-5">
+                                            {renderFormField("nif", "NIF", "NIF")}
+                                            {renderFormField("avatar_url", "URL del avatar", "URL del avatar")}
+                                            {renderFormField("birthday", "Fecha de Nacimiento", "Fecha de Nacimiento", "date")}
+                                            {renderFormField("contact_medium", "Medio de Contacto", "Medio de Contacto", "select", contactMediumOptions)}
+                                            {renderFormField("language", "Idioma", "Idioma")}
+                                            {renderFormField("gender", "Género", "Seleccione el género", "select", genderOptions)}
+                                        </div>
+                                    </div>
+                                    <div className="p-4 bg-white rounded shadow">
+                                        <h3 className="font-bold text-blue-600">Profesión</h3>
+                                        <div className="flex flex-wrap min-h-[80px] p-5">
+                                            {renderFormField("profession", "Profesión", "Profesión")}
+                                            {renderFormField("company", "Compañía", "Compañía")}
+                                        </div>
+                                    </div>
+                                    <div className="p-4 bg-white rounded shadow">
+                                        <h3 className="font-bold text-blue-600">Notas</h3>
+                                        <div className="flex flex-wrap min-h-[80px] p-5">
+                                            {renderFormField("notes", "Notas", "Notas", "textarea")}
+                                        </div>
+                                    </div>
+                                    <div className="p-4 bg-white rounded shadow">
+                                        <h3 className="font-bold text-blue-600">RGPD</h3>
+                                        <div className="flex flex-wrap min-h-[80px] p-5">
+                                            {renderFormField("rgpd", "RGPD", "RGPD")}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </Form>
+            </FormProvider>
+        </div>
+    );
+}
+
+export default PropertyEdition;
