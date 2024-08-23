@@ -4,10 +4,9 @@ import React from "react";
 import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { FaEdit } from "react-icons/fa";
 import { Property } from "@/types/property.types";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {MdEmail} from "react-icons/md";
 import TabProperty from "@/app/(app)/properties/components/tab";
 import AgentDetails from "@/app/(app)/properties/components/agentDetails";
+import GallerySwiper from "@/app/(app)/properties/components/gallerySwiper";
 
 interface propertyViewProps {
     editFunction: (isEditing: boolean) => void;
@@ -35,9 +34,9 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
             </div>
             <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow overflow-hidden">
                 <div className="row-span-2 col-span-1">
-                    <div className='flex h-[350px] justify-center items-center'>
-                        <div className='flex'>
-
+                    <div className='h-[350px] justify-center items-center'>
+                        <div className='flex w-full h-full p-5'>
+                           <GallerySwiper property={data}/>
                         </div>
                     </div>
                     <div className="border-solid border-t hidden md:flex flex-col items-center p-10">
