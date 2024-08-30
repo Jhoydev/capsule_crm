@@ -2,37 +2,42 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { getContact, updateContact } from '@/app/(app)/contacts/services/contactApi';
-import { Contact } from '@/types/contact.types';
+import { getProperty, updateProperty } from '@/app/(app)/properties/services/propertyApi';
+import { Property } from '@/types/property.types';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
-import { SkeletonCard } from '@/app/(app)/contacts/components/skeleton';
-import ContactView from "@/app/(app)/contacts/components/contactView";
-import ContactEdition from "@/app/(app)/contacts/components/contactEdition";
+import { SkeletonCard } from '@/app/(app)/properties/components/skeleton';
+import PropertyView from "@/app/(app)/properties/components/propertyView";
+import PropertyEdition from "@/app/(app)/properties/components/propertyEdition";
+import * as z from "zod";
 
-const ContactComponent = () => {
+const PropertyComponent = () => {
     const { id } = useParams();
-    const [contact, setContact] = useState<Contact | null>(null);
+    const [property, setProperty] = useState<Property | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        phone: '',
-        email: ''
+        reference: '',
+        city: '',
+        state: '',
+        country_id: '',
+        is_available: true,
+        status: ''
     });
 
     useEffect(() => {
-        const fetchContact = async () => {
+        const fetchProperty= async () => {
             if (id) {
                 try {
-                    const data: Contact = await getContact(Number(id));
-                    setContact(data);
+                    const data: Property = await getProperty(Number(id));
+                    setProperty(data);
                     setFormData({
-                        first_name: data.first_name || '',
-                        last_name: data.last_name || '',
-                        phone: data.phone || '',
-                        email: data.email || ''
+                        reference: data.reference,
+                        city: data.city,
+                        state: data.state,
+                        country_id: data.country_id,
+                        is_available: data.is_available,
+                        status: data.status
                     });
                 } catch (error) {
                     console.error('Error fetching data:', error);
@@ -43,7 +48,7 @@ const ContactComponent = () => {
             }
         };
 
-        fetchContact();
+        fetchProperty();
     }, [id]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,8 +58,8 @@ const ContactComponent = () => {
 
     const handleSave = async (id: number) => {
         try {
-            const response = await updateContact(id, formData as Contact);
-            setContact(response.contact);
+            const response = await updateProperty(id, formData as Property);
+            setProperty(response.property);
             setIsEditing(false);
         } catch (error) {
             console.error('Error saving data:', error);
@@ -72,17 +77,17 @@ const ContactComponent = () => {
             </div>
         );
     }
-    if (error || !contact) return <div>Error al cargar contacto</div>;
+    if (error || !property) return <div>Error al cargar propiedad</div>;
 
     return (
         <div className="flex flex-1 w-full h-full">
             {isEditing ? (
-                <ContactEdition editFunction={setIsEditing} data={contact} />
+                <PropertyEdition editFunction={setIsEditing} data={property} />
             ) : (
-                <ContactView editFunction={setIsEditing} data={contact}/>
+                <PropertyView editFunction={setIsEditing} data={property}/>
             )}
         </div>
     );
 };
 
-export default ContactComponent;
+export default PropertyComponent;
