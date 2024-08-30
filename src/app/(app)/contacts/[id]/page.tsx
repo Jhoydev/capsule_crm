@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { getContact, updateContact } from '@/app/(app)/contacts/services/contactApi';
+import { updateContact } from '@/app/(app)/contacts/services/contactApi';
 import { Contact } from '@/types/contact.types';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { SkeletonCard } from '@/app/(app)/contacts/components/skeleton';
 import ContactView from "@/app/(app)/contacts/components/contactView";
 import ContactEdition from "@/app/(app)/contacts/components/contactEdition";
+import { ContactService } from '@/services/contact.service';
 
 const ContactComponent = () => {
     const { id } = useParams();
@@ -26,7 +27,9 @@ const ContactComponent = () => {
         const fetchContact = async () => {
             if (id) {
                 try {
-                    const data: Contact = await getContact(Number(id));
+                    const contactService = new ContactService();
+
+                    const data: Contact = await contactService.getContact(Number(id));
                     setContact(data);
                     setFormData({
                         first_name: data.first_name || '',

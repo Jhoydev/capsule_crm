@@ -31,11 +31,11 @@ export function DataTableRowActions<TData>({ row, }: DataTableRowActionsProps<TD
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[160px]">
-                <DropdownMenuItem>
-                    <Link href={`/contacts/${row.getValue('id')}`}>
-                        Edit
-                    </Link>
-                </DropdownMenuItem>
+                <Link href={`/contacts/${row.getValue('id')}`}>
+                    <DropdownMenuItem>
+                            Edit
+                    </DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem>
                     Delete
                     <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

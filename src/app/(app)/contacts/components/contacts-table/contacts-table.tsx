@@ -1,17 +1,19 @@
 import { DataTable } from '@/components/shared/data-table/data-table';
 import { contactColumns } from '@/app/(app)/contacts/components/contacts-table/data/contact-columns';
 import { useEffect, useState } from 'react';
-import { getAll } from '@/app/(app)/contacts/services/contactApi';
 import { Contact } from '@/app/(app)/contacts/components/contacts-table/data/schema';
 import { Contact as ApiContact } from '@/types/contact.types';
+import { DataTableToolbar } from '@/app/(app)/contacts/components/contacts-table/data-table-toolbar';
+import { ColumnFilter, ColumnFiltersState } from '@tanstack/react-table';
+import { ApiParamsContactType, ContactService } from '@/services/contact.service';
 
 function parseContactData(data: ApiContact[]) {
     return data.map(c => {
         return {
             id: c.id,
             name: `${c.first_name} ${c.last_name}`.trim(),
-            email: `${c.email}`,
-            phone: `${c.phone}`
+            email: c.email,
+            phone: c.phone
         }
     })
 }
@@ -24,31 +26,62 @@ export function ContactTable() {
         pageIndex: 0,
         pageSize: 10,
     });
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+        []
+    );
 
-    useEffect( () => {
-        setIsLoading(true)
-        const fetchContact = async () => {
-            const response = await getAll({
-                pageIndex: pagination.pageIndex,
-                pageSize: pagination.pageSize
-            })
-            const data = parseContactData(response.data)
-            setContacts(data)
-            setTotal(response.total)
-            setIsLoading(false)
+    const fetchContact = async () => {
+        const contactService = new ContactService();
+        const params: ApiParamsContactType = {
+            page: pagination.pageIndex + 1,
+            perPage: pagination.pageSize
         }
 
+        if (columnFilters?.length) {
+            columnFilters.forEach((el: ColumnFilter) => {
+                if (typeof el.value === "string") {
+                    params[el.id] = el.value;
+                }
+            })
+        }
+
+        const response = await contactService.getContacts(params)
+
+        const data = parseContactData(response.data)
+        setContacts(data)
+        setTotal(response.total)
+        setIsLoading(false)
+    }
+
+    useEffect( () => {
         void fetchContact()
     },[pagination])
+
+    useEffect( () => {
+        const timer =  setTimeout(() => {
+            void fetchContact()
+            // TODO: Bad implementation
+            document?.querySelector<HTMLButtonElement>('.table--paginate--go-to-first-page')?.click();
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    },[columnFilters])
 
     if (isLoading) {
         return 'Loading...'
     }
 
-    return <DataTable
-        data={contacts}
-        columns={contactColumns}
-        pagination={pagination}
-        total={total}
-        setPagination={setPagination} />
+    return (
+        <DataTable
+            data={contacts}
+            columns={contactColumns}
+            pagination={pagination}
+            total={total}
+            setPagination={setPagination}
+            columnFilters={columnFilters}
+            setColumnFilters={setColumnFilters}
+        >
+            <DataTableToolbar></DataTableToolbar>
+        </DataTable>
+    )
 }
