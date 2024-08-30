@@ -48,20 +48,13 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
                 </TabsList>
                 <TabsContent value="data">
                     <Card>
-                        <CardHeader>
-                            <CardTitle>Datos principales</CardTitle>
-                            <CardDescription>
-                                Información de la propiedad.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
+                        <CardContent className="space-y-4 h-[calc(100vh - 300px)] overflow-auto">
                             <div className="grid grid-cols-1 gap-4">
                                 <PropertyDetails data={property}/>
                                 <div className="flex w-full">
                                     <LocationDetails/>
                                     <MapDetails/>
                                 </div>
-
                             </div>
                         </CardContent>
                     </Card>

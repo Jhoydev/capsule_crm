@@ -22,7 +22,6 @@ const customIcon = new L.Icon({
 function MapDetails() {
     return (
         <div className="bg-gray-100 p-4 text-left w-3/4 m-2">
-            <h3 className="text-lg font-bold">Map</h3>
             <div className="w-full h-96">
                 <MapContainer
                     center={[38.27231832871174, -0.7121807064845603]}

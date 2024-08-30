@@ -12,9 +12,8 @@ interface PropertyDetailsProps {
 
 const PropertyDetails: React.FC<PropertyDetailsProps> = ({ data }) => {
     return (
-        <div className="flex flex-col md:col-span-2">
-            <h2 className="text-xl font-bold">{data.title}</h2>
-            <p className="text-lg text-green-500">{data.reference}</p>
+        <div className="flex flex-col md:col-span-2 mt-5">
+            <h2 className="text-xl font-bold text-green-500">{data.reference}</h2>
             <div className="info-block flex mb-4 text text-slate-500 pb-5">
                 <div className="flex items-center mr-4"><span>{data.bathrooms}</span><PiBathtubLight
                     className="ml-2 mr-1"/>Baths
@@ -26,7 +25,8 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ data }) => {
                     className="ml-2 mr-1"/>Parks
                 </div>
             </div>
-            <div className="border-b-2 pb-5">
+            <div className="border-b-2 pb-5 mb-5">
+                <h2 className="text-xl font-bold">{data.title}</h2>
                 <p className="text-sm mt-2">{data.description}</p>
             </div>
             <div className="flex pb-5 justify-between border-b-1">
