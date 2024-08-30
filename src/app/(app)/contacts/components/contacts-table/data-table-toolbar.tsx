@@ -16,7 +16,6 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
     if (!table) {
         return null
     }
-    const isFiltered = table.getState().columnFilters.length > 0
 
     return (
         <div className="flex items-center justify-between">
@@ -26,6 +25,28 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("name")?.setFilterValue(event.target.value)
+                    }
+                    className="h-8 w-[150px] lg:w-[250px]"
+                />
+            </div>
+            <div className="flex flex-1 items-center space-x-2">
+                <Input
+                    placeholder="Filter email..."
+                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) =>
+                        table.getColumn("email")?.setFilterValue(event.target.value)
+                    }
+                    className="h-8 w-[150px] lg:w-[250px]"
+                />
+            </div>
+            <div className="flex flex-1 items-center space-x-2">
+                <Input
+                    placeholder="Filter phone..."
+                    value={(table.getColumn("phone")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) => {
+                        table.getColumn("phone")?.setFilterValue(event.target.value)
+                        table.reset()
+                        }
                     }
                     className="h-8 w-[150px] lg:w-[250px]"
                 />

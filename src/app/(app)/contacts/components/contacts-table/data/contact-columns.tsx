@@ -2,7 +2,6 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { labels, priorities, statuses } from "../data/data"
 import { Contact } from "../data/schema"
 import { DataTableColumnHeader } from "./../data-table-column-header"
 import { DataTableRowActions } from "./../data-table-row-actions"
@@ -42,6 +41,21 @@ export const contactColumns: ColumnDef<Contact>[] = [
         enableHiding: false,
     },
     {
+        accessorKey: "avatar",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="" />
+        ),
+        cell: ({ row }) => {
+            return (
+                <span className="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
+                    <img className="aspect-square h-full w-full" alt="Avatar" src="/images/default-avatar.png"/>
+                </span>
+            )
+        },
+        enableSorting: false,
+        enableHiding: false,
+    },
+    {
         accessorKey: "name",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Name" />
@@ -55,6 +69,7 @@ export const contactColumns: ColumnDef<Contact>[] = [
                 </div>
             )
         },
+        enableSorting: false,
     },
     {
         accessorKey: "email",
@@ -70,6 +85,7 @@ export const contactColumns: ColumnDef<Contact>[] = [
                 </div>
             )
         },
+        enableSorting: false,
         filterFn: (row, email, value) => {
             return value.includes(row.getValue(email))
         },
@@ -91,6 +107,7 @@ export const contactColumns: ColumnDef<Contact>[] = [
         filterFn: (row, phone, value) => {
             return value.includes(row.getValue(phone))
         },
+        enableSorting: false,
     },
     {
         id: "actions",

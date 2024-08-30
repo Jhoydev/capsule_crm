@@ -1,7 +1,6 @@
 import { DataTable } from '@/components/shared/data-table/data-table';
 import { contactColumns } from '@/app/(app)/contacts/components/contacts-table/data/contact-columns';
 import { useEffect, useState } from 'react';
-import { getAll } from '@/app/(app)/contacts/services/contactApi';
 import { Contact } from '@/app/(app)/contacts/components/contacts-table/data/schema';
 import { Contact as ApiContact } from '@/types/contact.types';
 import { DataTableToolbar } from '@/app/(app)/contacts/components/contacts-table/data-table-toolbar';
@@ -13,8 +12,8 @@ function parseContactData(data: ApiContact[]) {
         return {
             id: c.id,
             name: `${c.first_name} ${c.last_name}`.trim(),
-            email: `${c.email}`,
-            phone: `${c.phone}`
+            email: c.email,
+            phone: c.phone
         }
     })
 }
@@ -34,15 +33,17 @@ export function ContactTable() {
     const fetchContact = async () => {
         const contactService = new ContactService();
         const params: ApiParamsContactType = {
-            page: pagination.pageIndex,
+            page: pagination.pageIndex + 1,
             perPage: pagination.pageSize
         }
 
-        columnFilters.forEach((el: ColumnFilter) => {
-            if (typeof el.value === "string") {
-                params[el.id] = el.value;
-            }
-        })
+        if (columnFilters?.length) {
+            columnFilters.forEach((el: ColumnFilter) => {
+                if (typeof el.value === "string") {
+                    params[el.id] = el.value;
+                }
+            })
+        }
 
         const response = await contactService.getContacts(params)
 
@@ -57,8 +58,11 @@ export function ContactTable() {
     },[pagination])
 
     useEffect( () => {
-        console.log(columnFilters)
-        const timer =  setTimeout(() => { void fetchContact() }, 1000);
+        const timer =  setTimeout(() => {
+            void fetchContact()
+            // TODO: Bad implementation
+            document?.querySelector<HTMLButtonElement>('.table--paginate--go-to-first-page')?.click();
+        }, 1000);
 
         return () => clearTimeout(timer);
     },[columnFilters])

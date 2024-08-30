@@ -20,4 +20,10 @@ export class ContactService {
 
         return data;
     }
+
+    public async getContact(id: number): Promise<Contact> {
+        const { data } = await HttpService.getInstance().get<Contact>(`${ConfigService.apiUrl}/contacts/${id}`)
+
+        return data;
+    }
 }
