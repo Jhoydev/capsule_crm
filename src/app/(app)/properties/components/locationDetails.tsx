@@ -14,7 +14,7 @@ const LocationDetails: React.FC<PropertyDetailsProps> = ({ data }) => {
     const direction = arrayDirection.join(",");
 
     return (
-        <div className="bg-gray-100 p-4 pl-0 w-1/4 m-2">
+        <div className="bg-white rounded shadow p-5 w-1/4 mr-3">
             <h3 className="text-lg font-bold">Address</h3>
             <div className="flex  flex-col pb-5">
                 <div className="flex flex-col">

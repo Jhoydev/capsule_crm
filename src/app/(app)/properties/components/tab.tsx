@@ -51,7 +51,7 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
                         <CardContent className="space-y-4 h-[calc(100vh - 300px)] overflow-auto">
                             <div className="grid grid-cols-1 gap-4">
                                 <PropertyDetails data={property}/>
-                                <div className="flex w-full">
+                                <div className="flex w-full md:col-span-2">
                                     <LocationDetails data={property}/>
                                     <MapDetails/>
                                 </div>
