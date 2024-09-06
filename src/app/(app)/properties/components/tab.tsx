@@ -40,11 +40,11 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
         <div className='flex p-5'>
             <Tabs defaultValue="data" className="w-full">
                 <TabsList className="grid w-full grid-cols-5">
-                    <TabsTrigger value="data">Datos principales</TabsTrigger>
-                    <TabsTrigger value="task">Tareas</TabsTrigger>
-                    <TabsTrigger value="actions">Acciones</TabsTrigger>
-                    <TabsTrigger value="relations">Relaciones</TabsTrigger>
-                    <TabsTrigger value="documents">Documentos</TabsTrigger>
+                    <TabsTrigger value="data">Main Data</TabsTrigger>
+                    <TabsTrigger value="task">Tasks</TabsTrigger>
+                    <TabsTrigger value="actions">Actions</TabsTrigger>
+                    <TabsTrigger value="relations">Relations</TabsTrigger>
+                    <TabsTrigger value="documents">Documents</TabsTrigger>
                 </TabsList>
                 <TabsContent value="data">
                     <Card>
@@ -52,7 +52,7 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
                             <div className="grid grid-cols-1 gap-4">
                                 <PropertyDetails data={property}/>
                                 <div className="flex w-full">
-                                    <LocationDetails/>
+                                    <LocationDetails data={property}/>
                                     <MapDetails/>
                                 </div>
                             </div>

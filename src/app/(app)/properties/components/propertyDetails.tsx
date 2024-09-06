@@ -30,33 +30,47 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ data }) => {
                 <p className="text-sm mt-2">{data.description}</p>
             </div>
             <div className="flex pb-5 justify-between border-b-1">
-                <div className="flex flex-col"><span
-                    className="mb-2 flex items-center"><RiPriceTag2Line
-                    className="mr-1"/>Operation:</span><span>{data.operation}</span>
+                <div className="flex flex-col">
+                    <span className="mb-2 flex items-center">
+                        <RiPriceTag2Line className="mr-1"/>Operation:
+                    </span>
+                    <span className="font-bold">{data.operation ?? "-"}</span>
                 </div>
-                <div className="flex flex-col"><span
-                    className="mb-2 flex items-center"><IoPricetagOutline
-                    className="mr-1"/> Sale price:</span><span>{data.sale_price}</span>
+                <div className="flex flex-col">
+                    <span className="mb-2 flex items-center">
+                        <IoPricetagOutline className="mr-1"/> Sale price:
+                    </span>
+                    <span className="font-bold">{data.sale_price ?? "-"}</span>
                 </div>
-                <div className="flex flex-col"><span
-                    className="mb-2 flex items-center"><IoPricetagOutline
-                    className="mr-1"/>Rent price:</span><span>{data.rent_price}</span>
+                <div className="flex flex-col">
+                    <span className="mb-2 flex items-center">
+                        <IoPricetagOutline className="mr-1"/>Rent price:
+                    </span>
+                    <span className="font-bold">{data.rent_price ?? "-"}</span>
                 </div>
-                <div className="flex flex-col"><span
-                    className="mb-2 flex items-center"><IoPricetagOutline
-                    className="mr-1"/>Transfer price:</span><span>{data.transfer_price}</span>
+                <div className="flex flex-col">
+                    <span className="mb-2 flex items-center">
+                        <IoPricetagOutline className="mr-1"/>Transfer price:
+                    </span>
+                    <span className="font-bold">{data.transfer_price ?? "-"}</span>
                 </div>
-                <div className="flex flex-col"><span
-                    className="mb-2 flex items-center"><PiPolygonDuotone
-                    className="mr-1"/>Plot area:</span><span>{data.plot_area}</span>
+                <div className="flex flex-col">
+                    <span className="mb-2 flex items-center">
+                        <PiPolygonDuotone className="mr-1"/>Plot area:
+                    </span>
+                    <span className="font-bold">{data.plot_area ?? "-"}</span>
                 </div>
-                <div className="flex flex-col"><span
-                    className="mb-2 flex items-center"><PiPolygonDuotone
-                    className="mr-1"/>Usable area:</span><span>{data.usable_area}</span>
+                <div className="flex flex-col">
+                    <span className="mb-2 flex items-center">
+                        <PiPolygonDuotone className="mr-1"/>Usable area:
+                    </span>
+                    <span className="font-bold">{data.usable_area ?? "-"}</span>
                 </div>
-                <div className="flex flex-col"><span
-                    className="mb-2 flex items-center"><MdBalcony
-                    className="mr-1"/>Terrace area:</span><span>{data.terrace_area}</span>
+                <div className="flex flex-col">
+                    <span className="mb-2 flex items-center">
+                        <MdBalcony className="mr-1"/>Terrace area:
+                    </span>
+                    <span className="font-bold">{data.terrace_area ?? "-"}</span>
                 </div>
             </div>
         </div>
