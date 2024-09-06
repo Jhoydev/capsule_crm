@@ -85,7 +85,7 @@ const AvatarDropdownMenu = ({ user }: { user: UserType }) => {
                         </Label>
                         <Input
                             id="name"
-                            value={user.name}
+                            defaultValue={user.name}
                             className="col-span-3"
                         />
                     </div>

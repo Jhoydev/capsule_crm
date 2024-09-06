@@ -1,26 +1,38 @@
 import { DataTable } from '@/components/shared/data-table/data-table';
-import { contactColumns } from '@/app/(app)/contacts/components/contacts-table/data/contact-columns';
 import { useEffect, useState } from 'react';
-import { Contact } from '@/app/(app)/contacts/components/contacts-table/data/schema';
-import { Contact as ApiContact } from '@/types/contact.types';
-import { DataTableToolbar } from '@/app/(app)/contacts/components/contacts-table/data-table-toolbar';
+import { Property as ApiProperty } from '@/types/property.types';
+import { DataTableToolbar } from '@/app/(app)/properties/components/properties-table/data-table-toolbar';
 import { ColumnFilter, ColumnFiltersState } from '@tanstack/react-table';
-import { ApiParamsContactType, ContactService } from '@/services/contact.service';
+import { ApiParamsPropertyType, PropertyService } from '@/services/property.service';
+import { propertiesColumns } from '@/app/(app)/properties/components/properties-table/data/properties-columns';
 
-function parseContactData(data: ApiContact[]) {
-    return data.map(c => {
+export type propertyTableType = {
+    id: number,
+    reference: string,
+    title?: string,
+    bedrooms?: number,
+    bathrooms?: number,
+    toilets?: number,
+    photo?: string,
+}
+
+function parsePropertyData(data: ApiProperty[]): propertyTableType[] {
+    return data.map(p => {
         return {
-            id: c.id,
-            name: `${c.first_name} ${c.last_name}`.trim(),
-            email: c.email,
-            phone: c.phone
+            id: p.id,
+            reference: p.reference  ,
+            title: p.title,
+            bedrooms: p.bedrooms,
+            bathrooms: p.bathrooms,
+            toilets: p.toilets,
+            photo: 'https://fotos15.inmovilla.com/413/11246413/24-1.jpg'
         }
     })
 }
 
-export function ContactsTable() {
+export function PropertiesTable() {
     const [isLoading, setIsLoading] = useState(true);
-    const [contacts, setContacts] = useState<Contact[]>([]);
+    const [properties, setProperties] = useState<propertyTableType[]>([]);
     const [total, setTotal] = useState(0);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
@@ -30,9 +42,9 @@ export function ContactsTable() {
         []
     );
 
-    const fetchContact = async () => {
-        const contactService = new ContactService();
-        const params: ApiParamsContactType = {
+    const fetchProperties = async () => {
+        const propertyService = new PropertyService();
+        const params: ApiParamsPropertyType = {
             page: pagination.pageIndex + 1,
             perPage: pagination.pageSize
         }
@@ -45,21 +57,21 @@ export function ContactsTable() {
             })
         }
 
-        const response = await contactService.getContacts(params)
+        const response = await propertyService.getProperties(params)
 
-        const data = parseContactData(response.data)
-        setContacts(data)
+        const data = parsePropertyData(response.data)
+        setProperties(data)
         setTotal(response.total)
         setIsLoading(false)
     }
 
     useEffect( () => {
-        void fetchContact()
+        void fetchProperties()
     },[pagination])
 
     useEffect( () => {
         const timer =  setTimeout(() => {
-            void fetchContact()
+            void fetchProperties()
             // TODO: Bad implementation
             document?.querySelector<HTMLButtonElement>('.table--paginate--go-to-first-page')?.click();
         }, 1000);
@@ -73,8 +85,8 @@ export function ContactsTable() {
 
     return (
         <DataTable
-            data={contacts}
-            columns={contactColumns}
+            data={properties}
+            columns={propertiesColumns}
             pagination={pagination}
             total={total}
             setPagination={setPagination}

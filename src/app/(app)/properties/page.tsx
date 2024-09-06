@@ -1,8 +1,7 @@
 'use client'
 
-import DataTable from "@/components/shared/table/dataTable";
-import { columns } from "@/components/shared/table/columnsProperties";
 import Breadcrumbs from "@/components/shared/breadCrumbs";
+import { PropertiesTable } from '@/app/(app)/properties/components/properties-table/properties-table';
 
 const Propiedades = () => {
     const endPointTable = "properties";
@@ -11,7 +10,9 @@ const Propiedades = () => {
             <div className='mb-5'>
                 <Breadcrumbs/>
             </div>
-            <DataTable caption={""} typeTable="properties" endPoint={endPointTable} columns={columns}/>
+            <div>
+                <PropertiesTable/>
+            </div>
         </div>
     );
 };
