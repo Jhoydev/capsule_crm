@@ -30,44 +30,44 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ data }) => {
                     <h2 className="text-xl font-bold">{data.title}</h2>
                     <p className="text-sm mt-2">{data.description}</p>
                 </div>
-                <div className="flex p-5 justify-between border-b-1">
-                    <div className="flex flex-col">
+                <div className="flex flex-wrap p-5 justify-between border-b-1">
+                    <div className="flex flex-col mr-4 mb-5">
                     <span className="mb-2 flex items-center">
                         <RiPriceTag2Line className="mr-1"/>Operation:
                     </span>
                         <span className="font-bold">{data.operation ?? "-"}</span>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col mr-4 mb-5">
                     <span className="mb-2 flex items-center">
                         <IoPricetagOutline className="mr-1"/> Sale price:
                     </span>
                         <span className="font-bold">{data.sale_price ?? "-"}</span>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col mr-4 mb-5">
                     <span className="mb-2 flex items-center">
                         <IoPricetagOutline className="mr-1"/>Rent price:
                     </span>
                         <span className="font-bold">{data.rent_price ?? "-"}</span>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col mr-4 mb-5">
                     <span className="mb-2 flex items-center">
                         <IoPricetagOutline className="mr-1"/>Transfer price:
                     </span>
                         <span className="font-bold">{data.transfer_price ?? "-"}</span>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col mr-4 mb-5">
                     <span className="mb-2 flex items-center">
                         <PiPolygonDuotone className="mr-1"/>Plot area:
                     </span>
                         <span className="font-bold">{data.plot_area ?? "-"}</span>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col mr-4 mb-5">
                     <span className="mb-2 flex items-center">
                         <PiPolygonDuotone className="mr-1"/>Usable area:
                     </span>
                         <span className="font-bold">{data.usable_area ?? "-"}</span>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col mr-4 mb-5">
                     <span className="mb-2 flex items-center">
                         <MdBalcony className="mr-1"/>Terrace area:
                     </span>

@@ -39,7 +39,7 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
                            <GallerySwiper property={data}/>
                         </div>
                     </div>
-                    <div className="border-solid border-t hidden md:flex flex-col items-center p-10">
+                    <div className="border-solid border-t md:flex flex-col items-center p-10">
                         <AgentDetails/>
                     </div>
                 </div>
