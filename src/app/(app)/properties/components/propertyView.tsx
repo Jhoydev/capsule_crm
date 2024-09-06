@@ -26,9 +26,9 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
                 <div className="flex justify-end items-center">
                     <button
                         onClick={() => setIsEditing(true)}
-                        className="bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-600 flex items-center"
+                        className="bg-green-capsule hover:bg-green-600 text-white px-4 py-2 rounded-md shadow flex items-center"
                     >
-                        <FaEdit className="mr-2"/> Editar
+                        <FaEdit className="mr-2"/> Edit
                     </button>
                 </div>
             </div>

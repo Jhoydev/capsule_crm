@@ -75,3 +75,8 @@
         @apply bg-background text-foreground;
     }
 }
+
+
+.bg-green-capsule {
+    background-color: #5bab86;
+}

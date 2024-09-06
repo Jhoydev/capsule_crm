@@ -17,8 +17,15 @@ import {
 import { Property } from "@/types/property.types"
 import PropertyDetails from "@/app/(app)/properties/components/propertyDetails";
 import LocationDetails from "@/app/(app)/properties/components/locationDetails";
-import MapDetails from "@/app/(app)/properties/components/mapDetails";
 import React from "react";
+import dynamic from 'next/dynamic';
+
+
+//Esto es útil para componentes que dependen de objetos o propiedades disponibles solo en el navegador, como window o document, que no existen en el entorno de servidor.
+//porl o que con la siguiente intruccion le decimos que cargue el componente mapa de forma dinamica y le indicamos con el ssr false que no lo haga en el lado del servidor.
+const MapDetails = dynamic(() => import('./mapDetails'), {
+    ssr: false
+});
 
 interface TabPropertyProps {
     property: Property
@@ -33,25 +40,21 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
         <div className='flex p-5'>
             <Tabs defaultValue="data" className="w-full">
                 <TabsList className="grid w-full grid-cols-5">
-                    <TabsTrigger value="data">Datos principales</TabsTrigger>
-                    <TabsTrigger value="task">Tareas</TabsTrigger>
-                    <TabsTrigger value="actions">Acciones</TabsTrigger>
-                    <TabsTrigger value="relations">Relaciones</TabsTrigger>
-                    <TabsTrigger value="documents">Documentos</TabsTrigger>
+                    <TabsTrigger value="data">Main Data</TabsTrigger>
+                    <TabsTrigger value="task">Tasks</TabsTrigger>
+                    <TabsTrigger value="actions">Actions</TabsTrigger>
+                    <TabsTrigger value="relations">Relations</TabsTrigger>
+                    <TabsTrigger value="documents">Documents</TabsTrigger>
                 </TabsList>
                 <TabsContent value="data">
                     <Card>
-                        <CardHeader>
-                            <CardTitle>Datos principales</CardTitle>
-                            <CardDescription>
-                                Información de la propiedad.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
+                        <CardContent className="space-y-4 h-[calc(100vh - 300px)] overflow-auto">
                             <div className="grid grid-cols-1 gap-4">
                                 <PropertyDetails data={property}/>
-                                <LocationDetails/>
-                                <MapDetails/>
+                                <div className="flex w-full">
+                                    <LocationDetails data={property}/>
+                                    <MapDetails/>
+                                </div>
                             </div>
                         </CardContent>
                     </Card>
