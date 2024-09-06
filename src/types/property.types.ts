@@ -34,7 +34,7 @@ export const propertySchema = z.object({
     user_id: z.number(),
 });
 
-export type Property = z.infer<typeof propertySchema>;
+export type Property =  {id: number, user_id: number } & z.infer<typeof propertySchema>;
 
 export const getDefaultValues = (data: Property) => ({
     reference: data.reference || "",

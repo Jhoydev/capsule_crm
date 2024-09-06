@@ -8,7 +8,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { DatePickerWithRange } from "@/components/shared/dataRangePicker"
 import { Input } from "@/components/ui/input"
 import Breadcrumbs from "@/components/shared/breadCrumbs";
-import { ContactTable } from '@/app/(app)/contacts/components/contacts-table/contacts-table';
+import { ContactsTable } from '@/app/(app)/contacts/components/contacts-table/contacts-table';
 
 const Contactos = () => {
     return (
@@ -17,7 +17,7 @@ const Contactos = () => {
                 <Breadcrumbs/>
             </div>
             <div className='w-full'>
-                <ContactTable/>
+                <ContactsTable/>
             </div>
         </div>
     );
