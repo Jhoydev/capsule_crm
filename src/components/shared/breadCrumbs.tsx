@@ -1,21 +1,15 @@
+'use client'
+
 import {
     Breadcrumb,
-    BreadcrumbEllipsis,
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbList,
-    BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
-import {Slash} from "lucide-react";
+import { Slash } from "lucide-react";
 import Link from 'next/link'
 
 const Breadcrumbs = () => {
@@ -36,7 +30,7 @@ const Breadcrumbs = () => {
                     return (
                         <React.Fragment key={index}>
                             <BreadcrumbSeparator>
-                                <Slash />
+                                <Slash/>
                             </BreadcrumbSeparator>
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>
