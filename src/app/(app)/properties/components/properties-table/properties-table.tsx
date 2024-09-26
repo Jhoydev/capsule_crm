@@ -1,3 +1,5 @@
+'use client'
+
 import { DataTable } from '@/components/shared/data-table/data-table';
 import { useEffect, useState } from 'react';
 import { Property as ApiProperty } from '@/types/property.types';
