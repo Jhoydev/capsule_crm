@@ -21,32 +21,31 @@ const customIcon = new L.Icon({
 
 function MapDetails() {
     return (
-        <div className="bg-white rounded shadow p-5 w-full">
-            <div className="w-full h-96">
-                <MapContainer
-                    center={[38.27231832871174, -0.7121807064845603]}
-                    zoom={15}
-                    scrollWheelZoom={false}
-                    className="h-full w-full"
-                >
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                    />
-                    <Marker position={[38.27231832871174, -0.7121807064845603]} icon={customIcon}>
-                        <Popup>
-                            A pretty CSS3 popup. <br /> Easily customizable.
-                        </Popup>
-                    </Marker>
-                    {/*<CircleMarker center={[38.27231832871174, -0.7121807064845603]} radius={10} color="transparent" fillColor="green" opacity={5}>*/}
-                    {/*    <Popup>*/}
-                    {/*        <h2>Hola</h2>*/}
-                    {/*        <Link href='https://inmovilla.com'>Click</Link>*/}
-                    {/*    </Popup>*/}
-                    {/*</CircleMarker>*/}
-                </MapContainer>
-            </div>
+        <div className="w-full h-96 rounded-md border">
+            <MapContainer
+                center={[38.27231832871174, -0.7121807064845603]}
+                zoom={15}
+                scrollWheelZoom={false}
+                className="h-full w-full rounded"
+            >
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                />
+                <Marker position={[38.27231832871174, -0.7121807064845603]} icon={customIcon}>
+                    <Popup>
+                        A pretty CSS3 popup. <br/> Easily customizable.
+                    </Popup>
+                </Marker>
+                {/*<CircleMarker center={[38.27231832871174, -0.7121807064845603]} radius={10} color="transparent" fillColor="green" opacity={5}>*/}
+                {/*    <Popup>*/}
+                {/*        <h2>Hola</h2>*/}
+                {/*        <Link href='https://inmovilla.com'>Click</Link>*/}
+                {/*    </Popup>*/}
+                {/*</CircleMarker>*/}
+            </MapContainer>
         </div>
+
     );
 }
 

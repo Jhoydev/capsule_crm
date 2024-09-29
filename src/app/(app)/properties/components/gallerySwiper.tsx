@@ -11,12 +11,12 @@ import {Property} from "@/types/property.types";
 import React from "react";
 import '../styles/mySwiper.css';
 
-interface TabPropertyProps {
+interface PropertyProps {
     property: Property
 }
 
 
-const GallerySwiper: React.FC<TabPropertyProps> = ({ property }) => {
+const GallerySwiper: React.FC<PropertyProps> = ({ property }) => {
 
     let datosFotos = new Array("https://fotos15.inmovilla.com/554/22034174/4-1.jpg",
                                             "https://fotos15.inmovilla.com/554/22034174/4-2.jpg",

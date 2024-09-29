@@ -19,6 +19,8 @@ import PropertyDetails from "@/app/(app)/properties/components/propertyDetails";
 import LocationDetails from "@/app/(app)/properties/components/locationDetails";
 import React from "react";
 import dynamic from 'next/dynamic';
+import ClientPropertyDetails from "@/app/(app)/properties/components/clientPropertyDetails";
+import {IoDownloadOutline, IoEyeOutline} from "react-icons/io5";
 
 
 //Esto es útil para componentes que dependen de objetos o propiedades disponibles solo en el navegador, como window o document, que no existen en el entorno de servidor.
@@ -37,137 +39,138 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
     );
 
     return (
-        <div className='flex p-5'>
-            <Tabs defaultValue="data" className="w-full">
+        <div className='flex mt-4'>
+            <Tabs defaultValue="task" className="w-full">
                 <TabsList className="grid w-full grid-cols-5">
-                    <TabsTrigger value="data">Main Data</TabsTrigger>
                     <TabsTrigger value="task">Tasks</TabsTrigger>
                     <TabsTrigger value="actions">Actions</TabsTrigger>
                     <TabsTrigger value="relations">Relations</TabsTrigger>
                     <TabsTrigger value="documents">Documents</TabsTrigger>
                 </TabsList>
-                <TabsContent value="data">
-                    <Card>
-                        <CardContent className="space-y-4 h-[calc(100vh - 300px)] overflow-auto">
-                            <div className="grid grid-cols-1 gap-4">
-                                <PropertyDetails data={property}/>
-                                <div className="flex w-full md:col-span-2">
-                                    <LocationDetails data={property}/>
-                                    <MapDetails/>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-                <TabsContent value="task">
+                <TabsContent value="task" className="overflow-y-auto max-h-[300px]">
                     <Card className="overflow-auto">
-                        <CardHeader>
-                            <CardTitle>Tareas</CardTitle>
-                            <CardDescription>
-                                Listado de tareas pendientes.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
-                            <div className="p-4 bg-white rounded shadow">
+                        <CardContent className="space-y-4 h-auto overflow-auto text-sm">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline />
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 1: Llamar al cliente</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 2: Enviar correo de seguimiento</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Tarea 3: Programar reunió</span>
+                                <IoEyeOutline className="cursor-pointer"/>
                             </div>
                         </CardContent>
                     </Card>
                 </TabsContent>
                 <TabsContent value="actions">
                     <Card>
-                        <CardHeader>
-                            <CardTitle>Acciones</CardTitle>
-                            <CardDescription>
-                                Historial de acciones realizadas.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
-                            <div className="p-4 bg-white rounded shadow">
+                        <CardContent className="space-y-4 h-auto overflow-auto text-sm">
+                            <div className="p-4 border-b-2">
                                 <span>Enviado correo el 01/06/2024</span>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2">
                                 <span>Realizada llamada el 03/06/2024</span>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2">
                                 <span>Programada visita el 05/06/2024</span>
                             </div>
                         </CardContent>
@@ -175,20 +178,14 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
                 </TabsContent>
                 <TabsContent value="relations">
                     <Card>
-                        <CardHeader>
-                            <CardTitle>Relaciones</CardTitle>
-                            <CardDescription>
-                                Personas y entidades relacionadas.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
-                        <div className="p-4 bg-white rounded shadow">
+                        <CardContent className="space-y-4 h-auto overflow-auto text-sm">
+                        <div className="p-4 border-b-2">
                                 <span>Relacionado con: Proyecto A</span>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2">
                                 <span>Contacto: Juan Pérez</span>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2">
                                 <span>Empresa: Tech Solutions</span>
                             </div>
                         </CardContent>
@@ -196,21 +193,18 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
                 </TabsContent>
                 <TabsContent value="documents">
                     <Card>
-                        <CardHeader>
-                            <CardTitle>Documentos</CardTitle>
-                            <CardDescription>
-                                Documentos del contacto.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
-                        <div className="p-4 bg-white rounded shadow">
+                        <CardContent className="space-y-4 h-auto overflow-auto text-sm">
+                        <div className="p-4 border-b-2 flex justify-between">
                                 <span>Contrato firmado</span>
+                                <IoDownloadOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Presupuesto enviado</span>
+                                <IoDownloadOutline className="cursor-pointer"/>
                             </div>
-                            <div className="p-4 bg-white rounded shadow">
+                            <div className="p-4 border-b-2 flex justify-between">
                                 <span>Informe de seguimient</span>
+                                <IoDownloadOutline className="cursor-pointer"/>
                             </div>
                         </CardContent>
                     </Card>

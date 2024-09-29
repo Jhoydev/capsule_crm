@@ -1,12 +1,20 @@
 import React from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 function AgentDetails() {
     return (
-        <div className="agent-details bg-gray-100 p-4 text-left">
-            <h3 className="text-lg font-bold">Agent details</h3>
-            <p>Helen Bond</p>
-            <p>Ray White Inner North</p>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded mt-2">CONTACT AGENT & VIEW LISTING</button>
+        <div className="border p-4 text-left rounded-md mb-4">
+            <h3 className="text-sm font-bold mb-6">Agent details</h3>
+            <div className="flex items-center">
+                <Avatar className="h-[80px] w-[80px] mr-4">
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col text-sm">
+                    <span>Helen Bond</span>
+                    <span>Ray White Inner North</span>
+                </div>
+            </div>
         </div>
     );
 }
