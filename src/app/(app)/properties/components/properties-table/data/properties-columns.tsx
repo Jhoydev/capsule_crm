@@ -68,6 +68,15 @@ export const propertiesColumns: ColumnDef<propertyTableType>[] = [
         enableHiding: false,
     },
     {
+        accessorKey: "type",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Type" />
+        ),
+        cell: ({ row }) => <div className="w-[80px] capitalize">{row.getValue<string>("type").replace('_', ' ') }</div>,
+        enableSorting: false,
+        enableHiding: false,
+    },
+    {
         accessorKey: "title",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Title" />

@@ -1,3 +1,5 @@
+'use client'
+
 import { DataTable } from '@/components/shared/data-table/data-table';
 import { useEffect, useState } from 'react';
 import { Property as ApiProperty } from '@/types/property.types';
@@ -14,6 +16,7 @@ export type propertyTableType = {
     bathrooms?: number,
     toilets?: number,
     photo?: string,
+    type?: string,
 }
 
 function parsePropertyData(data: ApiProperty[]): propertyTableType[] {
@@ -25,6 +28,7 @@ function parsePropertyData(data: ApiProperty[]): propertyTableType[] {
             bedrooms: p.bedrooms,
             bathrooms: p.bathrooms,
             toilets: p.toilets,
+            type: p.type,
             photo: 'https://fotos15.inmovilla.com/413/11246413/24-1.jpg'
         }
     })
