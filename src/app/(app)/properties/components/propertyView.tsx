@@ -37,7 +37,7 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
 
 
     return (
-        <div className="flex flex-col flex-1 w-full h-full">
+        <div className="flex flex-col flex-1 w-full h-[calc(100vh-80px)] overflow-auto">
             <div className="flex justify-between items-center p-4">
                 <Breadcrumbs/>
                 <div className="flex justify-end items-center">
