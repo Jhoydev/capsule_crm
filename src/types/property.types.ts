@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const propertySchema = z.object({
+export const propertySchema = {
     reference: z.string().nonempty({ message: "La referencia no puede estar vacía" }),
     type: z.enum(["flat", "house", "duplex", "room", "garage", "country_house", "other"]),
     title: z.string().optional(),
@@ -32,9 +32,7 @@ export const propertySchema = z.object({
     status: z.enum(["sold", "rented", "available", "off_market", "pending"]),
     contact_id: z.number(),
     user_id: z.number(),
-});
-
-export type Property =  {id: number, user_id: number } & z.infer<typeof propertySchema>;
+};
 
 export const getDefaultValues = (data: Property) => ({
     reference: data.reference || "",
@@ -69,6 +67,42 @@ export const getDefaultValues = (data: Property) => ({
     contact_id: data.contact_id || 0,
     user_id: data.user_id || 0,
 });
+
+
+export type Property = {
+    id: number;
+    reference?: string;
+    type: "flat" | "house" | "duplex" | "room" | "garage" | "country_house" | "other";
+    title?: string;
+    description?: string;
+    street?: string;
+    street_number?: string;
+    floor?: string;
+    door?: string;
+    city?: string;
+    state?: string;
+    country_id?: string;
+    zip_code?: string;
+    zone?: string;
+    latitude?: number;
+    longitude?: number;
+    sale_price?: number;
+    rent_price?: number;
+    transfer_price?: number;
+    operation?: string;
+    constructed_area?: number;
+    usable_area?: number;
+    plot_area?: number;
+    terrace_area?: number;
+    bedrooms?: number;
+    bathrooms?: number;
+    toilets?: number;
+    garage_spaces?: number;
+    is_available?: boolean;
+    status: "sold" | "rented" | "available" | "off_market" | "pending";
+    contact_id: number;
+    user_id: number;
+};
 
 export type ApiResponseProperty = {
     message: string;

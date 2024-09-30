@@ -1,9 +1,11 @@
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {useFormContext} from "react-hook-form";
 
-function AgentDetails() {
+const AgentEdition: React.FC = () => {
+    const { register } = useFormContext();
     return (
-        <div className="border p-4 rounded-md">
+        <div className="border p-4 rounded-md h-full shadow">
             <h3 className="text-sm font-bold mb-6">Agent details</h3>
             <div className="flex items-center">
                 <Avatar className="h-[80px] w-[80px] mr-4">
@@ -19,4 +21,4 @@ function AgentDetails() {
     );
 }
 
-export default AgentDetails;
+export default AgentEdition;

@@ -24,7 +24,7 @@ const GalleryPhotos: React.FC<PropertyProps> = ({ property }) => {
                     <GallerySwiper property={property}/>
                 </div>
             </div>
-            <div className="md:flex flex-col justify-between md:col-span-1 hidden ">
+            <div className="md:flex flex-col justify-between md:col-span-1 hidden">
                 <div className="relative w-full h-[190px] rounded-md">
                     <img className="rounded-md w-full h-full object-cover" alt="Imagen"
                          src="https://fotos15.inmovilla.com/554/22034174/4-3.jpg"/>

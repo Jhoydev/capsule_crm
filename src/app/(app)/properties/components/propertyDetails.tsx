@@ -43,7 +43,7 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
                 <p className="text-sm mt-2">{property.description}</p>
             </div>
             <span className="border border-b-0 mb-6"></span>
-            <div className="flex flex-wrap ml-5 justify-between">
+            <div className="flex flex-wrap ml-5 justify-between items-end">
                 <div className="flex flex-col mr-4 mb-5">
                     <span className="mb-2 flex items-center text-slate-500">
                         <RiPriceTag2Line className="mr-1 font-bold"/>Operation:

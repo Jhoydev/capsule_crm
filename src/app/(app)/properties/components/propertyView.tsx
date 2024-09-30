@@ -33,7 +33,7 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
 
 
     return (
-        <div className="flex flex-col flex-1 w-full h-[calc(100vh-80px)] overflow-auto">
+        <div className="flex flex-col flex-1 w-full h-[calc(100vh-80px)]">
             <div className="flex justify-between items-center p-4">
                 <Breadcrumbs/>
                 <div className="flex justify-end items-center">
@@ -45,13 +45,13 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
                     </button>
                 </div>
             </div>
-            <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 m-5 p-5 grid-rows-[auto,auto]">
+            <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 p-6 grid-rows-[auto,auto] overflow-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 gap-4">
                     <div className="md:col-span-5 border p-5 shadow rounded-md">
                         <GalleryPhotos property={data}/>
                         <PropertyDetails property={data}/>
                     </div>
-                    <div className="md:col-span-2 flex flex-col">
+                    <div className="md:col-span-2 flex flex-col gap-2">
                         <AgentDetails/>
                         <MapDetails/>
                         <TabProperty property={data}/>

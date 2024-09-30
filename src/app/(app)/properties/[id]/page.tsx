@@ -31,14 +31,6 @@ const PropertyComponent = () => {
                 try {
                     const data: Property = await getProperty(Number(id));
                     setProperty(data);
-                    setFormData({
-                        reference: data.reference,
-                        city: data.city,
-                        state: data.state,
-                        country_id: data.country_id,
-                        is_available: data.is_available,
-                        status: data.status
-                    });
                 } catch (error) {
                     console.error('Error fetching data:', error);
                     setError(true);

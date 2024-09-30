@@ -39,7 +39,7 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
     );
 
     return (
-        <div className='flex mt-4'>
+        <div className='flex'>
             <Tabs defaultValue="task" className="w-full">
                 <TabsList className="grid w-full grid-cols-5">
                     <TabsTrigger value="task">Tasks</TabsTrigger>
