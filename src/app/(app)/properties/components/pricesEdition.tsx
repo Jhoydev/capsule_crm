@@ -3,6 +3,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { RiPriceTag2Line } from "react-icons/ri";
 import { IoPricetagOutline } from "react-icons/io5";
+import { Input } from '@/components/ui/input';
 
 const PricesEdition: React.FC = () => {
     const { register } = useFormContext();
@@ -16,7 +17,7 @@ const PricesEdition: React.FC = () => {
                         <RiPriceTag2Line className="mr-1 font-bold"/>
                         Operation:
                     </label>
-                    <input
+                    <Input
                         type="text" className="border p-1 rounded w-[100px]" {...register("operation")}
                     />
                 </div>
@@ -25,7 +26,7 @@ const PricesEdition: React.FC = () => {
                         <IoPricetagOutline className="mr-1 font-bold"/>
                         Sale price:
                     </label>
-                    <input
+                    <Input
                         type="number" className="border p-1 rounded w-[100px]" {...register("sale_price", { valueAsNumber: true })}
                     />
                 </div>
@@ -34,7 +35,7 @@ const PricesEdition: React.FC = () => {
                         <IoPricetagOutline className="mr-1 font-bold"/>
                         Rent price:
                     </label>
-                    <input
+                    <Input
                         type="number" className="border p-1 rounded w-[100px]" {...register("rent_price", { valueAsNumber: true })}
                     />
                 </div>
@@ -43,7 +44,7 @@ const PricesEdition: React.FC = () => {
                         <IoPricetagOutline className="mr-1 font-bold"/>
                         Transfer price:
                     </label>
-                    <input
+                    <Input
                         type="number" className="border p-1 rounded w-[100px]" {...register("transfer_price", { valueAsNumber: true })}
                     />
                 </div>

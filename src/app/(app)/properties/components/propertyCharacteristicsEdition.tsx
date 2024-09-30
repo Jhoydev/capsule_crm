@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormContext } from "react-hook-form";
+import { Input } from '@/components/ui/input';
 
 const PropertyCharacteristicsEdition = () => {
     const { register } = useFormContext();
@@ -12,7 +13,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Reference:
                     </label>
-                    <input
+                    <Input
                         type="text"
                         className="border p-1 rounded w-full"
                         {...register("reference")}
@@ -39,7 +40,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Bedrooms:
                     </label>
-                    <input
+                    <Input
                         type="number"
                         className="border p-1 rounded"
                         {...register("bedrooms")}
@@ -49,7 +50,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Bathrooms:
                     </label>
-                    <input
+                    <Input
                         type="number"
                         className="border p-1 rounded"
                         {...register("bathrooms")}
@@ -59,7 +60,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Toilets:
                     </label>
-                    <input
+                    <Input
                         type="number"
                         className="border p-1 rounded"
                         {...register("toilets")}
@@ -69,7 +70,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Garage Spaces:
                     </label>
-                    <input
+                    <Input
                         type="number"
                         className="border p-1 rounded"
                         {...register("garage_spaces")}
@@ -79,7 +80,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Constructed Area (m²):
                     </label>
-                    <input
+                    <Input
                         type="number"
                         className="border p-1 rounded"
                         {...register("constructed_area")}
@@ -89,7 +90,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Usable Area (m²):
                     </label>
-                    <input
+                    <Input
                         type="number"
                         className="border p-1 rounded"
                         {...register("usable_area")}
@@ -99,7 +100,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Plot Area (m²):
                     </label>
-                    <input
+                    <Input
                         type="number"
                         className="border p-1 rounded"
                         {...register("plot_area")}
@@ -109,7 +110,7 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Terrace Area (m²):
                     </label>
-                    <input
+                    <Input
                         type="number"
                         className="border p-1 rounded"
                         {...register("terrace_area")}

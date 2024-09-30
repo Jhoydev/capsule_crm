@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormContext } from "react-hook-form";
+import { Input } from '@/components/ui/input';
 
 const PropertyDescriptionsEdition = () => {
     const { register } = useFormContext();
@@ -12,7 +13,7 @@ const PropertyDescriptionsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Title:
                     </label>
-                    <input
+                    <Input
                         type="text"
                         className="border p-1 rounded w-full"
                         {...register("title")}

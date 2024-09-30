@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormContext } from "react-hook-form";
 import dynamic from "next/dynamic";
+import { Input } from '@/components/ui/input';
 
 //Esto es útil para componentes que dependen de objetos o propiedades disponibles solo en el navegador, como window o document, que no existen en el entorno de servidor.
 //porl o que con la siguiente intruccion le decimos que cargue el componente mapa de forma dinamica y le indicamos con el ssr false que no lo haga en el lado del servidor.
@@ -21,7 +22,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Street:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("street")}
@@ -31,7 +32,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Street Number:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("street_number")}
@@ -41,7 +42,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Floor:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("floor")}
@@ -51,7 +52,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Door:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("door")}
@@ -61,7 +62,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             City:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("city")}
@@ -71,7 +72,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             State:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("state")}
@@ -81,7 +82,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Country ID:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("country_id")}
@@ -91,7 +92,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Zip Code:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("zip_code")}
@@ -101,7 +102,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Zone:
                         </label>
-                        <input
+                        <Input
                             type="text"
                             className="border p-1 rounded"
                             {...register("zone")}
@@ -111,8 +112,8 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Latitude:
                         </label>
-                        <input
-                            type="number"
+                        <Input
+                            type="double"
                             className="border p-1 rounded"
                             {...register("latitude")}
                         />
@@ -121,7 +122,7 @@ const LocationDetails = () => {
                         <label className="mb-2 flex items-center text-slate-500">
                             Longitude:
                         </label>
-                        <input
+                        <Input
                             type="number"
                             className="border p-1 rounded"
                             {...register("longitude")}
