@@ -113,7 +113,7 @@ const LocationDetails = () => {
                             Latitude:
                         </label>
                         <Input
-                            type="double"
+                            type="text"
                             className="border p-1 rounded"
                             {...register("latitude")}
                         />
@@ -123,7 +123,7 @@ const LocationDetails = () => {
                             Longitude:
                         </label>
                         <Input
-                            type="number"
+                            type="text"
                             className="border p-1 rounded"
                             {...register("longitude")}
                         />

@@ -15,7 +15,7 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
         return null
     }
 
-    const types: string[] = propertySchema.shape.type.options
+    const types: string[] = propertySchema.type.options
 
     return (
         <div className="flex items-center justify-between">

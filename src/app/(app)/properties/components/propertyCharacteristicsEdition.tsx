@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useFormContext } from "react-hook-form";
 import { Input } from '@/components/ui/input';
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
+import {FormControl, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 
 const PropertyCharacteristicsEdition = () => {
-    const { register } = useFormContext();
+    const { register, setValue, getValues } = useFormContext();
+    const [selectedType, setSelectedType] = useState(getValues("type")); // Estado local para el valor del select
+
+
+    // Manejar cambios de valor en el select
+    const handleSelectChange = (value: string) => {
+        setSelectedType(value);  // Actualizar el estado local
+        setValue("type", value); // Actualizar el valor en el hook form
+    };
 
     return (
         <div className="border p-4 text-sm rounded-md mb-4 shadow">
@@ -23,18 +33,26 @@ const PropertyCharacteristicsEdition = () => {
                     <label className="mb-2 flex items-center text-slate-500">
                         Type of Property:
                     </label>
-                    <select
-                        className="border p-1 rounded w-full"
-                        {...register("type")}
+                    <Select
+                        onValueChange={handleSelectChange}
+                        defaultValue={selectedType} // Cargar valor predeterminado
                     >
-                        <option value="flat">Flat</option>
-                        <option value="house">House</option>
-                        <option value="duplex">Duplex</option>
-                        <option value="room">Room</option>
-                        <option value="garage">Garage</option>
-                        <option value="country_house">Country House</option>
-                        <option value="other">Other</option>
-                    </select>
+                        <SelectTrigger className="w-full border p-1 rounded">
+                            <SelectValue placeholder="Select Property Type"/>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="flat">Flat</SelectItem>
+                            <SelectItem value="house">House</SelectItem>
+                            <SelectItem value="duplex">Duplex</SelectItem>
+                            <SelectItem value="room">Room</SelectItem>
+                            <SelectItem value="garage">Garage</SelectItem>
+                            <SelectItem value="country_house">Country House</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                    </Select>
+
+                    {/* Campo hidden para registrar con react-hook-form */}
+                    <input type="hidden" {...register("type")} />
                 </div>
                 <div className="flex flex-col mr-4 mb-5">
                     <label className="mb-2 flex items-center text-slate-500">
@@ -81,7 +99,7 @@ const PropertyCharacteristicsEdition = () => {
                         Constructed Area (m²):
                     </label>
                     <Input
-                        type="number"
+                        type="number" step="any"
                         className="border p-1 rounded"
                         {...register("constructed_area")}
                     />
@@ -91,7 +109,7 @@ const PropertyCharacteristicsEdition = () => {
                         Usable Area (m²):
                     </label>
                     <Input
-                        type="number"
+                        type="number" step="any"
                         className="border p-1 rounded"
                         {...register("usable_area")}
                     />
@@ -101,7 +119,7 @@ const PropertyCharacteristicsEdition = () => {
                         Plot Area (m²):
                     </label>
                     <Input
-                        type="number"
+                        type="number" step="any"
                         className="border p-1 rounded"
                         {...register("plot_area")}
                     />
@@ -111,7 +129,7 @@ const PropertyCharacteristicsEdition = () => {
                         Terrace Area (m²):
                     </label>
                     <Input
-                        type="number"
+                        type="number" step="any"
                         className="border p-1 rounded"
                         {...register("terrace_area")}
                     />

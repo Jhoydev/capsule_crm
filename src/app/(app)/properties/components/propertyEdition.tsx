@@ -36,6 +36,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data })
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
+            console.log(data);
             const updatedProperty: Property = {
                 id: data.id,
                 ...values,
