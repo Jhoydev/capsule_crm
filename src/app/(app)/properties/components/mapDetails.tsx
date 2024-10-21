@@ -19,11 +19,19 @@ const customIcon = new L.Icon({
     shadowSize: [41, 41] // tamaño de la sombra
 });
 
-function MapDetails() {
+// Definir el tipo de las props
+interface MapDetailsProps {
+    latitude?: number;
+    longitude?: number;
+}
+
+const MapDetails: React.FC<MapDetailsProps> = ({ latitude, longitude }) => {
+    const defaultPosition: [number, number] = [38.27231832871174, -0.7121807064845603];
+    const position: [number, number] = latitude && longitude ? [latitude, longitude] : defaultPosition;
     return (
         <div className="w-full h-96 rounded-md border">
             <MapContainer
-                center={[38.27231832871174, -0.7121807064845603]}
+                center={position}
                 zoom={15}
                 scrollWheelZoom={false}
                 className="h-full w-full rounded"
@@ -32,7 +40,7 @@ function MapDetails() {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
-                <Marker position={[38.27231832871174, -0.7121807064845603]} icon={customIcon}>
+                <Marker position={position} icon={customIcon}>
                     <Popup>
                         A pretty CSS3 popup. <br/> Easily customizable.
                     </Popup>

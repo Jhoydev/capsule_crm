@@ -9,8 +9,12 @@ const MapDetails = dynamic(() => import('./mapDetails'), {
     ssr: false
 });
 
-const LocationDetails = () => {
-    const { register } = useFormContext();
+const LocationDetails: React.FC = () => {
+    const { register, formState: { errors }, watch } = useFormContext();
+
+    // Capturar los valores de latitud y longitud del formulario
+    const latitude = watch("latitude");
+    const longitude = watch("longitude");
 
     return (
         <div className="border p-4 text-sm rounded-md mb-4 shadow">
@@ -117,6 +121,7 @@ const LocationDetails = () => {
                             className="border p-1 rounded"
                             {...register("latitude")}
                         />
+                        {/*{errors.longitude && <span className="text-red-500 text-sm">{errors.longitude.message}</span>} /!* Mostrar el mensaje de error *!/*/}
                     </div>
                     <div className="flex flex-col mr-4 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
@@ -127,9 +132,10 @@ const LocationDetails = () => {
                             className="border p-1 rounded"
                             {...register("longitude")}
                         />
+                        {/*{errors.longitude && <span className="text-red-500 text-sm">{errors.longitude.message}</span>} /!* Mostrar el mensaje de error *!/*/}
                     </div>
                 </div>
-                <MapDetails/>
+                <MapDetails latitude={latitude} longitude={longitude} />
             </div>
         </div>
     );

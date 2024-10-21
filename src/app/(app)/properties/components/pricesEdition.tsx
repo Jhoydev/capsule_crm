@@ -9,12 +9,20 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 const PricesEdition: React.FC = () => {
     const { register, setValue, getValues } = useFormContext();
     const [selectedStatus, setSelectedStatus] = useState(getValues("status")); // Estado local para el valor del select
+    const [isAvailable, setIsAvailable] = useState(getValues("is_available")); // Estado local para el valor del select
 
 
     // Manejar cambios de valor en el select
     const handleSelectChange = (value:string) => {
         setSelectedStatus(value);  // Actualizar el estado local
         setValue("status", value); // Actualizar el valor en el hook form
+
+        let disponible =  true;
+        if (value != "available") {
+            disponible = false;
+        }
+        setIsAvailable(disponible);
+        setValue("is_available", disponible); // Actualizar el valor en el hook form
     };
 
     return (
@@ -41,6 +49,7 @@ const PricesEdition: React.FC = () => {
                             <SelectItem value="pending">Pending</SelectItem>
                         </SelectContent>
                     </Select>
+                    <input type="hidden" {...register("is_available")} />
 
                     {/* Se registra el campo para usarlo con react-hook-form */}
                     <input type="hidden" {...register("status")} />

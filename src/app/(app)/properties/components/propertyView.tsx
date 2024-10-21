@@ -53,7 +53,7 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
                     </div>
                     <div className="md:col-span-2 flex flex-col gap-2">
                         <AgentDetails/>
-                        <MapDetails/>
+                        <MapDetails latitude={data.latitude} longitude={data.longitude} />
                         <TabProperty property={data}/>
                     </div>
                 </div>

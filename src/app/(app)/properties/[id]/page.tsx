@@ -16,14 +16,6 @@ const PropertyComponent = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState({
-        reference: '',
-        city: '',
-        state: '',
-        country_id: '',
-        is_available: true,
-        status: ''
-    });
 
     useEffect(() => {
         const fetchProperty= async () => {
@@ -43,21 +35,6 @@ const PropertyComponent = () => {
         fetchProperty();
     }, [id]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSave = async (id: number) => {
-        try {
-            const response = await updateProperty(id, formData as Property);
-            setProperty(response.property);
-            setIsEditing(false);
-        } catch (error) {
-            console.error('Error saving data:', error);
-            setError(true);
-        }
-    };
 
     if (loading) {
         return (
