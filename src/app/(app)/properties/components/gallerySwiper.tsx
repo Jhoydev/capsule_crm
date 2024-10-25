@@ -7,7 +7,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import {EffectFade, Navigation, Pagination} from "swiper/modules";
-import {Property} from "@/types/property.types";
+import {Property, Image} from "@/types/property.types";
 import React from "react";
 import '../styles/mySwiper.css';
 
@@ -18,10 +18,12 @@ interface PropertyProps {
 
 const GallerySwiper: React.FC<PropertyProps> = ({ property }) => {
 
-    let datosFotos = new Array("https://fotos15.inmovilla.com/554/22034174/4-1.jpg",
-                                            "https://fotos15.inmovilla.com/554/22034174/4-2.jpg",
-                                            "https://fotos15.inmovilla.com/554/22034174/4-3.jpg",
-                                            "https://fotos15.inmovilla.com/554/22034174/4-4.jpg");
+    let datosFotos =  property.image.map((image: Image) => image.image_name);
+    let classFotoPrincipal = "";
+    if(datosFotos.length == 0) {
+        datosFotos = new Array("../images/propiedad-principal.jpg");
+        classFotoPrincipal = "brightness-75 saturate-50";
+    }
 
     const pagination = {
         clickable: true,
@@ -50,7 +52,7 @@ const GallerySwiper: React.FC<PropertyProps> = ({ property }) => {
 
             {datosFotos.map((foto, index) => (
                 <SwiperSlide key={index}>
-                    <img src={foto} alt={`Foto ${index + 1}`} />
+                    <img src={foto} className={classFotoPrincipal} alt={`Foto ${index + 1}`} />
                 </SwiperSlide>
             ))}
         </Swiper>

@@ -102,7 +102,20 @@ export type Property = {
     status: "sold" | "rented" | "available" | "off_market" | "pending";
     contact_id: number;
     user_id: number;
+    image: Image[];
 };
+
+export type Image = {
+    id: number;
+    image_name: string;
+    created_at: string;
+    updated_at: string;
+    property_id: number;
+    user_id: number;
+    order: number;
+    is_visible: number;
+    deleted_at: string | null;
+}
 
 export type ApiResponseProperty = {
     message: string;
