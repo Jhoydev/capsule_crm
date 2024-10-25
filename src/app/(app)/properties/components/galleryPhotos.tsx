@@ -18,7 +18,7 @@ interface PropertyProps {
 
 const GalleryPhotos: React.FC<PropertyProps> = ({ property }) => {
 
-    const arrFotos =  property.image.map((image: Image) => image.image_name);
+    const arrFotos = property.image ? property.image.map((image: Image) => image.image_name) : [];
     const foto1 = arrFotos[1] ? arrFotos[1] : "../images/sin-foto-propiedad.jpg";
     const foto2 =  arrFotos[2] ? arrFotos[2] : "../images/sin-foto-propiedad.jpg";
     const numfotos = arrFotos.length > 3 ? arrFotos.length-3 : 0;
