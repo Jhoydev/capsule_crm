@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { Image } from "@/types/image.types";
 
 export const propertySchema = {
     reference: z.string().nonempty({ message: "La referencia no puede estar vacía" }),
@@ -72,7 +73,7 @@ export const getDefaultValues = (data: Property) => ({
 
 export type Property = {
     id: number;
-    reference?: string;
+    reference: string;
     type: "flat" | "house" | "duplex" | "room" | "garage" | "country_house" | "other";
     title?: string;
     description?: string;
@@ -105,18 +106,6 @@ export type Property = {
     user_id: number;
     image?: Image[];
 };
-
-export type Image = {
-    id: number;
-    image_name: string;
-    created_at: string;
-    updated_at: string;
-    property_id: number;
-    user_id: number;
-    order: number;
-    is_visible: number;
-    deleted_at: string | null;
-}
 
 export type ApiResponseProperty = {
     message: string;

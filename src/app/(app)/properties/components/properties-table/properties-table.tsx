@@ -29,7 +29,7 @@ function parsePropertyData(data: ApiProperty[]): propertyTableType[] {
             bathrooms: p.bathrooms,
             toilets: p.toilets,
             type: p.type,
-            photo: 'https://fotos15.inmovilla.com/413/11246413/24-1.jpg'
+            photo: p?.image?.[0]?.image_name ?? '/images/foto-principal-propiedad.jpg'
         }
     })
 }
@@ -60,6 +60,8 @@ export function PropertiesTable() {
                 }
             })
         }
+
+        params.includes = 'image';
 
         const response = await propertyService.getProperties(params)
 
