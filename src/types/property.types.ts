@@ -32,6 +32,7 @@ export const propertySchema = {
     status: z.enum(["sold", "rented", "available", "off_market", "pending"]),
     contact_id: z.coerce.number(),
     user_id: z.coerce.number(),
+    image: z.array(z.string()).optional(),
 };
 
 export const getDefaultValues = (data: Property) => ({
@@ -102,7 +103,7 @@ export type Property = {
     status: "sold" | "rented" | "available" | "off_market" | "pending";
     contact_id: number;
     user_id: number;
-    image: Image[];
+    image?: Image[];
 };
 
 export type Image = {

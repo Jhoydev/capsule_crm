@@ -36,10 +36,14 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data })
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             console.log(values); // Verificar que los valores se reciben correctamente
+
+            const { image, ...valuesWithoutPhotos } = values;
+
             const updatedProperty: Property = {
                 id: data.id,
-                ...values,
+                ...valuesWithoutPhotos,
             };
+
             const result = await updateProperty(data.id, updatedProperty);
             toast("Property successfully updated");
             setIsEditing(false);

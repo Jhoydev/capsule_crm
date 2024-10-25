@@ -21,7 +21,7 @@ const GallerySwiper: React.FC<PropertyProps> = ({ property }) => {
     let datosFotos =  property.image.map((image: Image) => image.image_name);
     let classFotoPrincipal = "";
     if(datosFotos.length == 0) {
-        datosFotos = new Array("../images/propiedad-principal.jpg");
+        datosFotos = new Array("../images/foto-principal-propiedad.jpg");
         classFotoPrincipal = "brightness-75 saturate-50";
     }
 
