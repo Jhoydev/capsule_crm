@@ -2,12 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Contact } from "../data/schema"
 import { DataTableColumnHeader } from "./../data-table-column-header"
 import { DataTableRowActions } from "./../data-table-row-actions"
 import { propertyTableType } from '@/app/(app)/properties/components/properties-table/properties-table';
-import { IoBed } from 'react-icons/io5';
-import { PiBathtubBold, PiToiletLight } from 'react-icons/pi';
 
 export const propertiesColumns: ColumnDef<propertyTableType>[] = [
     {
@@ -59,6 +56,15 @@ export const propertiesColumns: ColumnDef<propertyTableType>[] = [
         enableHiding: false,
     },
     {
+        accessorKey: "status",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Status" />
+        ),
+        cell: ({ row }) => <div className="w-[80px] capitalize">{row.getValue<string>("status").replace('_', ' ') }</div>,
+        enableSorting: false,
+        enableHiding: true,
+    },
+    {
         accessorKey: "reference",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Reference" />
@@ -93,33 +99,31 @@ export const propertiesColumns: ColumnDef<propertyTableType>[] = [
         enableSorting: false,
     },
     {
-        accessorKey: "features",
+        accessorKey: "bedrooms",
         header: ({ column }) => (
-            <DataTableColumnHeader column={column} title="features" />
+            <DataTableColumnHeader column={column} title="Bedrooms" />
         ),
-        cell: ({ row }) => {
-            const bedrooms = Number(row.original.bedrooms) > 0 ? (
-                <div className='flex items-center ml-2'>{row.original.bedrooms}<IoBed className='ml-1.5' /></div>
-            ) : '';
-            const bathrooms = Number(row.original.bathrooms) > 0 ? (
-                <div className='flex items-center ml-2'>{row.original.bathrooms}<PiBathtubBold  className='ml-1.5' /></div>
-            ) : '';
-            const toilets = Number(row.original.toilets) > 0 ? (
-                <div className='flex items-center ml-2'>{row.original.toilets}<PiToiletLight className='ml-1.5' /></div>
-            ) : '';
-
-            return (
-                <div className="flex text-right font-medium">
-                    {bedrooms}
-                    {bathrooms}
-                    {toilets}
-                </div>
-            );
-        },
+        cell: ({ row }) => <div className="w-auto">{row.getValue("bedrooms")}</div>,
         enableSorting: false,
-        filterFn: (row, email, value) => {
-            return value.includes(row.getValue(email))
-        },
+        enableHiding: true,
+    },
+    {
+        accessorKey: "bathrooms",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Bathrooms" />
+        ),
+        cell: ({ row }) => <div className="w-auto">{row.getValue("bathrooms")}</div>,
+        enableSorting: false,
+        enableHiding: true,
+    },
+    {
+        accessorKey: "toilets",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Toilets" />
+        ),
+        cell: ({ row }) => <div className="w-auto">{row.getValue("toilets")}</div>,
+        enableSorting: false,
+        enableHiding: true,
     },
     {
         id: "actions",

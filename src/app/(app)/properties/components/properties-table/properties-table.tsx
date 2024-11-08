@@ -11,6 +11,7 @@ import { propertiesColumns } from '@/app/(app)/properties/components/properties-
 export type propertyTableType = {
     id: number,
     reference: string,
+    status: string,
     title?: string,
     bedrooms?: number,
     bathrooms?: number,
@@ -29,6 +30,7 @@ function parsePropertyData(data: ApiProperty[]): propertyTableType[] {
             bathrooms: p.bathrooms,
             toilets: p.toilets,
             type: p.type,
+            status: p.status,
             photo: p?.image?.[0]?.image_name ?? '/images/foto-principal-propiedad.jpg'
         }
     })
