@@ -26,4 +26,8 @@ export class HttpService {
     public async get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
         return this.mAxiosInstance.get<T>(url, config);
     }
+
+    public async post<T, D = any>(url: string, data?: D, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+        return this.mAxiosInstance.post<T>(url, data, config);
+    }
 }

@@ -22,8 +22,9 @@ import { Input } from '@/components/ui/input';
 import { UserType } from '@/types/user.type';
 import { useAuth } from '@/hooks/auth';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
-import {CreditCard, LogOut, PlusCircle, Settings, User} from "lucide-react";
+import { LogOut, Settings, User} from "lucide-react";
 import React from "react";
+import ImageUpload from '@/components/ImageUpload';
 
 const AvatarDropdownMenu = ({ user }: { user: UserType }) => {
     const { logout } = useAuth()
@@ -34,7 +35,11 @@ const AvatarDropdownMenu = ({ user }: { user: UserType }) => {
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                         <Avatar className="h-8 w-8">
-                            <AvatarImage src="/avatars/01.png" alt="@shadcn" />
+                            <AvatarImage
+                                className="object-cover object-center"
+                                src={user.avatar_url}
+                                alt="@shadcn"
+                            />
                             <AvatarFallback>SC</AvatarFallback>
                         </Avatar>
                     </Button>
@@ -100,6 +105,26 @@ const AvatarDropdownMenu = ({ user }: { user: UserType }) => {
                             readOnly={true}
                         />
                     </div>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button className="rounded-full shadow mx-10" variant="outline">
+                                Upload Avatar
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle className="text-center">
+                                    Upload your files
+                                </DialogTitle>
+                                <DialogDescription className="text-center">
+                                    The only file upload you will ever need
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                                <ImageUpload />
+                            </div>
+                        </DialogContent>
+                    </Dialog>
                 </div>
                 <DialogFooter>
                     <Button type="submit">Save changes</Button>
