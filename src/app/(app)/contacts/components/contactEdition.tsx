@@ -11,7 +11,8 @@ import { useEffect } from "react";
 import { renderField } from "@/lib/renderFormField";
 import { Form } from "@/components/ui/form";
 import * as z from "zod";
-import { toast } from "sonner";
+import { Toaster } from "@/components/ui/toaster"
+import {useToast} from "@/hooks/use-toast";
 
 interface ContactEditionProps {
     editFunction: (isEditing: boolean) => void;
@@ -21,6 +22,7 @@ interface ContactEditionProps {
 const formSchema = z.object(contactSchema);
 
 const ContactEdition: React.FC<ContactEditionProps> = ({ editFunction, data }) => {
+    const { toast } = useToast();
     const methods = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: getDefaultValues(data),
@@ -39,10 +41,18 @@ const ContactEdition: React.FC<ContactEditionProps> = ({ editFunction, data }) =
             };
 
             const result = await updateContact(data.id, updatedContact);
-            toast("Contacto modificado con exito.");
+            toast({
+                title: "Successfully",
+                description: "Contact successfully updated",
+            });
             setIsEditing(false);
         } catch (error) {
             console.error('Error saving data:', error);
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Error"+ error,
+            });
         }
     };
 

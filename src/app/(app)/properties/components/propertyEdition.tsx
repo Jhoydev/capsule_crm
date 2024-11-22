@@ -7,7 +7,6 @@ import { updateProperty } from "@/app/(app)/properties/services/propertyApi";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";
-import { toast } from "sonner";
 import GalleryPhotos from "@/app/(app)/properties/components/galleryPhotos";
 import AgentEdition from "./agentEdition";
 import PricesEdition from "./pricesEdition";
@@ -15,6 +14,7 @@ import LocationEdition from "@/app/(app)/properties/components/locationEdition";
 import PropertyCharacteristicsEdition from "@/app/(app)/properties/components/propertyCharacteristicsEdition";
 import PropertyDescriptionsEdition from "./propertyDescriptionsEdition";
 import * as z from "zod";
+import {useToast} from "@/hooks/use-toast";
 
 interface PropertyEditionProps {
     editFunction: (isEditing: boolean) => void;
@@ -24,6 +24,7 @@ interface PropertyEditionProps {
 const formSchema = z.object(propertySchema);
 
 const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data }) => {
+    const { toast } = useToast();
     const methods = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: getDefaultValues(data),
@@ -45,10 +46,18 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data })
             };
 
             const result = await updateProperty(data.id, updatedProperty);
-            toast("Property successfully updated");
+            toast({
+                title: "Successfully",
+                description: "Property successfully updated",
+            });
             setIsEditing(false);
         } catch (error) {
             console.error('Error saving data:', error);
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Error"+ error,
+            });
         }
     };
 
