@@ -30,4 +30,8 @@ export class HttpService {
     public async post<T, D = any>(url: string, data?: D, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
         return this.mAxiosInstance.post<T>(url, data, config);
     }
+
+    public async patch<T, D = any>(url: string, data?: D, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+        return this.mAxiosInstance.patch<T>(url, data, config);
+    }
 }
