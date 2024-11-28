@@ -1,6 +1,6 @@
 import { HttpService } from '@/services/http.service';
 import { ConfigService } from '@/services/config.service';
-import { Contact } from '@/types/contact.types';
+import {ApiResponseContact, Contact} from '@/types/contact.types';
 import { PaginatedResponse } from '@/types/pagination.types';
 import { ApiParamsType } from '@/types/api-params.type';
 
@@ -23,6 +23,12 @@ export class ContactService {
 
     public async getContact(id: number): Promise<Contact> {
         const { data } = await HttpService.getInstance().get<Contact>(`${ConfigService.apiUrl}/contacts/${id}`)
+
+        return data;
+    }
+
+    public async save(contact: Omit<Contact, "id">): Promise<ApiResponseContact> {
+        const { data } = await HttpService.getInstance().post<ApiResponseContact>(`${ConfigService.apiUrl}/contacts`, contact)
 
         return data;
     }
