@@ -26,7 +26,7 @@ import {
     VideoColor
 } from "@/types/image-upload.types";
 
-export default function ImageUpload({ fileUploaderService, maxFiles = 1 }: Props) {
+export default function ImageUpload({ fileUploaderService, maxFiles = 1, resourceId }: Props) {
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [filesToUpload, setFilesToUpload] = useState<FileUploadProgress[]>([]);
 
@@ -113,7 +113,8 @@ export default function ImageUpload({ fileUploaderService, maxFiles = 1 }: Props
             {
                 onUploadProgress,
                 cancelToken: cancelSource.token,
-            }
+            },
+            resourceId
         );
     };
 
@@ -151,7 +152,8 @@ export default function ImageUpload({ fileUploaderService, maxFiles = 1 }: Props
         });
 
         try {
-          await Promise.all(fileUploadBatch);
+          const res = await Promise.all(fileUploadBatch);
+          console.log(res)
         } catch (error) {
           console.error("Error uploading files: ", error);
         }

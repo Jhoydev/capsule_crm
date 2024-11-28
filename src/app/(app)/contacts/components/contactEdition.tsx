@@ -7,7 +7,7 @@ import {Contact, getDefaultValues, contactSchema} from "@/types/contact.types";
 import {updateContact} from "@/app/(app)/contacts/services/contactApi";
 import {useForm, FormProvider, useFormContext} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {renderField} from "@/lib/renderFormField";
 import {Form} from "@/components/ui/form";
 import * as z from "zod";
@@ -16,6 +16,16 @@ import {useToast} from "@/hooks/use-toast";
 import {ContactService} from "@/services/contact.service";
 import {useAuth} from "@/hooks/auth";
 import {useRouter} from "next/navigation";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
+import {Button} from "@/components/ui/button";
+import ImageUpload from "@/components/ImageUpload";
 
 interface ContactEditionProps {
     editFunction: (isEditing: boolean) => void;
@@ -28,6 +38,7 @@ const formSchema = z.object(contactSchema);
 const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNew = false}) => {
     const {toast} = useToast();
     const router = useRouter();
+    const contactService = new ContactService();
 
     const methods = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -133,7 +144,7 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                         </div>
                         <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow">
                             <div className="row-span-2 col-span-1">
-                                <div className='flex h-[250px] justify-center items-center'>
+                                <div className='flex flex-col gap-5 h-[250px] justify-center items-center'>
                                     <div className='flex'>
                                         <Avatar className="h-[80px] w-[80px]">
                                             <AvatarImage src={data.avatar_url}/>
@@ -145,6 +156,26 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                                             <p>{data.phone}</p>
                                         </div>
                                     </div>
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button className="rounded-full shadow" variant="outline">
+                                                Upload Avatar
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="sm:max-w-[425px]">
+                                            <DialogHeader>
+                                                <DialogTitle className="text-center">
+                                                    Upload your files
+                                                </DialogTitle>
+                                                <DialogDescription className="text-center">
+                                                    The only file upload you will ever need
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <div className="grid gap-4 py-4">
+                                                <ImageUpload resourceId={data.id} fileUploaderService={contactService}/>
+                                            </div>
+                                        </DialogContent>
+                                    </Dialog>
                                 </div>
                             </div>
                             <div className="row-span-2 col-span-3 border bg-muted/40 p-5">

@@ -13,7 +13,8 @@ function parseContactData(data: ApiContact[]) {
             id: c.id,
             name: `${c.first_name} ${c.last_name}`.trim(),
             email: c.email,
-            phone: c.phone
+            phone: c.phone,
+            avatar_url: c.avatar_url,
         }
     })
 }
