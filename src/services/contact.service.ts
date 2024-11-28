@@ -44,4 +44,10 @@ export class ContactService {
             .getInstance()
             .post<FileUploaderResponseType>(`${ConfigService.apiUrl}/images/contact/${id}`, body, config)
     }
+
+    public async statsContactMedium(): Promise<AxiosResponse<any>> {
+        return HttpService
+            .getInstance()
+            .get<FileUploaderResponseType>(`${ConfigService.apiUrl}/contacts/stats/contact-medium`)
+    }
 }
