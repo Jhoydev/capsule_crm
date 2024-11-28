@@ -133,20 +133,22 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                                 >
                                     <FaSave className="mr-2"/> Guardar
                                 </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setIsEditing(false)}
-                                    className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
-                                >
-                                    <FaTimes className="mr-2"/> Cancelar
-                                </button>
+                                {!isNew &&
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsEditing(false)}
+                                        className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
+                                    >
+                                        <FaTimes className="mr-2"/> Cancelar
+                                    </button>
+                                }
                             </div>
                         </div>
                         <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow">
                             <div className="row-span-2 col-span-1">
                                 <div className='flex flex-col gap-5 h-[250px] justify-center items-center'>
                                     <div className='flex'>
-                                        <Avatar className="h-[80px] w-[80px]">
+                                    <Avatar className="h-[80px] w-[80px]">
                                             <AvatarImage src={data.avatar_url}/>
                                             <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
                                         </Avatar>
@@ -156,26 +158,28 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                                             <p>{data.phone}</p>
                                         </div>
                                     </div>
-                                    <Dialog>
-                                        <DialogTrigger asChild>
-                                            <Button className="rounded-full shadow" variant="outline">
-                                                Upload Avatar
-                                            </Button>
-                                        </DialogTrigger>
-                                        <DialogContent className="sm:max-w-[425px]">
-                                            <DialogHeader>
-                                                <DialogTitle className="text-center">
-                                                    Upload your files
-                                                </DialogTitle>
-                                                <DialogDescription className="text-center">
-                                                    The only file upload you will ever need
-                                                </DialogDescription>
-                                            </DialogHeader>
-                                            <div className="grid gap-4 py-4">
-                                                <ImageUpload resourceId={data.id} fileUploaderService={contactService}/>
-                                            </div>
-                                        </DialogContent>
-                                    </Dialog>
+                                    { !isNew &&
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Button className="rounded-full shadow" variant="outline">
+                                                    Upload Avatar
+                                                </Button>
+                                            </DialogTrigger>
+                                            <DialogContent className="sm:max-w-[425px]">
+                                                <DialogHeader>
+                                                    <DialogTitle className="text-center">
+                                                        Upload your files
+                                                    </DialogTitle>
+                                                    <DialogDescription className="text-center">
+                                                        The only file upload you will ever need
+                                                    </DialogDescription>
+                                                </DialogHeader>
+                                                <div className="grid gap-4 py-4">
+                                                    <ImageUpload resourceId={data.id} fileUploaderService={contactService}/>
+                                                </div>
+                                            </DialogContent>
+                                        </Dialog>
+                                    }
                                 </div>
                             </div>
                             <div className="row-span-2 col-span-3 border bg-muted/40 p-5">

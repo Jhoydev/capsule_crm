@@ -6,6 +6,7 @@ import { Contact as ApiContact } from '@/types/contact.types';
 import { DataTableToolbar } from '@/app/(app)/contacts/components/contacts-table/data-table-toolbar';
 import { ColumnFilter, ColumnFiltersState } from '@tanstack/react-table';
 import { ApiParamsContactType, ContactService } from '@/services/contact.service';
+import SkeletonTable from "@/components/skeletonTable";
 
 function parseContactData(data: ApiContact[]) {
     return data.map(c => {
@@ -69,7 +70,7 @@ export function ContactsTable() {
     },[columnFilters])
 
     if (isLoading) {
-        return 'Loading...'
+        return <SkeletonTable/>
     }
 
     return (
