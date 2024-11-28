@@ -25,7 +25,7 @@ import {IoDownloadOutline, IoEyeOutline} from "react-icons/io5";
 
 //Esto es útil para componentes que dependen de objetos o propiedades disponibles solo en el navegador, como window o document, que no existen en el entorno de servidor.
 //porl o que con la siguiente intruccion le decimos que cargue el componente mapa de forma dinamica y le indicamos con el ssr false que no lo haga en el lado del servidor.
-const MapDetails = dynamic(() => import('./mapDetails'), {
+const MapDetails = dynamic(() => import('./map/mapDetails'), {
     ssr: false
 });
 
@@ -39,7 +39,7 @@ const TabProperty: React.FC<TabPropertyProps> = ({ property }) => {
     );
 
     return (
-        <div className='flex'>
+        <div className='flex hidden'>
             <Tabs defaultValue="task" className="w-full">
                 <TabsList className="grid w-full grid-cols-5">
                     <TabsTrigger value="task">Tasks</TabsTrigger>

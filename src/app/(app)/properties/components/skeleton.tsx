@@ -2,12 +2,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export function SkeletonCard() {
     return (
-        <div className="grid grid-rows-5 sm:grid-cols-1 md:grid-cols-4 flex-grow">
-            <div className="row-span-2 col-span-1 p-10">
-                <Skeleton className="h-[250px] w-full rounded-xl" />
+        <div className="flex p-10">
+            <div className="w-3/4 h-[calc(100vh-0px)] mr-5">
+                <Skeleton className="w-full h-4/5 rounded-xl" />
             </div>
-            <div className="row-span-5 col-span-3 p-10">
-                <Skeleton className="w-full h-full rounded-xl" />
+            <div className="w-1/4 h-[calc(100vh-0px)]">
+                <Skeleton className="w-full h-2/5 rounded-xl" />
             </div>
         </div>
     )
