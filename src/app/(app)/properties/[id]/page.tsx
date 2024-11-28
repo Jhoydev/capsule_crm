@@ -39,10 +39,10 @@ const PropertyComponent = () => {
     if (loading) {
         return (
             <div>
-                <div className='mb-2'>
-                    <Breadcrumbs />
+                <div className="p-6">
+                    <Breadcrumbs/>
                 </div>
-                <SkeletonCard />
+                <SkeletonCard/>
             </div>
         );
     }

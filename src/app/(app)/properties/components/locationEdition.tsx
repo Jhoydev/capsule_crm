@@ -1,18 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useFormContext } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { Input } from '@/components/ui/input';
 
+
 //Esto es útil para componentes que dependen de objetos o propiedades disponibles solo en el navegador, como window o document, que no existen en el entorno de servidor.
 //porl o que con la siguiente intruccion le decimos que cargue el componente mapa de forma dinamica y le indicamos con el ssr false que no lo haga en el lado del servidor.
-const MapDetails = dynamic(() => import('./mapDetails'), {
+const MapDetails = dynamic(() => import('./map/mapDetails'), {
     ssr: false
 });
 
 const LocationDetails: React.FC = () => {
-    const { register, formState: { errors }, watch } = useFormContext();
+    const { register, formState: { errors }, watch, setValue, getValues } = useFormContext();
+    const [search, setSearch] = useState("");
 
-    // Capturar los valores de latitud y longitud del formulario
+    const handleBlur = () => {
+        const values = getValues();
+        const street = values.street || "";
+        const streetNumber = values.street_number || "";
+        const city = values.city || "";
+
+        let constructedAddress = `${street} ${streetNumber}, ${city}`;
+        constructedAddress = street === "" && city !== "" ? city : constructedAddress;
+        constructedAddress = street === "" && city === "" ? "" : constructedAddress;
+        setSearch(constructedAddress);
+    };
+
+    const handleCoordinatesChange = (newLat: number, newLon: number) => {
+        // Actualiza los valores del formulario directamente
+        setValue("latitude", newLat);
+        setValue("longitude", newLon);
+    };
+
+    // Capturar valores del formulario
     const latitude = watch("latitude");
     const longitude = watch("longitude");
 
@@ -21,7 +41,17 @@ const LocationDetails: React.FC = () => {
             <h3 className="text-sm font-bold mb-6">Location Details</h3>
             <div className="flex">
                 <div className="flex items-start flex-wrap">
-
+                    <div className="flex flex-col mr-4 mb-5">
+                        <label className="mb-2 flex items-center text-slate-500">
+                            City:
+                        </label>
+                        <Input
+                            type="text"
+                            className="border p-1 rounded"
+                            {...register("city")}
+                            onBlur={handleBlur}
+                        />
+                    </div>
                     <div className="flex flex-col mr-4 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             Street:
@@ -30,6 +60,7 @@ const LocationDetails: React.FC = () => {
                             type="text"
                             className="border p-1 rounded"
                             {...register("street")}
+                            onBlur={handleBlur}
                         />
                     </div>
                     <div className="flex flex-col mr-4 mb-5">
@@ -40,6 +71,7 @@ const LocationDetails: React.FC = () => {
                             type="text"
                             className="border p-1 rounded"
                             {...register("street_number")}
+                            onBlur={handleBlur}
                         />
                     </div>
                     <div className="flex flex-col mr-4 mb-5">
@@ -60,16 +92,6 @@ const LocationDetails: React.FC = () => {
                             type="text"
                             className="border p-1 rounded"
                             {...register("door")}
-                        />
-                    </div>
-                    <div className="flex flex-col mr-4 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            City:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("city")}
                         />
                     </div>
                     <div className="flex flex-col mr-4 mb-5">
@@ -112,30 +134,32 @@ const LocationDetails: React.FC = () => {
                             {...register("zone")}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col mr-4 mb-5 hidden">
                         <label className="mb-2 flex items-center text-slate-500">
                             Latitude:
                         </label>
                         <Input
                             type="text"
                             className="border p-1 rounded"
-                            {...register("latitude")}
+                            value={latitude}
+                            readOnly
                         />
                         {/*{errors.longitude && <span className="text-red-500 text-sm">{errors.longitude.message}</span>} /!* Mostrar el mensaje de error *!/*/}
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col mr-4 mb-5 hidden">
                         <label className="mb-2 flex items-center text-slate-500">
                             Longitude:
                         </label>
                         <Input
                             type="text"
                             className="border p-1 rounded"
-                            {...register("longitude")}
+                            value={longitude}
+                            readOnly
                         />
                         {/*{errors.longitude && <span className="text-red-500 text-sm">{errors.longitude.message}</span>} /!* Mostrar el mensaje de error *!/*/}
                     </div>
                 </div>
-                <MapDetails latitude={latitude} longitude={longitude} />
+                <MapDetails latitude={latitude} longitude={longitude} search={search} onCoordinatesChange={handleCoordinatesChange}/>
             </div>
         </div>
     );

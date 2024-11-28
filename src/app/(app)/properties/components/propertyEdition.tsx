@@ -1,7 +1,7 @@
 'use client'
 
 import Breadcrumbs from "@/components/shared/breadCrumbs";
-import { FaSave, FaTimes } from "react-icons/fa";
+import {FaEdit, FaSave, FaTimes} from "react-icons/fa";
 import { Property, getDefaultValues, propertySchema } from "@/types/property.types";
 import { updateProperty } from "@/app/(app)/properties/services/propertyApi";
 import { useForm, FormProvider } from "react-hook-form";
@@ -94,26 +94,28 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data })
         // Aqui implementar logica despues de subir
     }, [])
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Evita el submit cuando usamos el boton enter sobre el formulario
+        }
+    };
+
+
     return (
         <div className="flex flex-col flex-1 w-full h-[calc(100vh-80px)]">
             <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(handleSubmit, handleErrors)}>
+                <form onSubmit={methods.handleSubmit(handleSubmit, handleErrors)} onKeyDown={handleKeyDown}>
                     <div className="flex justify-between items-center mb-5 p-4">
                         <Breadcrumbs />
                         <div className="flex justify-end items-center">
-                            <button
-                                type="submit"
-                                className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center mr-2"
-                            >
-                                <FaSave className="mr-2" /> Guardar
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setIsEditing(false)}
-                                className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
-                            >
-                                <FaTimes className="mr-2" /> Cancelar
-                            </button>
+                            <Button type="submit" className="mr-5">
+                                <FaSave/>
+                                <span className="ml-2">Save</span>
+                            </Button>
+                            <Button type="submit" variant="outline" className="" onClick={() => setIsEditing(false)}>
+                                <FaTimes/>
+                                <span className="ml-2">Cancel</span>
+                            </Button>
                         </div>
                     </div>
                     <div className="grid grid-rows-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 p-6 grid-rows-[auto,auto,auto,auto] overflow-auto">
