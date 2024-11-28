@@ -1,6 +1,6 @@
 "use client";
 
-import axios, { AxiosProgressEvent, CancelTokenSource } from "axios";
+import axios, {AxiosProgressEvent, CancelTokenSource} from "axios";
 import {
     AudioWaveform,
     File,
@@ -11,52 +11,22 @@ import {
     X,
 } from "lucide-react";
 import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { DropEvent, DropzoneOptions, FileRejection, useDropzone } from "react-dropzone";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ProgressBar from "@/components/ui/progress";
-import { FileUploaderService } from '@/services/fileUploader.service';
+import { toast } from '@/hooks/use-toast';
+import {
+    AudioColor,
+    FileTypes,
+    FileUploadProgress,
+    ImageColor, OtherColor,
+    PdfColor,
+    Props, uploadedFileType,
+    VideoColor
+} from "@/types/image-upload.types";
 
-interface FileUploadProgress {
-    progress: number;
-    File: File;
-    source: CancelTokenSource | null;
-}
-
-enum FileTypes {
-    Image = "image",
-    Pdf = "pdf",
-    Audio = "audio",
-    Video = "video",
-    Other = "other",
-}
-
-const ImageColor = {
-    bgColor: "bg-purple-600",
-    fillColor: "fill-purple-600",
-};
-
-const PdfColor = {
-    bgColor: "bg-blue-400",
-    fillColor: "fill-blue-400",
-};
-
-const AudioColor = {
-    bgColor: "bg-yellow-400",
-    fillColor: "fill-yellow-400",
-};
-
-const VideoColor = {
-    bgColor: "bg-green-400",
-    fillColor: "fill-green-400",
-};
-
-const OtherColor = {
-    bgColor: "bg-gray-400",
-    fillColor: "fill-gray-400",
-};
-
-export default function ImageUpload() {
+export default function ImageUpload({ fileUploaderService, maxFiles = 1, resourceId, onUploadedFiles }: Props) {
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [filesToUpload, setFilesToUpload] = useState<FileUploadProgress[]>([]);
 
@@ -138,24 +108,19 @@ export default function ImageUpload() {
         onUploadProgress: (progressEvent: AxiosProgressEvent) => void,
         cancelSource: CancelTokenSource
     ) => {
-        const fileUploadService = new FileUploaderService();
-        return fileUploadService.upload(
+        return fileUploaderService.upload(
             formData,
             {
                 onUploadProgress,
                 cancelToken: cancelSource.token,
-            }
+            },
+            resourceId
         );
     };
 
     const removeFile = (file: File) => {
-        setFilesToUpload((prevUploadProgress) => {
-            return prevUploadProgress.filter((item) => item.File !== file);
-        });
-
-        setUploadedFiles((prevUploadedFiles) => {
-            return prevUploadedFiles.filter((item) => item !== file);
-        });
+        setFilesToUpload((prev) => prev.filter((item) => item.File !== file));
+        setUploadedFiles((prev) => prev.filter((item) => item !== file));
     };
 
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -187,14 +152,35 @@ export default function ImageUpload() {
         });
 
         try {
-          await Promise.all(fileUploadBatch);
-          alert("All files uploaded successfully");
+          const res: uploadedFileType[] = await Promise.all(fileUploadBatch);
+
+          if (onUploadedFiles) {
+            onUploadedFiles(res)
+          }
         } catch (error) {
           console.error("Error uploading files: ", error);
         }
     }, []);
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    const onDropAccepted: DropzoneOptions['onDropAccepted'] = useCallback(() => {
+        toast({ description : 'Files Uploaded Successfully.' });
+    }, []);
+
+    const onDropRejected: DropzoneOptions['onDropRejected'] = useCallback((fileRejections: FileRejection[], event: DropEvent) => {
+        const messages = fileRejections.flatMap(file =>
+            file.errors.map((error, index) => <p key={`${file.file.path}-${index}`}>{error.message}</p>)
+        );
+
+        toast({ description: messages, variant: "destructive" });
+    }, []);
+
+    const { getRootProps, getInputProps } = useDropzone({
+        maxFiles,
+        maxSize: 2 * 1024 * 1024,
+        onDropRejected,
+        onDrop,
+        onDropAccepted,
+    });
 
     return (
         <div>
@@ -212,7 +198,7 @@ export default function ImageUpload() {
                             <span className="font-semibold">Drag files</span>
                         </p>
                         <p className="text-xs text-gray-500">
-                            Click to upload files &#40;files should be under 10 MB &#41;
+                            Click to upload files &#40;files should be under 2 MB &#41;
                         </p>
                     </div>
                 </label>

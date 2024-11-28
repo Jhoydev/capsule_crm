@@ -48,7 +48,7 @@ export const contactColumns: ColumnDef<Contact>[] = [
         cell: ({ row }) => {
             return (
                 <span className="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
-                    <img className="aspect-square h-full w-full" alt="Avatar" src="/images/default-avatar.png"/>
+                    <img className="aspect-square h-full w-full" alt="Avatar" src={row.original.avatar_url ?? '/images/default-avatar.png'}/>
                 </span>
             )
         },

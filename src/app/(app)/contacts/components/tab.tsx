@@ -31,10 +31,7 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
             <Tabs defaultValue="data" className="w-full">
                 <TabsList className="grid w-full grid-cols-5">
                     <TabsTrigger value="data">Datos personales</TabsTrigger>
-                    <TabsTrigger value="task">Tareas</TabsTrigger>
-                    <TabsTrigger value="actions">Acciones</TabsTrigger>
                     <TabsTrigger value="relations">Relaciones</TabsTrigger>
-                    <TabsTrigger value="documents">Documentos</TabsTrigger>
                 </TabsList>
                 <TabsContent value="data">
                     <Card>
@@ -88,120 +85,6 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                         </CardContent>
                     </Card>
                 </TabsContent>
-                <TabsContent value="task">
-                    <Card className="overflow-auto">
-                        <CardHeader>
-                            <CardTitle>Tareas</CardTitle>
-                            <CardDescription>
-                                Listado de tareas pendientes.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 1: Llamar al cliente</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 2: Enviar correo de seguimiento</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Tarea 3: Programar reunió</span>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-                <TabsContent value="actions">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Acciones</CardTitle>
-                            <CardDescription>
-                                Historial de acciones realizadas.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Enviado correo el 01/06/2024</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Realizada llamada el 03/06/2024</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Programada visita el 05/06/2024</span>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </TabsContent>
                 <TabsContent value="relations">
                     <Card>
                         <CardHeader>
@@ -219,27 +102,6 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                             </div>
                             <div className="p-4 bg-white rounded shadow">
                                 <span>Empresa: Tech Solutions</span>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </TabsContent>
-                <TabsContent value="documents">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Documentos</CardTitle>
-                            <CardDescription>
-                                Documentos del contacto.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto">
-                        <div className="p-4 bg-white rounded shadow">
-                                <span>Contrato firmado</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Presupuesto enviado</span>
-                            </div>
-                            <div className="p-4 bg-white rounded shadow">
-                                <span>Informe de seguimient</span>
                             </div>
                         </CardContent>
                     </Card>

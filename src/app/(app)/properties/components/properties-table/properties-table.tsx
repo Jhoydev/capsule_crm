@@ -7,6 +7,7 @@ import { DataTableToolbar } from '@/app/(app)/properties/components/properties-t
 import { ColumnFilter, ColumnFiltersState } from '@tanstack/react-table';
 import { ApiParamsPropertyType, PropertyService } from '@/services/property.service';
 import { propertiesColumns } from '@/app/(app)/properties/components/properties-table/data/properties-columns';
+import SkeletonTable from "@/components/skeletonTable";
 
 export type propertyTableType = {
     id: number,
@@ -88,7 +89,7 @@ export function PropertiesTable() {
     },[columnFilters])
 
     if (isLoading) {
-        return 'Loading...'
+        return <SkeletonTable/>
     }
 
     return (

@@ -11,7 +11,7 @@ export const contactSchema = {
     avatar_url: z.string().optional(),
     birthday: z.string().optional(),
     contact_medium: z.enum(["email", "phone", "sms", "other"]),
-    language: z.string().optional(),
+    language: z.enum(['english', 'spanish', 'french', 'other']).optional(),
     notes: z.string().optional(),
     rgpd: z.string().optional(),
     profession: z.string().optional(),
@@ -30,7 +30,7 @@ export const getDefaultValues = (data: Contact) => ({
     avatar_url: data.avatar_url || "",
     birthday: data.birthday || "",
     contact_medium: data.contact_medium || "other",
-    language: data.language || "",
+    language: data.language || "other",
     notes: data.notes || "",
     rgpd: data.rgpd || "",
     profession: data.profession || "",
@@ -51,7 +51,7 @@ export type Contact = {
     avatar_url?: string;
     birthday?: string;
     contact_medium: 'email' | 'phone' | 'sms' | 'other';
-    language?: string;
+    language?: 'english' | 'spanish' | 'french' | 'other';
     notes?: string;
     rgpd?: string;
     profession?: string;

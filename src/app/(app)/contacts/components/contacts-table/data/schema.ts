@@ -5,6 +5,7 @@ export const contactSchema = z.object({
     name: z.string(),
     email: z.string(),
     phone: z.string().optional(),
+    avatar_url: z.string().optional(),
 })
 
 export type Contact = z.infer<typeof contactSchema>

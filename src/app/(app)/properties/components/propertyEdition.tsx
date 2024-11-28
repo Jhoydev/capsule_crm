@@ -6,7 +6,7 @@ import { Property, getDefaultValues, propertySchema } from "@/types/property.typ
 import { updateProperty } from "@/app/(app)/properties/services/propertyApi";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect } from "react";
+import React, {useCallback, useEffect} from "react";
 import GalleryPhotos from "@/app/(app)/properties/components/galleryPhotos";
 import AgentEdition from "./agentEdition";
 import PricesEdition from "./pricesEdition";
@@ -15,7 +15,18 @@ import PropertyCharacteristicsEdition from "@/app/(app)/properties/components/pr
 import PropertyDescriptionsEdition from "./propertyDescriptionsEdition";
 import * as z from "zod";
 import {useToast} from "@/hooks/use-toast";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
+import ImageUpload from "@/components/ImageUpload";
+import {PropertyService} from "@/services/property.service";
+import {uploadedFileType} from "@/types/image-upload.types";
 
 interface PropertyEditionProps {
     editFunction: (isEditing: boolean) => void;
@@ -26,6 +37,7 @@ const formSchema = z.object(propertySchema);
 
 const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data }) => {
     const { toast } = useToast();
+    const propertyService = new PropertyService()
     const methods = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: getDefaultValues(data),
@@ -77,6 +89,11 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data })
         editFunction(param);
     };
 
+    const handleUploadedFiles = useCallback((files: uploadedFileType[]) => {
+        console.log(files)
+        // Aqui implementar logica despues de subir
+    }, [])
+
     const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>) => {
         if (event.key === "Enter") {
             event.preventDefault(); // Evita el submit cuando usamos el boton enter sobre el formulario
@@ -105,6 +122,31 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data })
                         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 gap-4">
                             <div className="md:col-span-5 border p-5 shadow rounded-md">
                                 <GalleryPhotos property={data} />
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button className="mt-5" variant="outline">
+                                            Upload Photos
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent className="sm:max-w-[425px]">
+                                        <DialogHeader>
+                                            <DialogTitle className="text-center">
+                                                Upload your files
+                                            </DialogTitle>
+                                            <DialogDescription className="text-center">
+                                                The only file upload you will ever need
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                        <div className="grid gap-4 py-4">
+                                            <ImageUpload
+                                                maxFiles={10}
+                                                resourceId={data.id}
+                                                fileUploaderService={propertyService}
+                                                onUploadedFiles={handleUploadedFiles}
+                                            />
+                                        </div>
+                                    </DialogContent>
+                                </Dialog>
                             </div>
                             <div className="md:col-span-2 flex flex-col justify-between gap-4">
                                 <AgentEdition />

@@ -3,8 +3,13 @@ import { ConfigService } from '@/services/config.service';
 import { Property } from '@/types/property.types';
 import { FileUploaderResponseType } from '@/types/file-uploader.type';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import {UserType} from "@/types/user.type";
 
-export class FileUploaderService {
+export class UserService {
+    public async patch(id: number, data: Partial<UserType>){
+        return HttpService.getInstance().patch(`${ConfigService.apiUrl}/user/${id}`, data)
+    }
+
     public async upload(
         body: FormData,
         config?: AxiosRequestConfig
@@ -12,11 +17,5 @@ export class FileUploaderService {
         return HttpService
             .getInstance()
             .post<FileUploaderResponseType>(`${ConfigService.apiUrl}/images/user`, body, config)
-    }
-
-    public async getProperty(id: number): Promise<Property> {
-        const { data } = await HttpService.getInstance().get<Property>(`${ConfigService.apiUrl}/properties/${id}`)
-
-        return data;
     }
 }
