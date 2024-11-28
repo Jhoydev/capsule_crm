@@ -3,6 +3,8 @@ import { ConfigService } from '@/services/config.service';
 import { PaginatedResponse } from '@/types/pagination.types';
 import { ApiParamsType } from '@/types/api-params.type';
 import { Property } from '@/types/property.types';
+import {AxiosRequestConfig, AxiosResponse} from "axios";
+import {FileUploaderResponseType} from "@/types/file-uploader.type";
 
 export type ApiParamsPropertyType = ApiParamsType & {
     [key: string]: string | number | boolean;
@@ -25,5 +27,15 @@ export class PropertyService {
         const { data } = await HttpService.getInstance().get<Property>(`${ConfigService.apiUrl}/properties/${id}`)
 
         return data;
+    }
+
+    public async upload(
+        body: FormData,
+        config?: AxiosRequestConfig,
+        id?: number | string,
+    ): Promise<AxiosResponse<FileUploaderResponseType>> {
+        return HttpService
+            .getInstance()
+            .post<FileUploaderResponseType>(`${ConfigService.apiUrl}/images/property/${id}`, body, config)
     }
 }

@@ -22,11 +22,11 @@ import {
     FileUploadProgress,
     ImageColor, OtherColor,
     PdfColor,
-    Props,
+    Props, uploadedFileType,
     VideoColor
 } from "@/types/image-upload.types";
 
-export default function ImageUpload({ fileUploaderService, maxFiles = 1, resourceId }: Props) {
+export default function ImageUpload({ fileUploaderService, maxFiles = 1, resourceId, onUploadedFiles }: Props) {
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [filesToUpload, setFilesToUpload] = useState<FileUploadProgress[]>([]);
 
@@ -152,8 +152,11 @@ export default function ImageUpload({ fileUploaderService, maxFiles = 1, resourc
         });
 
         try {
-          const res = await Promise.all(fileUploadBatch);
-          console.log(res)
+          const res: uploadedFileType[] = await Promise.all(fileUploadBatch);
+
+          if (onUploadedFiles) {
+            onUploadedFiles(res)
+          }
         } catch (error) {
           console.error("Error uploading files: ", error);
         }

@@ -43,8 +43,17 @@ export const OtherColor = {
 export interface FileUploaderServiceType {
     upload: (formData: FormData, config: AxiosRequestConfig, id?: number | string ) => Promise<any>;
 }
+
+export type uploadedFileType = {
+    status: number,
+    data: {
+        image_name: string
+    }
+}
+
 export interface Props {
     maxFiles?: number;
     fileUploaderService: FileUploaderServiceType,
     resourceId?: number | string,
+    onUploadedFiles?: ([]: uploadedFileType[]) => void,
 }

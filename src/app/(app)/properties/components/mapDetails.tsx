@@ -29,7 +29,7 @@ const MapDetails: React.FC<MapDetailsProps> = ({ latitude, longitude }) => {
     const defaultPosition: [number, number] = [38.27231832871174, -0.7121807064845603];
     const position: [number, number] = latitude && longitude ? [latitude, longitude] : defaultPosition;
     return (
-        <div className="w-full h-96 rounded-md border">
+        <div className="w-full h-96 rounded-md border z-10">
             <MapContainer
                 center={position}
                 zoom={15}
