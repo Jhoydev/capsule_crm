@@ -38,4 +38,16 @@ export class PropertyService {
             .getInstance()
             .post<FileUploaderResponseType>(`${ConfigService.apiUrl}/images/property/${id}`, body, config)
     }
+
+    public async statsStatus(): Promise<AxiosResponse<any>> {
+        return HttpService
+            .getInstance()
+            .get<FileUploaderResponseType>(`${ConfigService.apiUrl}/properties/stats/status`)
+    }
+
+    public async statsTypes(): Promise<AxiosResponse<any>> {
+        return HttpService
+            .getInstance()
+            .get<FileUploaderResponseType>(`${ConfigService.apiUrl}/properties/stats/types`)
+    }
 }
