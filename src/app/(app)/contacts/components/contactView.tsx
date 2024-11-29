@@ -4,8 +4,9 @@ import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaEdit } from "react-icons/fa";
 import TabContact from "@/app/(app)/contacts/components/tab";
-import { MdEmail } from "react-icons/md";
 import { Contact } from "@/types/contact.types";
+import React from "react";
+import {Button} from "@/components/ui/button";
 
 interface ContactViewProps {
     editFunction: (isEditing: boolean) => void;
@@ -22,12 +23,11 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
             <div className="flex justify-between items-center mb-5 p-4">
                 <Breadcrumbs/>
                 <div className="flex justify-end items-center">
-                    <button
+                    <Button
                         onClick={() => setIsEditing(true)}
-                        className="bg-green-capsule text-white px-4 py-2 rounded-md shadow hover:bg-green-600 flex items-center"
                     >
                         <FaEdit className="mr-2"/> Edit
-                    </button>
+                    </Button>
                 </div>
             </div>
             <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow overflow-hidden">

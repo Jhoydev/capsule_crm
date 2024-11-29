@@ -8,13 +8,10 @@ import {updateContact} from "@/app/(app)/contacts/services/contactApi";
 import {useForm, FormProvider, useFormContext} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import React, {useEffect} from "react";
-import {renderField} from "@/lib/renderFormField";
 import {Form} from "@/components/ui/form";
 import * as z from "zod";
-import {Toaster} from "@/components/ui/toaster"
 import {useToast} from "@/hooks/use-toast";
 import {ContactService} from "@/services/contact.service";
-import {useAuth} from "@/hooks/auth";
 import {useRouter} from "next/navigation";
 import {
     Dialog,
@@ -26,6 +23,11 @@ import {
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import ImageUpload from "@/components/ImageUpload";
+import ContactDetailsEdition from "@/app/(app)/contacts/components/contactDetailsEdition";
+import PersonalInformationEdit from "@/app/(app)/contacts/components/personalInformationEdit";
+import ProfessionEdit from "@/app/(app)/contacts/components/professionEdit";
+import NotesEdit from "@/app/(app)/contacts/components/notesEdit";
+import RgpdEdit from "@/app/(app)/contacts/components/rgdpEdit";
 
 interface ContactEditionProps {
     editFunction: (isEditing: boolean) => void;
@@ -108,16 +110,6 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
         {value: "other", label: "Other"},
     ];
 
-    const renderFormField = (
-        name: keyof z.infer<typeof formSchema>,
-        label: string,
-        placeholder: string,
-        type: string = "text",
-        options?: { value: string, label: string }[]
-    ) => {
-        const {control} = methods;
-        return renderField({name, label, placeholder, type, options, control});
-    };
 
     return (
         <div className="flex flex-col flex-1 w-full">
@@ -127,20 +119,20 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                         <div className="flex justify-between items-center mb-5 p-4">
                             <Breadcrumbs/>
                             <div className="flex justify-end items-center">
-                                <button
+                                <Button
                                     type="submit"
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 flex items-center mr-2"
+                                    className="mr-5"
                                 >
-                                    <FaSave className="mr-2"/> Guardar
-                                </button>
+                                    <FaSave className="mr-2"/> Save
+                                </Button>
                                 {!isNew &&
-                                    <button
+                                    <Button
                                         type="button"
+                                        variant="outline"
                                         onClick={() => setIsEditing(false)}
-                                        className="bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-600 flex items-center"
                                     >
-                                        <FaTimes className="mr-2"/> Cancelar
-                                    </button>
+                                        <FaTimes className="mr-2"/> Cancel
+                                    </Button>
                                 }
                             </div>
                         </div>
@@ -184,47 +176,11 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                             </div>
                             <div className="row-span-2 col-span-3 border bg-muted/40 p-5">
                                 <div className="grid grid-cols-1 gap-4 overflow-auto h-[calc(100vh-200px)]">
-                                    <div className="p-4 bg-white rounded shadow">
-                                        <h3 className="font-bold text-blue-600">Datos de Contacto</h3>
-                                        <div className="flex flex-wrap min-h-[80px] p-5">
-                                            {renderFormField("first_name", "Nombre", "Nombre")}
-                                            {renderFormField("last_name", "Apellidos", "Apellidos")}
-                                            {renderFormField("email", "Email address", "Email address", "email")}
-                                            {renderFormField("alternate_email", "Email alternativo", "Email alternativo", "email")}
-                                            {renderFormField("phone", "Teléfono", "Teléfono")}
-                                            {renderFormField("mobile", "Móvil", "Móvil")}
-                                        </div>
-                                    </div>
-                                    <div className="p-4 bg-white rounded shadow">
-                                        <h3 className="font-bold text-blue-600">Información Personal</h3>
-                                        <div className="flex flex-wrap min-h-[80px] p-5">
-                                            {renderFormField("nif", "NIF", "NIF")}
-                                            {renderFormField("avatar_url", "URL del avatar", "URL del avatar")}
-                                            {renderFormField("birthday", "Fecha de Nacimiento", "Fecha de Nacimiento", "date")}
-                                            {renderFormField("contact_medium", "Medio de Contacto", "Medio de Contacto", "select", contactMediumOptions)}
-                                            {renderFormField("language", "Idioma", "Idioma", "select", languageOptions)}
-                                            {renderFormField("gender", "Género", "Seleccione el género", "select", genderOptions)}
-                                        </div>
-                                    </div>
-                                    <div className="p-4 bg-white rounded shadow">
-                                        <h3 className="font-bold text-blue-600">Profesión</h3>
-                                        <div className="flex flex-wrap min-h-[80px] p-5">
-                                            {renderFormField("profession", "Profesión", "Profesión")}
-                                            {renderFormField("company", "Compañía", "Compañía")}
-                                        </div>
-                                    </div>
-                                    <div className="p-4 bg-white rounded shadow">
-                                        <h3 className="font-bold text-blue-600">Notas</h3>
-                                        <div className="flex flex-wrap min-h-[80px] p-5">
-                                            {renderFormField("notes", "Notas", "Notas", "textarea")}
-                                        </div>
-                                    </div>
-                                    <div className="p-4 bg-white rounded shadow">
-                                        <h3 className="font-bold text-blue-600">RGPD</h3>
-                                        <div className="flex flex-wrap min-h-[80px] p-5">
-                                            {renderFormField("rgpd", "RGPD", "RGPD")}
-                                        </div>
-                                    </div>
+                                    <ContactDetailsEdition />
+                                    <PersonalInformationEdit />
+                                    <ProfessionEdit />
+                                    <NotesEdit />
+                                    <RgpdEdit />
                                 </div>
                             </div>
                         </div>
