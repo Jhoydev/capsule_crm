@@ -28,8 +28,8 @@ const PricesEdition: React.FC = () => {
     return (
         <div className="border p-4 rounded h-full shadow">
             <h3 className="text-sm font-bold mb-6">Prices and Status</h3>
-            <div className="flex items-center flex-wrap text-sm">
-                <div className="flex flex-col mr-4 mb-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full text-sm">
+                <div className="flex flex-col mr-4">
                     <label className="mb-2 flex items-center text-slate-500">
                         <RiPriceTag2Line className="mr-1 font-bold"/>
                         Property Status:
@@ -54,41 +54,41 @@ const PricesEdition: React.FC = () => {
                     {/* Se registra el campo para usarlo con react-hook-form */}
                     <input type="hidden" {...register("status")} />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col mr-4">
                     <label className="mb-2 flex items-center text-slate-500">
                         <RiPriceTag2Line className="mr-1 font-bold"/>
                         Operation:
                     </label>
                     <Input
-                        type="text" className="border p-1 rounded w-[130px]" {...register("operation")}
+                        type="text" className="border p-1 rounded" {...register("operation")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col mr-4">
                     <label className="mb-2 flex items-center text-slate-500">
                         <IoPricetagOutline className="mr-1 font-bold"/>
                         Sale price:
                     </label>
                     <Input
                         type="number" step="any"
-                        className="border p-1 rounded w-[130px]" {...register("sale_price", {valueAsNumber: true})}
+                        className="border p-1 rounded" {...register("sale_price", {valueAsNumber: true})}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col mr-4">
                     <label className="mb-2 flex items-center text-slate-500">
                         <IoPricetagOutline className="mr-1 font-bold"/>
                         Rent price:
                     </label>
                     <Input
-                        type="number" step="any" className="border p-1 rounded w-[100px]" {...register("rent_price", { valueAsNumber: true })}
+                        type="number" step="any" className="border p-1 rounded" {...register("rent_price", { valueAsNumber: true })}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col mr-4">
                     <label className="mb-2 flex items-center text-slate-500">
                         <IoPricetagOutline className="mr-1 font-bold"/>
                         Transfer price:
                     </label>
                     <Input
-                        type="number" step="any" className="border p-1 rounded w-[130px]" {...register("transfer_price", { valueAsNumber: true })}
+                        type="number" step="any" className="border p-1 rounded" {...register("transfer_price", { valueAsNumber: true })}
                     />
                 </div>
             </div>

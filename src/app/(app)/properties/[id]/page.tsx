@@ -9,6 +9,7 @@ import { SkeletonCard } from '@/app/(app)/properties/components/skeleton';
 import PropertyView from "@/app/(app)/properties/components/propertyView";
 import PropertyEdition from "@/app/(app)/properties/components/propertyEdition";
 import * as z from "zod";
+import {handler} from "tailwindcss-animate";
 
 const PropertyComponent = () => {
     const { id } = useParams();
@@ -35,6 +36,10 @@ const PropertyComponent = () => {
         fetchProperty();
     }, [id]);
 
+    const handlerRechargeProperty = (property: Property) => {
+        setProperty(property);
+    }
+
 
     if (loading) {
         return (
@@ -51,7 +56,7 @@ const PropertyComponent = () => {
     return (
         <div className="flex flex-1 w-full h-full">
             {isEditing ? (
-                <PropertyEdition editFunction={setIsEditing} data={property} />
+                <PropertyEdition editFunction={setIsEditing} rechargeFunctionProperty={handlerRechargeProperty}  data={property} />
             ) : (
                 <PropertyView editFunction={setIsEditing} data={property}/>
             )}

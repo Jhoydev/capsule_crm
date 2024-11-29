@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { useFormContext } from "react-hook-form";
 import { Input } from '@/components/ui/input';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
-import {FormControl, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 
 const PropertyCharacteristicsEdition = () => {
     const { register, setValue, getValues } = useFormContext();
@@ -18,8 +17,8 @@ const PropertyCharacteristicsEdition = () => {
     return (
         <div className="border p-4 text-sm rounded-md mb-4 shadow">
             <h3 className="text-sm font-bold mb-6">Property Characteristics</h3>
-            <div className="flex items-start flex-wrap">
-                <div className="flex flex-col mr-4 mb-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Reference:
                     </label>
@@ -29,15 +28,15 @@ const PropertyCharacteristicsEdition = () => {
                         {...register("reference")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
-                    <label className="mb-2 flex items-center text-slate-500">
+                <div className="flex flex-col sm:mr-10 mb-2 relative">
+                    <label className="mb-2 text-slate-500">
                         Type of Property:
                     </label>
                     <Select
                         onValueChange={handleSelectChange}
                         defaultValue={selectedType} // Cargar valor predeterminado
                     >
-                        <SelectTrigger className="w-full border p-1 rounded">
+                        <SelectTrigger>
                             <SelectValue placeholder="Select Property Type"/>
                         </SelectTrigger>
                         <SelectContent>
@@ -52,9 +51,9 @@ const PropertyCharacteristicsEdition = () => {
                     </Select>
 
                     {/* Campo hidden para registrar con react-hook-form */}
-                    <input type="hidden" {...register("type")} />
+                    <Input type="text" className="hidden" {...register("type")} />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Bedrooms:
                     </label>
@@ -64,7 +63,7 @@ const PropertyCharacteristicsEdition = () => {
                         {...register("bedrooms")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Bathrooms:
                     </label>
@@ -74,7 +73,7 @@ const PropertyCharacteristicsEdition = () => {
                         {...register("bathrooms")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Toilets:
                     </label>
@@ -84,7 +83,7 @@ const PropertyCharacteristicsEdition = () => {
                         {...register("toilets")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Garage Spaces:
                     </label>
@@ -94,7 +93,7 @@ const PropertyCharacteristicsEdition = () => {
                         {...register("garage_spaces")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Constructed Area (m²):
                     </label>
@@ -104,7 +103,7 @@ const PropertyCharacteristicsEdition = () => {
                         {...register("constructed_area")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Usable Area (m²):
                     </label>
@@ -114,7 +113,7 @@ const PropertyCharacteristicsEdition = () => {
                         {...register("usable_area")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Plot Area (m²):
                     </label>
@@ -124,7 +123,7 @@ const PropertyCharacteristicsEdition = () => {
                         {...register("plot_area")}
                     />
                 </div>
-                <div className="flex flex-col mr-4 mb-5">
+                <div className="flex flex-col sm:mr-10 mb-2">
                     <label className="mb-2 flex items-center text-slate-500">
                         Terrace Area (m²):
                     </label>

@@ -13,7 +13,7 @@ interface MapDetailsProps {
     latitude?: number;
     longitude?: number;
     search?: string;
-    onCoordinatesChange: (latitude: number, longitude: number) => void;
+    onCoordinatesChange?: (latitude: number, longitude: number) => void;
 }
 
 const MapDetails: React.FC<MapDetailsProps> = ({ latitude, longitude, search, onCoordinatesChange }) => {
@@ -27,10 +27,12 @@ const MapDetails: React.FC<MapDetailsProps> = ({ latitude, longitude, search, on
     // Función de callback para actualizar las coordenadas
     const handleUpdatePosition = (newLat: number, newLon: number) => {
         setPosition([newLat, newLon]);
-        onCoordinatesChange(newLat, newLon);
+        if(typeof(onCoordinatesChange) ==  "function") {
+            onCoordinatesChange(newLat, newLon);
+        }
     };
 
-    let className = "h-[calc(30vh-0px)] w-full rounded z-0 rounded-md border";
+    let className = "h-[calc(30vh-0px)] w-full rounded z-0 rounded-md border shadow";
     if(search == "desactivate") {
         className = "h-[calc(50vh-0px)] w-full rounded z-0 rounded-md border";
     }

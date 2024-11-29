@@ -33,7 +33,7 @@ export function DataTableRowActions<TData>({ row, }: DataTableRowActionsProps<TD
             <DropdownMenuContent align="end" className="w-[160px]">
                 <Link href={`/properties/${row.getValue('id')}`}>
                     <DropdownMenuItem>
-                            See
+                        View
                     </DropdownMenuItem>
                 </Link>
                 <DropdownMenuItem>

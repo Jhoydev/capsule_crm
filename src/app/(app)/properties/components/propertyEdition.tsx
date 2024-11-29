@@ -1,20 +1,23 @@
-'use client'
+'use client';
 
-import Breadcrumbs from "@/components/shared/breadCrumbs";
-import {FaEdit, FaSave, FaTimes} from "react-icons/fa";
-import { Property, getDefaultValues, propertySchema } from "@/types/property.types";
-import { updateProperty } from "@/app/(app)/properties/services/propertyApi";
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, {useCallback, useEffect} from "react";
-import GalleryPhotos from "@/app/(app)/properties/components/galleryPhotos";
-import AgentEdition from "./agentEdition";
-import PricesEdition from "./pricesEdition";
-import LocationEdition from "@/app/(app)/properties/components/locationEdition";
-import PropertyCharacteristicsEdition from "@/app/(app)/properties/components/propertyCharacteristicsEdition";
-import PropertyDescriptionsEdition from "./propertyDescriptionsEdition";
-import * as z from "zod";
-import {useToast} from "@/hooks/use-toast";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { FaSave, FaTimes } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
+import Breadcrumbs from '@/components/shared/breadCrumbs';
+import { Property, getDefaultValues, propertySchema } from '@/types/property.types';
+import { updateProperty } from '@/app/(app)/properties/services/propertyApi';
+import { useToast } from '@/hooks/use-toast';
+import GalleryPhotos from '@/app/(app)/properties/components/galleryPhotos';
+import AgentEdition from './agentEdition';
+import PricesEdition from './pricesEdition';
+import LocationEdition from '@/app/(app)/properties/components/locationEdition';
+import PropertyCharacteristicsEdition from './propertyCharacteristicsEdition';
+import PropertyDescriptionsEdition from './propertyDescriptionsEdition';
+import ImageUpload from '@/components/ImageUpload';
+import { PropertyService } from '@/services/property.service';
 import {
     Dialog,
     DialogContent,
@@ -22,66 +25,70 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger
-} from "@/components/ui/dialog";
-import {Button} from "@/components/ui/button";
-import ImageUpload from "@/components/ImageUpload";
-import {PropertyService} from "@/services/property.service";
-import {uploadedFileType} from "@/types/image-upload.types";
+} from '@/components/ui/dialog';
+import { uploadedFileType } from '@/types/image-upload.types';
 
 interface PropertyEditionProps {
     editFunction: (isEditing: boolean) => void;
     data: Property;
+    rechargeFunctionProperty: (propertyData: Property) => void;
 }
 
 const formSchema = z.object(propertySchema);
 
-const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data }) => {
+const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, rechargeFunctionProperty }) => {
     const { toast } = useToast();
-    const propertyService = new PropertyService()
+    const propertyService = new PropertyService();
     const methods = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: getDefaultValues(data),
     });
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         methods.reset(getDefaultValues(data));
     }, [data, methods]);
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+        setIsSubmitting(true);
         try {
-            console.log(values); // Verificar que los valores se reciben correctamente
-
-            const { image, ...valuesWithoutPhotos } = values;
-
+            const { image, operation, ...valuesWithoutPhotos } = values;
             const updatedProperty: Property = {
                 id: data.id,
+                operation: JSON.stringify({"operations" : [operation]}),
                 ...valuesWithoutPhotos,
             };
 
             const result = await updateProperty(data.id, updatedProperty);
             toast({
-                title: "Successfully",
-                description: "Property successfully updated",
+                title: 'Successfully',
+                description: 'Property successfully updated',
             });
+            setIsSubmitting(false);
             setIsEditing(false);
+            const property = result.property;
+            property.image = data.image;
+            rechargeFunctionProperty(property);
         } catch (error) {
             console.error('Error saving data:', error);
             toast({
-                variant: "destructive",
-                title: "Error",
-                description: "Error"+ error,
+                variant: 'destructive',
+                title: 'Error',
+                description: 'An error occurred while saving: ' + error,
             });
+            setIsSubmitting(false);
         }
     };
 
-    // Función para manejar los errores y mostrarlos en un alert
-    const handleErrors = (errors: any) => {
-        if (Object.keys(errors).length > 0) {
-            let errorMessage = 'Errores en el formulario:\n';
-            Object.entries(errors).forEach(([field, error]: any) => {
-                errorMessage += `Campo ${field}: ${error.message}\n`;
-            });
-            alert(errorMessage);  // Muestra los errores en un alert
+    const handleUploadedFiles = useCallback((files: uploadedFileType[]) => {
+        // Lógica para manejar archivos subidos
+        console.log(files); // Elimina esto en producción
+    }, []);
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Evita el submit cuando usamos el botón enter sobre el formulario
         }
     };
 
@@ -89,39 +96,39 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data })
         editFunction(param);
     };
 
-    const handleUploadedFiles = useCallback((files: uploadedFileType[]) => {
-        console.log(files)
-        // Aqui implementar logica despues de subir
-    }, [])
-
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Evita el submit cuando usamos el boton enter sobre el formulario
-        }
-    };
-
-
     return (
-        <div className="flex flex-col flex-1 w-full h-[calc(100vh-80px)]">
+        <div className="flex flex-col flex-1 w-full">
             <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(handleSubmit, handleErrors)} onKeyDown={handleKeyDown}>
-                    <div className="flex justify-between items-center mb-5 p-4">
-                        <Breadcrumbs />
-                        <div className="flex justify-end items-center">
-                            <Button type="submit" className="mr-5">
+                <form
+                    onSubmit={methods.handleSubmit(handleSubmit)}
+                    onKeyDown={handleKeyDown}
+                    className="h-full w-full"
+                >
+                    <div className="flex justify-between items-center gap-2 p-4">
+                        <Breadcrumbs/>
+                        <div className="flex justify-end items-center w-1/3 gap-4">
+                            <Button
+                                type="submit"
+                                className="mr-5"
+                                disabled={isSubmitting}
+                            >
                                 <FaSave/>
                                 <span className="ml-2">Save</span>
                             </Button>
-                            <Button type="submit" variant="outline" className="" onClick={() => setIsEditing(false)}>
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() => setIsEditing(false)}
+                            >
                                 <FaTimes/>
                                 <span className="ml-2">Cancel</span>
                             </Button>
                         </div>
                     </div>
-                    <div className="grid grid-rows-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 p-6 grid-rows-[auto,auto,auto,auto] overflow-auto">
+                    <div className="grid grid-rows-4 sm:grid-cols-1 gap-4 p-6 grid-rows-[auto,auto,auto,auto]  h-[calc(100vh-135px)] overflow-y-auto">
                         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 gap-4">
                             <div className="md:col-span-5 border p-5 shadow rounded-md">
-                                <GalleryPhotos property={data} />
+                                <GalleryPhotos property={data}/>
                                 <Dialog>
                                     <DialogTrigger asChild>
                                         <Button className="mt-5" variant="outline">
@@ -149,18 +156,18 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data })
                                 </Dialog>
                             </div>
                             <div className="md:col-span-2 flex flex-col justify-between gap-4">
-                                <AgentEdition />
-                                <PricesEdition />
+                                <AgentEdition/>
+                                <PricesEdition/>
                             </div>
                         </div>
                         <div className="w-full mt-4">
-                            <LocationEdition />
+                            <LocationEdition/>
                         </div>
                         <div>
-                            <PropertyCharacteristicsEdition />
+                            <PropertyCharacteristicsEdition/>
                         </div>
                         <div>
-                            <PropertyDescriptionsEdition />
+                            <PropertyDescriptionsEdition/>
                         </div>
                     </div>
                 </form>

@@ -39,9 +39,9 @@ const LocationDetails: React.FC = () => {
     return (
         <div className="border p-4 text-sm rounded-md mb-4 shadow">
             <h3 className="text-sm font-bold mb-6">Location Details</h3>
-            <div className="flex">
-                <div className="flex items-start flex-wrap">
-                    <div className="flex flex-col mr-4 mb-5">
+            <div className="flex flex-col md:flex-row">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             City:
                         </label>
@@ -52,7 +52,7 @@ const LocationDetails: React.FC = () => {
                             onBlur={handleBlur}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             Street:
                         </label>
@@ -63,7 +63,7 @@ const LocationDetails: React.FC = () => {
                             onBlur={handleBlur}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             Street Number:
                         </label>
@@ -74,7 +74,7 @@ const LocationDetails: React.FC = () => {
                             onBlur={handleBlur}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             Floor:
                         </label>
@@ -84,7 +84,7 @@ const LocationDetails: React.FC = () => {
                             {...register("floor")}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             Door:
                         </label>
@@ -94,7 +94,7 @@ const LocationDetails: React.FC = () => {
                             {...register("door")}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             State:
                         </label>
@@ -104,7 +104,7 @@ const LocationDetails: React.FC = () => {
                             {...register("state")}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             Country ID:
                         </label>
@@ -114,7 +114,7 @@ const LocationDetails: React.FC = () => {
                             {...register("country_id")}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             Zip Code:
                         </label>
@@ -124,7 +124,7 @@ const LocationDetails: React.FC = () => {
                             {...register("zip_code")}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5">
+                    <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
                             Zone:
                         </label>
@@ -134,7 +134,7 @@ const LocationDetails: React.FC = () => {
                             {...register("zone")}
                         />
                     </div>
-                    <div className="flex flex-col mr-4 mb-5 hidden">
+                    <div className="flex flex-col md:mr-10 mb-5 hidden">
                         <label className="mb-2 flex items-center text-slate-500">
                             Latitude:
                         </label>
@@ -146,7 +146,7 @@ const LocationDetails: React.FC = () => {
                         />
                         {/*{errors.longitude && <span className="text-red-500 text-sm">{errors.longitude.message}</span>} /!* Mostrar el mensaje de error *!/*/}
                     </div>
-                    <div className="flex flex-col mr-4 mb-5 hidden">
+                    <div className="flex flex-col md:mr-10 mb-5 hidden">
                         <label className="mb-2 flex items-center text-slate-500">
                             Longitude:
                         </label>
