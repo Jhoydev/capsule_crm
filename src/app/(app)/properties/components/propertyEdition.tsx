@@ -27,6 +27,7 @@ import {
 } from '@/components/ui/dialog';
 import { uploadedFileType } from '@/types/image-upload.types';
 import {useRouter} from "next/navigation";
+import AlertDialog from "@/components/shared/alertDialog";
 
 
 interface PropertyEditionProps {
@@ -127,14 +128,18 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                                 <FaSave/>
                                 <span className="ml-2">Save</span>
                             </Button>
-                            <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() => setIsEditing(false)}
-                            >
-                                <FaTimes/>
-                                <span className="ml-2">Cancel</span>
-                            </Button>
+                            <AlertDialog
+                                title="Do you want to cancel?"
+                                description="If you cancel, you will lose any unsaved changes."
+                                triggerText="Cancel"
+                                onAccept={() => {
+                                    if (isNew) {
+                                        router.push('/properties');
+                                    } else {
+                                        setIsEditing(false);
+                                    }
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="grid grid-rows-4 sm:grid-cols-1 gap-4 p-6 grid-rows-[auto,auto,auto,auto]  h-[calc(100vh-135px)] overflow-y-auto">

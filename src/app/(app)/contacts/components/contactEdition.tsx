@@ -27,6 +27,7 @@ import PersonalInformationEdit from "@/app/(app)/contacts/components/personalInf
 import ProfessionEdit from "@/app/(app)/contacts/components/professionEdit";
 import NotesEdit from "@/app/(app)/contacts/components/notesEdit";
 import RgpdEdit from "@/app/(app)/contacts/components/rgdpEdit";
+import AlertDialog from "@/components/shared/alertDialog";
 
 interface ContactEditionProps {
     editFunction: (isEditing: boolean) => void;
@@ -125,15 +126,18 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                                 >
                                     <FaSave className="mr-2"/> Save
                                 </Button>
-                                {!isNew &&
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        onClick={() => setIsEditing(false)}
-                                    >
-                                        <FaTimes className="mr-2"/> Cancel
-                                    </Button>
-                                }
+                                <AlertDialog
+                                    title="Do you want to cancel?"
+                                    description="If you cancel, you will lose any unsaved changes."
+                                    triggerText="Cancel"
+                                    onAccept={() => {
+                                        if (isNew) {
+                                            router.push('/contacts');
+                                        } else {
+                                            setIsEditing(false);
+                                        }
+                                    }}
+                                />
                             </div>
                         </div>
                         <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow">
