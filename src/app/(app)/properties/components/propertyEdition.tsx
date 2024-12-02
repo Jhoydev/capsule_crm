@@ -8,7 +8,6 @@ import { FaSave, FaTimes } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import Breadcrumbs from '@/components/shared/breadCrumbs';
 import { Property, getDefaultValues, propertySchema } from '@/types/property.types';
-import { updateProperty } from '@/app/(app)/properties/services/propertyApi';
 import { useToast } from '@/hooks/use-toast';
 import GalleryPhotos from '@/app/(app)/properties/components/galleryPhotos';
 import AgentEdition from './agentEdition';
@@ -27,17 +26,21 @@ import {
     DialogTrigger
 } from '@/components/ui/dialog';
 import { uploadedFileType } from '@/types/image-upload.types';
+import {useRouter} from "next/navigation";
+
 
 interface PropertyEditionProps {
     editFunction: (isEditing: boolean) => void;
     data: Property;
-    rechargeFunctionProperty: (propertyData: Property) => void;
+    rechargeFunctionProperty?: (propertyData: Property) => void;
+    isNew?: boolean;
 }
 
 const formSchema = z.object(propertySchema);
 
-const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, rechargeFunctionProperty }) => {
+const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, rechargeFunctionProperty, isNew }) => {
     const { toast } = useToast();
+    const router = useRouter();
     const propertyService = new PropertyService();
     const methods = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -60,16 +63,26 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                 ...valuesWithoutPhotos,
             };
 
-            const result = await updateProperty(data.id, updatedProperty);
+            if (isNew) {
+                const {id, ...updatedPropertyWithoutId} = updatedProperty;
+                const {property} = await propertyService.save(updatedPropertyWithoutId);
+
+                router.push(`/properties/${property.id}`);
+                return;
+            } else {
+                const {property} = await propertyService.update(data.id, updatedProperty);
+                property.image = data.image;
+                if (typeof(rechargeFunctionProperty) == "function") {
+                    rechargeFunctionProperty(property);
+                }
+            }
+
             toast({
                 title: 'Successfully',
                 description: 'Property successfully updated',
             });
             setIsSubmitting(false);
             setIsEditing(false);
-            const property = result.property;
-            property.image = data.image;
-            rechargeFunctionProperty(property);
         } catch (error) {
             console.error('Error saving data:', error);
             toast({
@@ -109,7 +122,6 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                         <div className="flex justify-end items-center w-1/3 gap-4">
                             <Button
                                 type="submit"
-                                className="mr-5"
                                 disabled={isSubmitting}
                             >
                                 <FaSave/>

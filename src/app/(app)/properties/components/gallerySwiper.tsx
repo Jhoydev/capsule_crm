@@ -7,7 +7,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import {EffectFade, Navigation, Pagination} from "swiper/modules";
-import {Property, Image} from "@/types/property.types";
+import { Property } from "@/types/property.types";
+import { Image } from "@/types/image.types";
 import React from "react";
 import '../styles/mySwiper.css';
 
@@ -18,9 +19,15 @@ interface PropertyProps {
 
 const GallerySwiper: React.FC<PropertyProps> = ({ property }) => {
 
-    let datosFotos =  property.image.map((image: Image) => image.image_name);
+    let existPhotos = false;
+    let datosFotos = new Array();
     let classFotoPrincipal = "";
-    if(datosFotos.length == 0) {
+    if(property.image) {
+        existPhotos = property.image.length > 0 ? true : false;
+        datosFotos =  property.image.map((image: Image) => image.image_name);
+    }
+
+    if(!existPhotos) {
         datosFotos = new Array("../images/foto-principal-propiedad.jpg");
         classFotoPrincipal = "brightness-75 saturate-50";
     }

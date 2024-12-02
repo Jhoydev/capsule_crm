@@ -4,7 +4,6 @@ import Breadcrumbs from "@/components/shared/breadCrumbs";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {FaSave, FaTimes} from "react-icons/fa";
 import {Contact, getDefaultValues, contactSchema} from "@/types/contact.types";
-import {updateContact} from "@/app/(app)/contacts/services/contactApi";
 import {useForm, FormProvider, useFormContext} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import React, {useEffect} from "react";
@@ -68,7 +67,8 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
 
                 return;
             } else {
-                await updateContact(data.id, updatedContact);
+                const {contact} = await contactService.update(data.id, updatedContact)
+                router.push(`/contacts/${contact.id}`);
             }
 
             toast({

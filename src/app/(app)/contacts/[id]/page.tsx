@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { updateContact } from '@/app/(app)/contacts/services/contactApi';
 import { Contact } from '@/types/contact.types';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { SkeletonCard } from '@/app/(app)/contacts/components/skeleton';
@@ -49,21 +48,6 @@ const ContactComponent = () => {
         fetchContact();
     }, [id]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSave = async (id: number) => {
-        try {
-            const response = await updateContact(id, formData as Contact);
-            setContact(response.contact);
-            setIsEditing(false);
-        } catch (error) {
-            console.error('Error saving data:', error);
-            setError(true);
-        }
-    };
 
     if (loading) {
         return (

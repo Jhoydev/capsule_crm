@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { getProperty, updateProperty } from '@/app/(app)/properties/services/propertyApi';
 import { Property } from '@/types/property.types';
 import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { SkeletonCard } from '@/app/(app)/properties/components/skeleton';
 import PropertyView from "@/app/(app)/properties/components/propertyView";
 import PropertyEdition from "@/app/(app)/properties/components/propertyEdition";
-import * as z from "zod";
-import {handler} from "tailwindcss-animate";
+import { ApiParamsPropertyType, PropertyService } from '@/services/property.service';
 
 const PropertyComponent = () => {
     const { id } = useParams();
@@ -22,7 +20,8 @@ const PropertyComponent = () => {
         const fetchProperty= async () => {
             if (id) {
                 try {
-                    const data: Property = await getProperty(Number(id));
+                    const propertyService = new PropertyService();
+                    const data: Property = await propertyService.getProperty(Number(id));
                     setProperty(data);
                 } catch (error) {
                     console.error('Error fetching data:', error);

@@ -5,6 +5,7 @@ import { PaginatedResponse } from '@/types/pagination.types';
 import { ApiParamsType } from '@/types/api-params.type';
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 import {FileUploaderResponseType} from "@/types/file-uploader.type";
+import axios from "@/lib/axios";
 
 export type ApiParamsContactType = ApiParamsType & {
     [key: string]: string | number | boolean;
@@ -32,6 +33,11 @@ export class ContactService {
     public async save(contact: Omit<Contact, "id">): Promise<ApiResponseContact> {
         const { data } = await HttpService.getInstance().post<ApiResponseContact>(`${ConfigService.apiUrl}/contacts`, contact)
 
+        return data;
+    }
+
+    public async update (id: number, datos: Contact): Promise<ApiResponseContact> {
+        const { data } = await HttpService.getInstance().patch<ApiResponseContact>(`${ConfigService.apiUrl}/contacts/${id}`, datos);
         return data;
     }
 

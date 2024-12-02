@@ -1,31 +1,31 @@
 'use client'
 
-import ContactEdition from "@/app/(app)/contacts/components/contactEdition";
+import PropertyEdition from "@/app/(app)/properties/components/propertyEdition";
 import {useState} from "react";
-import {Contact} from "@/types/contact.types";
+import {Property} from "@/types/property.types";
 import Breadcrumbs from "@/components/shared/breadCrumbs";
-import {SkeletonCard} from "@/app/(app)/contacts/components/skeleton";
+import {SkeletonCard} from "@/app/(app)/properties/components/skeleton";
 import {useAuth} from "@/hooks/auth";
+import {Image} from "@/types/image.types";
 
 export default function Create() {
     const {user} = useAuth();
-    const [contact, setContact] = useState<Contact | null>({
+    const [property, setProperty] = useState<Property | null>({
         id: 0,
+        reference: '',
+        type: "house",
+        status: "available",
+        contact_id: 0,
         user_id: user.id,
-        first_name: '',
-        last_name: '',
-        email: '',
-        contact_medium: 'email',
-        gender: 'other',
+        latitude: 0,
+        longitude: 0,
+        image: []
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [isEditing, setIsEditing] = useState(true);
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        phone: '',
-        email: ''
+        reference: ''
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,11 +43,11 @@ export default function Create() {
             </div>
         );
     }
-    if (error || !contact) return <div>Error loading contact</div>;
+    if (error || !property) return <div>Error loading property</div>;
 
     return (
         <div className="flex flex-1 w-full h-full">
-            <ContactEdition editFunction={setIsEditing} data={contact} isNew={true}/>
+            <PropertyEdition editFunction={setIsEditing} data={property} isNew={true}/>
         </div>
     );
 }
