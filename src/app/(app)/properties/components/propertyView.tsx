@@ -11,6 +11,11 @@ import ClientPropertyDetails from "@/app/(app)/properties/components/clientPrope
 import dynamic from 'next/dynamic';
 import GalleryPhotos from "@/app/(app)/properties/components/galleryPhotos";
 import {Button} from "@/components/ui/button";
+import {RiPriceTag2Line} from "react-icons/ri";
+import {IoPricetagOutline} from "react-icons/io5";
+import {PiPolygonDuotone} from "react-icons/pi";
+import {MdBalcony} from "react-icons/md";
+import PropertyPrices from "@/app/(app)/properties/components/propertyPrices";
 
 //Esto es útil para componentes que dependen de objetos o propiedades disponibles solo en el navegador, como window o document, que no existen en el entorno de servidor.
 //porl o que con la siguiente intruccion le decimos que cargue el componente mapa de forma dinamica y le indicamos con el ssr false que no lo haga en el lado del servidor.
@@ -54,7 +59,10 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
                         <TabProperty property={data}/>
                     </div>
                 </div>
-                <div className="border rounded shadow p-5 w-full mt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 w-full mt-4">
+                    <PropertyPrices property={data}/>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 w-full mt-4">
                     <ClientPropertyDetails property={data}/>
                 </div>
             </div>
