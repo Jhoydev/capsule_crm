@@ -15,7 +15,7 @@ const PropertyCharacteristicsEdition = () => {
     };
 
     return (
-        <div className="border p-4 text-sm rounded-md mb-4 shadow">
+        <div className="border p-4 text-sm rounded-md shadow">
             <h3 className="text-sm font-bold mb-6">Property Characteristics</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
                 <div className="flex flex-col sm:mr-10 mb-2">

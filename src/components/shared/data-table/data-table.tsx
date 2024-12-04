@@ -35,6 +35,7 @@ export function DataTable<TData, TValue>({
     setPagination,
     columnFilters,
     setColumnFilters,
+    setSelectedRowsChange,
     total,
     children
 }: DataTableProps<TData, TValue>) {
@@ -43,6 +44,7 @@ export function DataTable<TData, TValue>({
         id: false,
     })
     const [sorting, setSorting] = useState<SortingState>([])
+    const [numSelected, setNumSelected] = useState(0);
 
     const table = useReactTable({
         data,
@@ -70,6 +72,14 @@ export function DataTable<TData, TValue>({
         getFacetedRowModel: getFacetedRowModel(),
         getFacetedUniqueValues: getFacetedUniqueValues(),
     })
+
+    // Notificar al padre cuando cambian las filas seleccionadas
+    useEffect(() => {
+        if (setSelectedRowsChange) {
+            const rows = table.getSelectedRowModel().flatRows.map((row) => row.original);
+            setSelectedRowsChange(rows);
+        }
+    }, [rowSelection]);
 
     return (
         <div className="space-y-4">
