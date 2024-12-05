@@ -6,7 +6,7 @@ const PropertyDescriptionsEdition = () => {
     const { register } = useFormContext();
 
     return (
-        <div className="border p-4 text-left rounded-md mb-4">
+        <div className="border p-4 text-sm shadow rounded-md">
             <h3 className="text-sm font-bold mb-6">Property Descriptions</h3>
             <div className="flex items-start flex-wrap">
                 <div className="flex flex-col w-full mb-5">

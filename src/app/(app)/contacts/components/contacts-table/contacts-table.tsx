@@ -19,8 +19,11 @@ function parseContactData(data: ApiContact[]) {
         }
     })
 }
+type props = {
+    setSelectedRowsChange ?: any
+};
 
-export function ContactsTable() {
+export function ContactsTable({setSelectedRowsChange}:props) {
     const [isLoading, setIsLoading] = useState(true);
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [total, setTotal] = useState(0);
@@ -82,6 +85,7 @@ export function ContactsTable() {
             setPagination={setPagination}
             columnFilters={columnFilters}
             setColumnFilters={setColumnFilters}
+            setSelectedRowsChange={setSelectedRowsChange}
         >
             <DataTableToolbar></DataTableToolbar>
         </DataTable>

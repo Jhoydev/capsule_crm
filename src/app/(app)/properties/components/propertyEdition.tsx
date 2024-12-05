@@ -28,6 +28,7 @@ import {
 import { uploadedFileType } from '@/types/image-upload.types';
 import {useRouter} from "next/navigation";
 import AlertDialog from "@/components/shared/alertDialog";
+import PropertyContactEdit from "@/app/(app)/properties/components/propertyContactEdit";
 
 
 interface PropertyEditionProps {
@@ -118,7 +119,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                     onKeyDown={handleKeyDown}
                     className="h-full w-full"
                 >
-                    <div className="flex justify-between items-center gap-2 p-4">
+                    <div className="flex justify-between items-center gap-2 p-4 mb-4">
                         <Breadcrumbs/>
                         <div className="flex justify-end items-center w-1/3 gap-4">
                             <Button
@@ -142,7 +143,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                             />
                         </div>
                     </div>
-                    <div className="grid grid-rows-4 sm:grid-cols-1 gap-4 p-6 grid-rows-[auto,auto,auto,auto]  h-[calc(100vh-135px)] overflow-y-auto">
+                    <div className="flex flex-col w-full gap-6 box-border p-5 h-[calc(100vh-150px)] overflow-y-auto">
                         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 gap-4">
                             <div className="md:col-span-5 border p-5 shadow rounded-md">
                                 <GalleryPhotos property={data}/>
@@ -177,15 +178,9 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                                 <PricesEdition/>
                             </div>
                         </div>
-                        <div className="w-full mt-4">
-                            <LocationEdition/>
-                        </div>
-                        <div>
-                            <PropertyCharacteristicsEdition/>
-                        </div>
-                        <div>
-                            <PropertyDescriptionsEdition/>
-                        </div>
+                        <PropertyCharacteristicsEdition/>
+                        <PropertyDescriptionsEdition/>
+                        <PropertyContactEdit/>
                     </div>
                 </form>
             </FormProvider>
