@@ -30,6 +30,12 @@ export class ContactService {
         return data;
     }
 
+    public async delete(id: number): Promise<boolean> {
+        const { data } = await HttpService.getInstance().delete<boolean>(`${ConfigService.apiUrl}/contacts/${id}`)
+
+        return data;
+    }
+
     public async save(contact: Omit<Contact, "id">): Promise<ApiResponseContact> {
         const { data } = await HttpService.getInstance().post<ApiResponseContact>(`${ConfigService.apiUrl}/contacts`, contact)
 

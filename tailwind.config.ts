@@ -72,6 +72,9 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      boxShadow: {
+        'inner-custom': 'inset 0px 0px 30px 40px rgba(0, 0, 0, 0.1)', // Sombra personalizada
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

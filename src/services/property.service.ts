@@ -41,6 +41,12 @@ export class PropertyService {
         return data;
     };
 
+    public async delete(id: number): Promise<boolean> {
+        const { data } = await HttpService.getInstance().delete<boolean>(`${ConfigService.apiUrl}/properties/${id}`)
+
+        return data;
+    }
+
     public async upload(
         body: FormData,
         config?: AxiosRequestConfig,
