@@ -65,6 +65,13 @@ export type ApiResponseContact = {
     status: number;
 };
 
+export type ApiResponseContactStatus = {
+    message: string;
+    status: number;
+};
+
+
+
 /*
 import * as z from "zod";
 

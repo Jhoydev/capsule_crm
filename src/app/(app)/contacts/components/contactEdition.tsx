@@ -94,14 +94,15 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
     const handleDelete = async () => {
         try {
 
-            const result = await contactService.delete(data.id);
+            const { status } = await contactService.delete(data.id);
 
-            toast({
-                title: 'Successfully',
-                description: 'Contact successfully deleted',
-            });
-
-            return result;
+            if(status == 200) {
+                toast({
+                    title: 'Successfully',
+                    description: 'Contact successfully deleted',
+                });
+            }
+            return status;
 
         }  catch (error) {
             console.error('Error deleting data:', error);

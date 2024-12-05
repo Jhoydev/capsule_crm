@@ -2,7 +2,7 @@ import { HttpService } from '@/services/http.service';
 import { ConfigService } from '@/services/config.service';
 import { PaginatedResponse } from '@/types/pagination.types';
 import { ApiParamsType } from '@/types/api-params.type';
-import {ApiResponseProperty, Property} from '@/types/property.types';
+import {ApiResponseProperty, ApiResponsePropertyStatus, Property} from '@/types/property.types';
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 import {FileUploaderResponseType} from "@/types/file-uploader.type";
 import axios from "@/lib/axios";
@@ -41,8 +41,8 @@ export class PropertyService {
         return data;
     };
 
-    public async delete(id: number): Promise<boolean> {
-        const { data } = await HttpService.getInstance().delete<boolean>(`${ConfigService.apiUrl}/properties/${id}`)
+    public async delete(id: number): Promise<ApiResponsePropertyStatus> {
+        const { data } = await HttpService.getInstance().delete<ApiResponsePropertyStatus>(`${ConfigService.apiUrl}/properties/${id}`)
 
         return data;
     }

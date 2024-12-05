@@ -112,3 +112,8 @@ export type ApiResponseProperty = {
     property: Property;
     status: number;
 };
+
+export type ApiResponsePropertyStatus = {
+    message: string;
+    status: number;
+};

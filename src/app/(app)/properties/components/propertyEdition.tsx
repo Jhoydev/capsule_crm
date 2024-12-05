@@ -110,14 +110,23 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
     const handleDelete = async () => {
         try {
 
-            const result = await propertyService.delete(data.id);
+            const { status }  = await propertyService.delete(data.id);
 
-            toast({
-                title: 'Successfully',
-                description: 'Property successfully deleted',
-            });
+            if(status == 200) {
+                toast({
+                    title: 'Successfully',
+                    description: 'Property successfully deleted',
+                });
+            } else {
+                toast({
+                    variant: 'destructive',
+                    title: 'Error',
+                    description: 'Error delete property',
+                });
+            }
 
-            return result;
+
+            return status;
 
         }  catch (error) {
             console.error('Error deleting data:', error);
