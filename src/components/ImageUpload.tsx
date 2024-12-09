@@ -26,7 +26,7 @@ import {
     VideoColor
 } from "@/types/image-upload.types";
 
-export default function ImageUpload({ fileUploaderService, maxFiles = 1, resourceId, onUploadedFiles }: Props) {
+export default function ImageUpload({ fileUploaderService, maxFiles = 1, accept = 'image/png, image/jpeg', resourceId, onUploadedFiles, fileKey }: Props) {
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
     const [filesToUpload, setFilesToUpload] = useState<FileUploadProgress[]>([]);
 
@@ -141,7 +141,7 @@ export default function ImageUpload({ fileUploaderService, maxFiles = 1, resourc
 
         const fileUploadBatch = acceptedFiles.map((file) => {
           const formData = new FormData();
-          formData.append("image", file);
+          formData.append(fileKey ?? "image", file);
 
           const cancelSource = axios.CancelToken.source();
           return uploadImageToCloudinary(
@@ -206,7 +206,7 @@ export default function ImageUpload({ fileUploaderService, maxFiles = 1, resourc
                 <Input
                     {...getInputProps()}
                     id="dropzone-file"
-                    accept="image/png, image/jpeg"
+                    accept={accept}
                     type="file"
                     className="hidden"
                 />
