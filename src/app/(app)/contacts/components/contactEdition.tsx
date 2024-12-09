@@ -143,7 +143,7 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                     <form onSubmit={methods.handleSubmit(handleSubmit)}>
                         <div className="flex justify-between items-center mb-5 p-4">
                             <Breadcrumbs/>
-                            <div className="flex justify-end items-center">
+                            <div className="flex justify-end items-center w-1/3 gap-4">
                                 <Button
                                     type="submit"
                                     className="mr-5"
