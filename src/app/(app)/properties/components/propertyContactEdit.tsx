@@ -31,6 +31,9 @@ const PropertyContactEdit = () => {
     useEffect(() => {
         if(Object.keys(rowSelection).length > 0){
             setValue("full_name", rowSelection[0].name);
+            setValue("email", rowSelection[0].email);
+            setValue("phone", rowSelection[0].phone);
+            setValue("id", rowSelection[0].id);
             setIsModalOpen(false);
         }
     }, [rowSelection]);
@@ -55,22 +58,14 @@ const PropertyContactEdit = () => {
                     </SheetContent>
                 </Sheet>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <Input type="hidden" {...register("id")}></Input>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div className="flex flex-col mb-2">
                     <label className="mb-2 text-slate-500">Full Name:</label>
                     <Input
                         type="text"
                         className="border p-1 rounded"
                         {...register("full_name")}
-                    />
-                </div>
-
-                <div className="flex flex-col mb-2">
-                    <label className="mb-2 text-slate-500">NIF:</label>
-                    <Input
-                        type="text"
-                        className="border p-1 rounded"
-                        {...register("nif")}
                     />
                 </div>
 
@@ -84,49 +79,12 @@ const PropertyContactEdit = () => {
                 </div>
 
                 <div className="flex flex-col mb-2">
-                    <label className="mb-2 text-slate-500">Alternate Email:</label>
-                    <Input
-                        type="email"
-                        className="border p-1 rounded"
-                        {...register("alternate_email")}
-                    />
-                </div>
-
-                <div className="flex flex-col mb-2">
                     <label className="mb-2 text-slate-500">Phone:</label>
                     <Input
                         type="tel"
                         className="border p-1 rounded"
                         {...register("phone")}
                     />
-                </div>
-
-                <div className="flex flex-col mb-2">
-                    <label className="mb-2 text-slate-500">Mobile:</label>
-                    <Input
-                        type="tel"
-                        className="border p-1 rounded"
-                        {...register("mobile")}
-                    />
-                </div>
-
-                <div className="flex flex-col mb-2 relative">
-                    <label className="mb-2 text-slate-500">Language:</label>
-                    <Select
-                        onValueChange={(value) => setValue("language", value)}
-                        defaultValue={getValues("language")}
-                    >
-                        <SelectTrigger className="w-full border rounded">
-                            <SelectValue placeholder="Select Language" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="english">English</SelectItem>
-                            <SelectItem value="spanish">Spanish</SelectItem>
-                            <SelectItem value="french">French</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Input type="text" className="hidden" {...register("language")} />
                 </div>
 
             </div>

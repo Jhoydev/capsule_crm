@@ -91,6 +91,30 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
         editFunction(param);
     };
 
+    const handleDelete = async () => {
+        try {
+
+            const { status } = await contactService.delete(data.id);
+
+            if(status == 200) {
+                toast({
+                    title: 'Successfully',
+                    description: 'Contact successfully deleted',
+                });
+            }
+            return status;
+
+        }  catch (error) {
+            console.error('Error deleting data:', error);
+            toast({
+                variant: 'destructive',
+                title: 'Error',
+                description: 'Error: ' + error,
+            });
+        }
+
+    };
+
     const contactMediumOptions = [
         {value: "other", label: "Otro"},
         {value: "email", label: "Email"},
@@ -127,9 +151,21 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
                                     <FaSave className="mr-2"/> Save
                                 </Button>
                                 <AlertDialog
+                                    title="Do you want to delete this property?"
+                                    description="If you delete, you will lose any unsaved changes."
+                                    triggerText="Delete"
+                                    variantButtonTrigger = "destructive"
+                                    onAccept={() => {
+                                        const result = handleDelete();
+                                        setIsEditing(false);
+                                        router.push('/contacts');
+                                    }}
+                                />
+                                <AlertDialog
                                     title="Do you want to cancel?"
                                     description="If you cancel, you will lose any unsaved changes."
                                     triggerText="Cancel"
+                                    variantButtonTrigger = "outline"
                                     onAccept={() => {
                                         if (isNew) {
                                             router.push('/contacts');

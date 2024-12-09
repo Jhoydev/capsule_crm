@@ -107,6 +107,39 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
         }
     };
 
+    const handleDelete = async () => {
+        try {
+
+            const { status }  = await propertyService.delete(data.id);
+
+            if(status == 200) {
+                toast({
+                    title: 'Successfully',
+                    description: 'Property successfully deleted',
+                });
+            } else {
+                toast({
+                    variant: 'destructive',
+                    title: 'Error',
+                    description: 'Error delete property',
+                });
+            }
+
+
+            return status;
+
+        }  catch (error) {
+            console.error('Error deleting data:', error);
+            toast({
+                variant: 'destructive',
+                title: 'Error',
+                description: 'Error: ' + error,
+            });
+            setIsSubmitting(false);
+        }
+
+    };
+
     const setIsEditing = (param: boolean) => {
         editFunction(param);
     };
@@ -130,9 +163,21 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                                 <span className="ml-2">Save</span>
                             </Button>
                             <AlertDialog
+                                title="Do you want to delete this property?"
+                                description="If you delete, you will lose any unsaved changes."
+                                triggerText="Delete"
+                                variantButtonTrigger = "destructive"
+                                onAccept={() => {
+                                    const result = handleDelete();
+                                    setIsEditing(false);
+                                    router.push('/properties');
+                                }}
+                            />
+                            <AlertDialog
                                 title="Do you want to cancel?"
                                 description="If you cancel, you will lose any unsaved changes."
                                 triggerText="Cancel"
+                                variantButtonTrigger = "outline"
                                 onAccept={() => {
                                     if (isNew) {
                                         router.push('/properties');
