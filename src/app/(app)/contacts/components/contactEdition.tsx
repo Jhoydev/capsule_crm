@@ -49,7 +49,7 @@ const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNe
 
     useEffect(() => {
         methods.reset(getDefaultValues(data));
-    }, [data, methods]);
+    }, [data]);
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         try {

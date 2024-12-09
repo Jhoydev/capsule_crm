@@ -53,7 +53,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
 
     useEffect(() => {
         methods.reset(getDefaultValues(data));
-    }, [data, methods]);
+    }, [data]);
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true);
