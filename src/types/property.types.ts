@@ -1,5 +1,6 @@
 import * as z from "zod";
 import { Image } from "@/types/image.types";
+import {Contact, contactSchema} from "@/types/contact.types";
 
 export const propertySchema = z.object({
     reference: z.string().nonempty({ message: "The reference cannot be empty" }),
@@ -33,7 +34,6 @@ export const propertySchema = z.object({
     status: z.enum(["sold", "rented", "available", "off_market", "pending"]),
     contact_id: z.coerce.number(),
     user_id: z.coerce.number(),
-    image: z.array(z.string()).optional(),
 });
 
 export const getDefaultValues = (data: Property) => ({
@@ -68,6 +68,8 @@ export const getDefaultValues = (data: Property) => ({
     status: data.status || "pending",
     contact_id: data.contact_id || 0,
     user_id: data.user_id || 0,
+    contact: data.contact || null,
+    image: data.image || [],
 });
 
 
@@ -105,6 +107,7 @@ export type Property = {
     contact_id: number;
     user_id: number;
     image?: Image[];
+    contact: Contact;
 };
 
 export type ApiResponseProperty = {

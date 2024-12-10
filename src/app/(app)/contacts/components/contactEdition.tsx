@@ -35,7 +35,7 @@ interface ContactEditionProps {
     isNew?: boolean;
 }
 
-const formSchema = z.object(contactSchema);
+const formSchema = contactSchema;
 
 const ContactEdition: React.FC<ContactEditionProps> = ({editFunction, data, isNew = false}) => {
     const {toast} = useToast();

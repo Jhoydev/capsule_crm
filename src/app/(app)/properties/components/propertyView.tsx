@@ -24,10 +24,9 @@ const MapDetails = dynamic(() => import('./map/mapDetails'), {
 interface propertyViewProps {
     editFunction: (isEditing: boolean) => void;
     data: Property;
-    dataContact?: Contact;
 }
 
-const propertyView: React.FC<propertyViewProps> = ({ editFunction, data, dataContact }) => {
+const propertyView: React.FC<propertyViewProps> = ({ editFunction, data }) => {
     const setIsEditing = (param: boolean) => {
         editFunction(param);
     }
@@ -58,7 +57,7 @@ const propertyView: React.FC<propertyViewProps> = ({ editFunction, data, dataCon
                     <PropertyPrices property={data}/>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 w-full mt-4">
-                    <ClientPropertyDetails property={data} contact={dataContact}/>
+                    <ClientPropertyDetails property={data}/>
                 </div>
             </div>
 

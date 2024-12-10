@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
     Sheet, SheetClose,
     SheetContent,
@@ -11,22 +10,16 @@ import {
     SheetTitle,
     SheetTrigger
 } from '@/components/ui/sheet';
-import {Label} from "@/components/ui/label";
 import Button from "@/components/Button";
 import {ContactsTable} from "@/app/(app)/contacts/components/contacts-table/contacts-table";
 import '../styles/modal.css';
 import {RowSelectionState} from "@tanstack/table-core";
-import {Contact} from "@/types/contact.types";
 
-interface props {
-    contact?: Contact;
-}
-
-
-const PropertyContactEdit: React.FC<props> = ({ contact }) => {
+const PropertyContactEdit = () => {
     const { register, setValue, getValues } = useFormContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rowSelection, setSelectedRowsChange] = useState<RowSelectionState>({});
+    const contact = getValues("contact"); // Estado local para el valor del select
 
 
     const handlerSelectContact = () => {
@@ -43,20 +36,17 @@ const PropertyContactEdit: React.FC<props> = ({ contact }) => {
             // @ts-ignore
             setValue("phone", rowSelection[0].phone);
             // @ts-ignore
-            setValue("id", rowSelection[0].id);
+            setValue("contact_id", rowSelection[0].id);
             setIsModalOpen(false);
         }
     }, [rowSelection]);
 
     useEffect(() => {
-        if(contact){
             setValue("full_name", contact?.first_name);
             setValue("email", contact?.email);
             setValue("phone", contact?.phone);
             setValue("mobile", contact?.mobile);
-            setValue("id", contact?.id);
-            setIsModalOpen(false);
-        }
+            setValue("contact_id", contact?.id);
     }, [contact]);
 
 

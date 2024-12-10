@@ -31,12 +31,12 @@ export class PropertyService {
         return data;
     }
 
-    public async save(property: Omit<Property, "id">): Promise<ApiResponseProperty> {
+    public async save(property: Omit<Omit<Property, "id">, "contact">): Promise<ApiResponseProperty> {
         const { data } = await HttpService.getInstance().post<ApiResponseProperty>(`${ConfigService.apiUrl}/properties`, property);
         return data;
     };
 
-    public async update(id: number, datos: Property): Promise<ApiResponseProperty> {
+    public async update(id: number, datos: Omit<Property, "contact">): Promise<ApiResponseProperty> {
         const { data } = await HttpService.getInstance().patch<ApiResponseProperty>(`${ConfigService.apiUrl}/properties/${id}`, datos);
         return data;
     };

@@ -1,49 +1,54 @@
-'use client'
+'use client';
 
-import React, {useEffect, useState} from 'react';
-import {Property} from "@/types/property.types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {ContactService} from "@/services/contact.service";
-import {Contact} from "@/types/contact.types";
-import {PropertyService} from "@/services/property.service";
-
+import React, { useEffect, useState } from 'react';
+import { Property } from "@/types/property.types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Contact } from "@/types/contact.types";
 
 interface PropertyDetailsProps {
     property: Property;
-    contact?: Contact;
 }
 
-const ClientPropertyDetails: React.FC<PropertyDetailsProps> = ({ property, contact }) => {
+const ClientPropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
+    const [contact, setContact] = useState<Contact | null>(property.contact || null);
     const [fullName, setFullName] = useState('');
     const [contactMedium, setContactMedium] = useState('');
     const [iniciales, setIniciales] = useState('');
 
     useEffect(() => {
-        if(contact) {
-            setFullName(contact.first_name + ' ' + contact.last_name);
+        setContact(property.contact);
+    }, [property]);
+
+    useEffect(() => {
+        if (contact) {
+            setFullName(`${contact.first_name} ${contact.last_name}`);
             if (contact.contact_medium) {
-                const contactMedium = contact.contact_medium.substring(0,1).toUpperCase()+contact.contact_medium.replace("_", " ").substring(1);
-                setContactMedium(contactMedium);
+                const formattedMedium = contact.contact_medium
+                    .replace("_", " ")
+                    .toLowerCase();
+                setContactMedium(
+                    formattedMedium.charAt(0).toUpperCase() + formattedMedium.slice(1)
+                );
             }
-            let ini = contact.first_name.substring(0,1) + contact.last_name.substring(0,1);
-            if (ini.length == 1) ini = contact.first_name.substring(0,1) + contact.first_name.substring(1,1);
-            setIniciales(ini);
+            const initials =
+                contact.first_name.charAt(0) +
+                (contact.last_name?.charAt(0) || contact.first_name.charAt(1));
+            setIniciales(initials.toUpperCase());
         }
     }, [contact]);
-
 
     return (
         <div className="md:col-span-5 border rounded shadow p-5">
             <div className="flex">
-                {/*<!-- Avatar Section --> */}
+                {/* Avatar Section */}
                 <div className="flex col-span-full md:col-span-1 ml-5 mr-10">
                     <Avatar className="w-20 h-20">
-                        <AvatarImage src={contact?.avatar_url ?? ''}/>
+                        <AvatarImage src={contact?.avatar_url ?? ''} />
                         <AvatarFallback>{iniciales}</AvatarFallback>
                     </Avatar>
                 </div>
                 <div className="flex flex-col gap-4">
-                    {/*<!-- Information Grid -->*/}
+                    {/* Information Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 col-span-full">
                         <div className="flex flex-col">
                             <span className="text-gray-500 font-medium">Full Name:</span>
@@ -108,6 +113,6 @@ const ClientPropertyDetails: React.FC<PropertyDetailsProps> = ({ property, conta
             </div>
         </div>
     );
-}
+};
 
 export default ClientPropertyDetails;

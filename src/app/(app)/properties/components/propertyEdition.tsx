@@ -35,14 +35,13 @@ import {Contact} from "@/types/contact.types";
 interface PropertyEditionProps {
     editFunction: (isEditing: boolean) => void;
     data: Property;
-    dataContact?: Contact;
     rechargeFunctionProperty?: (propertyData: Property) => void;
     isNew?: boolean;
 }
 
 const formSchema = propertySchema;
 
-const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, dataContact, rechargeFunctionProperty, isNew }) => {
+const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, rechargeFunctionProperty, isNew }) => {
     const { toast } = useToast();
     const router = useRouter();
     const propertyService = new PropertyService();
@@ -60,15 +59,14 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, d
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true);
         try {
-            const { image, ...valuesWithoutPhotos} = values;
             if (isNew) {
-                const {property} = await propertyService.save(valuesWithoutPhotos);
+                const {property} = await propertyService.save(values);
                 router.push(`/properties/${property.id}`);
                 return;
             } else {
-                const updatedProperty: Property = {
+                const updatedProperty = {
                     id: data.id,
-                    ...valuesWithoutPhotos
+                    ...values
                 }
                 const {property} = await propertyService.update(data.id, updatedProperty);
                 property.image = data.image;
@@ -224,7 +222,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, d
                         <LocationEdition/>
                         <PropertyCharacteristicsEdition/>
                         <PropertyDescriptionsEdition/>
-                        <PropertyContactEdit contact={dataContact}/>
+                        <PropertyContactEdit/>
                     </div>
                 </form>
             </FormProvider>

@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const contactSchema = {
+export const contactSchema = z.object({
     first_name: z.string().nonempty({ message: "El nombre no puede estar vacío" }),
     last_name: z.string().nonempty({ message: "Los apellidos no pueden estar vacíos" }),
     email: z.string().email({ message: "Email inválido" }),
@@ -17,7 +17,7 @@ export const contactSchema = {
     profession: z.string().optional(),
     company: z.string().optional(),
     gender: z.enum(["male", "female", "other"]),
-};
+});
 
 export const getDefaultValues = (data: Contact) => ({
     first_name: data.first_name || "",
