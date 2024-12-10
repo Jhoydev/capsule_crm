@@ -16,13 +16,17 @@ interface AlertDialogProps {
     description: string;
     onAccept: () => void;
     triggerText: string;
+    variantButtonTrigger: string;
 }
 
-const AlertDialog: React.FC<AlertDialogProps> = ({ title, description, onAccept, triggerText }) => {
+const AlertDialog: React.FC<AlertDialogProps> = ({ title, description, onAccept, triggerText, variantButtonTrigger }) => {
+
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">{triggerText}</Button>
+                <Button variant={variantButtonTrigger === "destructive" ? "destructive" : "outline"}>
+                    {triggerText}
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

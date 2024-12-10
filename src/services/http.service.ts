@@ -27,6 +27,10 @@ export class HttpService {
         return this.mAxiosInstance.get<T>(url, config);
     }
 
+    public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+        return this.mAxiosInstance.delete<T>(url, config);
+    }
+
     public async post<T, D = any>(url: string, data?: D, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
         return this.mAxiosInstance.post<T>(url, data, config);
     }

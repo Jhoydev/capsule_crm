@@ -12,7 +12,6 @@ import { useToast } from '@/hooks/use-toast';
 import GalleryPhotos from '@/app/(app)/properties/components/galleryPhotos';
 import AgentEdition from './agentEdition';
 import PricesEdition from './pricesEdition';
-import LocationEdition from '@/app/(app)/properties/components/locationEdition';
 import PropertyCharacteristicsEdition from './propertyCharacteristicsEdition';
 import PropertyDescriptionsEdition from './propertyDescriptionsEdition';
 import ImageUpload from '@/components/ImageUpload';
@@ -29,6 +28,7 @@ import { uploadedFileType } from '@/types/image-upload.types';
 import {useRouter} from "next/navigation";
 import AlertDialog from "@/components/shared/alertDialog";
 import PropertyContactEdit from "@/app/(app)/properties/components/propertyContactEdit";
+import LocationEdition from "@/app/(app)/properties/components/locationEdition";
 
 
 interface PropertyEditionProps {
@@ -38,7 +38,7 @@ interface PropertyEditionProps {
     isNew?: boolean;
 }
 
-const formSchema = z.object(propertySchema);
+const formSchema = propertySchema;
 
 const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, rechargeFunctionProperty, isNew }) => {
     const { toast } = useToast();
@@ -46,32 +46,28 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
     const propertyService = new PropertyService();
     const methods = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: getDefaultValues(data),
+        defaultValues: getDefaultValues(data)
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         methods.reset(getDefaultValues(data));
-    }, [data, methods]);
+    }, [data]);
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true);
         try {
-            const { image, operation, ...valuesWithoutPhotos } = values;
-            const updatedProperty: Property = {
-                id: data.id,
-                operation: JSON.stringify({"operations" : [operation]}),
-                ...valuesWithoutPhotos,
-            };
-
+            const { image, ...valuesWithoutPhotos} = values;
             if (isNew) {
-                const {id, ...updatedPropertyWithoutId} = updatedProperty;
-                const {property} = await propertyService.save(updatedPropertyWithoutId);
-
+                const {property} = await propertyService.save(valuesWithoutPhotos);
                 router.push(`/properties/${property.id}`);
                 return;
             } else {
+                const updatedProperty: Property = {
+                    id: data.id,
+                    ...valuesWithoutPhotos
+                }
                 const {property} = await propertyService.update(data.id, updatedProperty);
                 property.image = data.image;
                 if (typeof(rechargeFunctionProperty) == "function") {
@@ -107,6 +103,39 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
         }
     };
 
+    const handleDelete = async () => {
+        try {
+
+            const { status }  = await propertyService.delete(data.id);
+
+            if(status == 200) {
+                toast({
+                    title: 'Successfully',
+                    description: 'Property successfully deleted',
+                });
+            } else {
+                toast({
+                    variant: 'destructive',
+                    title: 'Error',
+                    description: 'Error delete property',
+                });
+            }
+
+
+            return status;
+
+        }  catch (error) {
+            console.error('Error deleting data:', error);
+            toast({
+                variant: 'destructive',
+                title: 'Error',
+                description: 'Error: ' + error,
+            });
+            setIsSubmitting(false);
+        }
+
+    };
+
     const setIsEditing = (param: boolean) => {
         editFunction(param);
     };
@@ -130,9 +159,21 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                                 <span className="ml-2">Save</span>
                             </Button>
                             <AlertDialog
+                                title="Do you want to delete this property?"
+                                description="If you delete, you will lose any unsaved changes."
+                                triggerText="Delete"
+                                variantButtonTrigger = "destructive"
+                                onAccept={() => {
+                                    const result = handleDelete();
+                                    setIsEditing(false);
+                                    router.push('/properties');
+                                }}
+                            />
+                            <AlertDialog
                                 title="Do you want to cancel?"
                                 description="If you cancel, you will lose any unsaved changes."
                                 triggerText="Cancel"
+                                variantButtonTrigger = "outline"
                                 onAccept={() => {
                                     if (isNew) {
                                         router.push('/properties');
@@ -178,6 +219,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                                 <PricesEdition/>
                             </div>
                         </div>
+                        <LocationEdition/>
                         <PropertyCharacteristicsEdition/>
                         <PropertyDescriptionsEdition/>
                         <PropertyContactEdit/>

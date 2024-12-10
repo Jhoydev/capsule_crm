@@ -56,4 +56,6 @@ export interface Props {
     fileUploaderService: FileUploaderServiceType,
     resourceId?: number | string,
     onUploadedFiles?: ([]: uploadedFileType[]) => void,
+    fileKey?: string
+    accept?: string
 }
