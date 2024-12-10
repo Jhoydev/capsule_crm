@@ -10,7 +10,7 @@ export const contactSchema = {
     mobile: z.string().optional(),
     avatar_url: z.string().optional(),
     birthday: z.string().optional(),
-    contact_medium: z.enum(["email", "phone", "sms", "other"]),
+    contact_medium: z.enum(["email", "phone", "social_media", "other"]),
     language: z.enum(['english', 'spanish', 'french', 'other']).optional(),
     notes: z.string().optional(),
     rgpd: z.string().optional(),
@@ -50,7 +50,7 @@ export type Contact = {
     mobile?: string;
     avatar_url?: string;
     birthday?: string;
-    contact_medium: 'email' | 'phone' | 'sms' | 'other';
+    contact_medium: 'email' | 'phone' | 'social_media' | 'other';
     language?: 'english' | 'spanish' | 'french' | 'other';
     notes?: string;
     rgpd?: string;

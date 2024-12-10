@@ -12,7 +12,7 @@ export const propertySchema = z.object({
     door: z.string().optional(),
     city: z.string().nonempty({ message: "The city cannot be empty" }),
     country_id: z.string().nonempty({ message: "The country cannot be empty" }),
-    state: z.string().nonempty({ message: "El estado no puede estar vacío" }),
+    state: z.enum(['under_construction', 'new', 'reformated', 'semi_renovated', 'second_hand', 'to_renovate']),
     zip_code: z.string().optional(),
     zone: z.string().optional(),
     latitude: z.coerce.number().min(-90).max(90, "Invalid latitude"),
@@ -82,7 +82,7 @@ export type Property = {
     floor?: string;
     door?: string;
     city?: string;
-    state?: string;
+    state: "under_construction" | "new" | "reformated" | "semi_renovated" | "second_hand" | "to_renovate";
     country_id?: string;
     zip_code?: string;
     zone?: string;
