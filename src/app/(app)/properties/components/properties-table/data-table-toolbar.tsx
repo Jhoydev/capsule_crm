@@ -35,7 +35,7 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>Status</SelectLabel>
-                            <SelectItem className="capitalize" value={null}>All</SelectItem>
+                            <SelectItem className="capitalize" value=" ">All</SelectItem>
                             {status?.map((item, index) => (
                                 <SelectItem className="capitalize" value={item} key={index}>
                                     {item.replace('_', ' ')}
@@ -70,7 +70,7 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>Types</SelectLabel>
-                            <SelectItem className="capitalize" value={null}>All</SelectItem>
+                            <SelectItem className="capitalize" value=" ">All</SelectItem>
                             {types?.map((item, index) => (
                                 <SelectItem className="capitalize" value={item} key={index}>
                                     {item.replace('_', ' ')}
