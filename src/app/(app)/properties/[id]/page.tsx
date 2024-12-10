@@ -8,10 +8,13 @@ import { SkeletonCard } from '@/app/(app)/properties/components/skeleton';
 import PropertyView from "@/app/(app)/properties/components/propertyView";
 import PropertyEdition from "@/app/(app)/properties/components/propertyEdition";
 import { ApiParamsPropertyType, PropertyService } from '@/services/property.service';
+import {Contact} from "@/types/contact.types";
+import {ContactService} from "@/services/contact.service";
 
 const PropertyComponent = () => {
     const { id } = useParams();
     const [property, setProperty] = useState<Property | null>(null);
+    const [contact, setContact] = useState<Contact>();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -24,6 +27,11 @@ const PropertyComponent = () => {
                     const data: Property = await propertyService.getProperty(Number(id));
                     data.is_available = !!data.is_available;
                     setProperty(data);
+
+                    const contactService = new ContactService();
+                    const contact: Contact = await contactService.getContact(Number(data.contact_id));
+                    setContact(contact);
+
                 } catch (error) {
                     console.error('Error fetching data:', error);
                     setError(true);
@@ -56,9 +64,9 @@ const PropertyComponent = () => {
     return (
         <div className="flex flex-1 w-full h-full">
             {isEditing ? (
-                <PropertyEdition editFunction={setIsEditing} rechargeFunctionProperty={handlerRechargeProperty}  data={property} />
+                <PropertyEdition editFunction={setIsEditing} rechargeFunctionProperty={handlerRechargeProperty}  data={property} dataContact={contact} />
             ) : (
-                <PropertyView editFunction={setIsEditing} data={property}/>
+                <PropertyView editFunction={setIsEditing} data={property} dataContact={contact}/>
             )}
         </div>
     );

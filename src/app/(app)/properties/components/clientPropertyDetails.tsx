@@ -5,42 +5,31 @@ import {Property} from "@/types/property.types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {ContactService} from "@/services/contact.service";
 import {Contact} from "@/types/contact.types";
-
+import {PropertyService} from "@/services/property.service";
 
 
 interface PropertyDetailsProps {
     property: Property;
+    contact?: Contact;
 }
 
-const ClientPropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
-    const contactId = property.contact_id;
-    const [contact, setContact] = useState<Contact | null>(null);
+const ClientPropertyDetails: React.FC<PropertyDetailsProps> = ({ property, contact }) => {
     const [fullName, setFullName] = useState('');
     const [contactMedium, setContactMedium] = useState('');
     const [iniciales, setIniciales] = useState('');
-    useEffect(() => {
-        const fetchClient= async () => {
-            if (contactId) {
-                try {
-                    const contactService = new ContactService();
-                    const data: Contact = await contactService.getContact(Number(contactId));
-                    setContact(data);
-                    setFullName(data.first_name + ' ' + data.last_name);
-                    if (data.contact_medium) {
-                        const contactMedium = data.contact_medium.substring(0,1).toUpperCase()+data.contact_medium.replace("_", " ").substring(1);
-                        setContactMedium(contactMedium);
-                    }
-                    let ini = data.first_name.substring(0,1) + data.last_name.substring(0,1);
-                    if (ini.length == 1) ini = data.first_name.substring(0,1) + data.first_name.substring(1,1);
-                    setIniciales(ini);
 
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
+    useEffect(() => {
+        if(contact) {
+            setFullName(contact.first_name + ' ' + contact.last_name);
+            if (contact.contact_medium) {
+                const contactMedium = contact.contact_medium.substring(0,1).toUpperCase()+contact.contact_medium.replace("_", " ").substring(1);
+                setContactMedium(contactMedium);
             }
-        };
-        fetchClient();
-    }, [contactId]);
+            let ini = contact.first_name.substring(0,1) + contact.last_name.substring(0,1);
+            if (ini.length == 1) ini = contact.first_name.substring(0,1) + contact.first_name.substring(1,1);
+            setIniciales(ini);
+        }
+    }, [contact]);
 
 
     return (

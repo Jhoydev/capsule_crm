@@ -29,18 +29,20 @@ import {useRouter} from "next/navigation";
 import AlertDialog from "@/components/shared/alertDialog";
 import PropertyContactEdit from "@/app/(app)/properties/components/propertyContactEdit";
 import LocationEdition from "@/app/(app)/properties/components/locationEdition";
+import {Contact} from "@/types/contact.types";
 
 
 interface PropertyEditionProps {
     editFunction: (isEditing: boolean) => void;
     data: Property;
+    dataContact?: Contact;
     rechargeFunctionProperty?: (propertyData: Property) => void;
     isNew?: boolean;
 }
 
 const formSchema = propertySchema;
 
-const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, rechargeFunctionProperty, isNew }) => {
+const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, dataContact, rechargeFunctionProperty, isNew }) => {
     const { toast } = useToast();
     const router = useRouter();
     const propertyService = new PropertyService();
@@ -222,7 +224,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                         <LocationEdition/>
                         <PropertyCharacteristicsEdition/>
                         <PropertyDescriptionsEdition/>
-                        <PropertyContactEdit/>
+                        <PropertyContactEdit contact={dataContact}/>
                     </div>
                 </form>
             </FormProvider>
