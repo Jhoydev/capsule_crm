@@ -1,14 +1,15 @@
 // PricesEdition.tsx
 import React, {useState} from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { RiPriceTag2Line } from "react-icons/ri";
 import { IoPricetagOutline } from "react-icons/io5";
 import { Input } from '@/components/ui/input';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 const PricesEdition: React.FC = () => {
-    const { register, setValue, getValues } = useFormContext();
+    const { register, setValue, getValues, control } = useFormContext();
     const [selectedStatus, setSelectedStatus] = useState(getValues("status")); // Estado local para el valor del select
+    const [selectedOperation, setSelectedOperation] = useState(getValues("operation")); // Estado local para el valor del select
     const [isAvailable, setIsAvailable] = useState(getValues("is_available")); // Estado local para el valor del select
 
 
@@ -59,8 +60,24 @@ const PricesEdition: React.FC = () => {
                         <RiPriceTag2Line className="mr-1 font-bold"/>
                         Operation:
                     </label>
-                    <Input
-                        type="text" className="border p-1 rounded" {...register("operation")}
+                    <Controller
+                        name="operation"
+                        control={control}
+                        render={({ field }) => (
+                            <Select
+                                value={field.value}
+                                onValueChange={(value) => field.onChange(value)}
+                            >
+                                <SelectTrigger className="w-full border p-1 rounded">
+                                    <SelectValue placeholder="Select Property Operation" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="rent">Rent</SelectItem>
+                                    <SelectItem value="sale">Sale</SelectItem>
+                                    <SelectItem value="transfer">Transfer</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        )}
                     />
                 </div>
                 <div className="flex flex-col mr-4">

@@ -10,7 +10,7 @@ interface PropertyDetailsProps {
 }
 
 const ClientPropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
-    const [contact, setContact] = useState<Contact | null>(property.contact || null);
+    const [contact, setContact] = useState<Contact | undefined>(property.contact || undefined);
     const [fullName, setFullName] = useState('');
     const [contactMedium, setContactMedium] = useState('');
     const [iniciales, setIniciales] = useState('');
