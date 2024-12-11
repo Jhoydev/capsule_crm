@@ -57,6 +57,13 @@ export class PropertyService {
             .post<FileUploaderResponseType>(`${ConfigService.apiUrl}/images/property/${id}`, body, config)
     }
 
+
+    public async deleteImage(image:{}, id: number): Promise<ApiResponsePropertyStatus> {
+        const { data } = await HttpService.getInstance().delete<ApiResponsePropertyStatus>(`${ConfigService.apiUrl}/images/property/${id}`, image)
+
+        return data;
+    }
+
     public async statsStatus(): Promise<AxiosResponse<any>> {
         return HttpService
             .getInstance()
