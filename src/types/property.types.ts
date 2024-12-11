@@ -107,7 +107,7 @@ export type Property = {
     contact_id: number;
     user_id: number;
     image?: Image[];
-    contact: Contact;
+    contact?: Contact;
 };
 
 export type ApiResponseProperty = {
