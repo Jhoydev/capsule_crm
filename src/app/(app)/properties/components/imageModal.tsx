@@ -26,11 +26,10 @@ export function ImageModal({ property }: ImageModalProps) {
     const handleDelete = async () => {
         try {
             let allSuccess = true;
-
             for (const imageId of selectedImages) {
-                const { status } = await propertyService.deleteImage({ image_id: imageId }, property.id);
+                const { message } = await propertyService.deleteImage( property.id, { image_id: imageId });
 
-                if (status !== 200) {
+                if (!message.includes("success")) {
                     allSuccess = false;
                     toast({
                         variant: 'destructive',

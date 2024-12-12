@@ -5,8 +5,7 @@ import { ApiParamsType } from '@/types/api-params.type';
 import {ApiResponseProperty, ApiResponsePropertyStatus, Property} from '@/types/property.types';
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 import {FileUploaderResponseType} from "@/types/file-uploader.type";
-import axios from "@/lib/axios";
-import {ApiResponseContact, Contact} from "@/types/contact.types";
+import {ApiResponseImageStatus, Image} from "@/types/image.types";
 
 export type ApiParamsPropertyType = ApiParamsType & {
     [key: string]: string | number | boolean;
@@ -65,8 +64,13 @@ export class PropertyService {
     }
 
 
-    public async deleteImage(image:{}, id: number): Promise<ApiResponsePropertyStatus> {
-        const { data } = await HttpService.getInstance().delete<ApiResponsePropertyStatus>(`${ConfigService.apiUrl}/images/property/${id}`, image)
+    public async deleteImage(id: number, image: { image_id: number }): Promise<ApiResponseImageStatus> {
+        const { data } = await HttpService.getInstance().delete<ApiResponseImageStatus>(
+            `${ConfigService.apiUrl}/images/property/${id}`,
+            {
+                data: image, // Enviar el JSON en el cuerpo de la petición
+            }
+        );
 
         return data;
     }
