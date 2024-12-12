@@ -7,7 +7,6 @@ import {PropertyService} from "@/services/property.service";
 import {toast, useToast} from "@/hooks/use-toast";
 import {MdDelete} from "react-icons/md";
 
-
 interface ImageModalProps {
     property: Property;
     rechargeFunctionProperty?: (propertyData: Property) => void;
