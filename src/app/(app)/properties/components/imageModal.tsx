@@ -7,14 +7,10 @@ import {PropertyService} from "@/services/property.service";
 import {toast, useToast} from "@/hooks/use-toast";
 import {MdDelete} from "react-icons/md";
 
-interface ImageModalProps {
-    property: Property;
-    rechargeFunctionProperty?: (propertyData: Property) => void;
-}
 
 interface ImageModalProps {
     property: Property;
-    rechargeFunctionProperty?: (propertyData: Property) => void; // Callback para actualizar en el componente padre
+    rechargeFunctionProperty?: (propertyData: Property) => void;
 }
 
 export function ImageModal({ property, rechargeFunctionProperty }: ImageModalProps) {
@@ -75,7 +71,7 @@ export function ImageModal({ property, rechargeFunctionProperty }: ImageModalPro
     };
 
     return (
-        <div className="mt-4">
+        <div className="mt-4 overflow-y-auto">
             <div className="flex flex-wrap gap-4 justify-center">
                 {images.map((image: Image) => (
                     <div
