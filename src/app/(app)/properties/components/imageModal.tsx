@@ -14,7 +14,7 @@ interface ImageModalProps {
 
 interface ImageModalProps {
     property: Property;
-    rechargeFunctionProperty?: (propertyData: Property) => void; // Callback para actualizar en el componente padre
+    rechargeFunctionProperty?: (propertyData: Property) => void; // Callback  para actualizar en el componente padre
 }
 
 export function ImageModal({ property, rechargeFunctionProperty }: ImageModalProps) {
