@@ -13,7 +13,7 @@ interface ImageModalProps {
 
 export function ImageModal({ property }: ImageModalProps) {
     const [selectedImages, setSelectedImages] = useState<number[]>([]);
-    const images = property.image || [];
+    const [images, setImages] = useState<Image[]>(property.image || []);
     const propertyService = new PropertyService();
     const { toast } = useToast();
 
@@ -26,8 +26,9 @@ export function ImageModal({ property }: ImageModalProps) {
     const handleDelete = async () => {
         try {
             let allSuccess = true;
+
             for (const imageId of selectedImages) {
-                const { message } = await propertyService.deleteImage( property.id, { image_id: imageId });
+                const { message } = await propertyService.deleteImage(property.id, { image_id: imageId });
 
                 if (!message.includes("success")) {
                     allSuccess = false;
@@ -40,13 +41,18 @@ export function ImageModal({ property }: ImageModalProps) {
             }
 
             if (allSuccess) {
+                // Actualizar imágenes en el frontend
+                setImages((prev) => prev.filter((image) => !selectedImages.includes(image.id)));
+
+                // Mostrar mensaje de éxito
                 toast({
                     title: 'Successfully',
                     description: 'All selected images were successfully deleted',
                 });
-                setSelectedImages([]); // Limpiar la selección
-            }
 
+                // Limpiar selección
+                setSelectedImages([]);
+            }
         } catch (error) {
             toast({
                 variant: 'destructive',
@@ -58,7 +64,7 @@ export function ImageModal({ property }: ImageModalProps) {
 
     return (
         <div className="mt-4">
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 justify-center">
                 {images.map((image: Image) => (
                     <div
                         key={image.id}
@@ -92,7 +98,6 @@ export function ImageModal({ property }: ImageModalProps) {
                     Delete Images
                 </Button>
             </div>
-
         </div>
     );
 }
