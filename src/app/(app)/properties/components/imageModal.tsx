@@ -9,9 +9,15 @@ import {MdDelete} from "react-icons/md";
 
 interface ImageModalProps {
     property: Property;
+    rechargeFunctionProperty?: (propertyData: Property) => void;
 }
 
-export function ImageModal({ property }: ImageModalProps) {
+interface ImageModalProps {
+    property: Property;
+    rechargeFunctionProperty?: (propertyData: Property) => void; // Callback para actualizar en el componente padre
+}
+
+export function ImageModal({ property, rechargeFunctionProperty }: ImageModalProps) {
     const [selectedImages, setSelectedImages] = useState<number[]>([]);
     const [images, setImages] = useState<Image[]>(property.image || []);
     const propertyService = new PropertyService();
@@ -42,7 +48,13 @@ export function ImageModal({ property }: ImageModalProps) {
 
             if (allSuccess) {
                 // Actualizar imágenes en el frontend
-                setImages((prev) => prev.filter((image) => !selectedImages.includes(image.id)));
+                const updatedImages = images.filter((image) => !selectedImages.includes(image.id));
+                setImages(updatedImages);
+
+                // Actualizar el `property.image` y notificar al componente padre
+                if (rechargeFunctionProperty) {
+                    rechargeFunctionProperty({ ...property, image: updatedImages });
+                }
 
                 // Mostrar mensaje de éxito
                 toast({

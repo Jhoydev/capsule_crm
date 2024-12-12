@@ -235,7 +235,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
                                         <SheetHeader>
                                             <SheetTitle>Delete Images</SheetTitle>
                                         </SheetHeader>
-                                        <ImageModal property={data} />
+                                        <ImageModal property={data} rechargeFunctionProperty={rechargeFunctionProperty}/>
                                         <SheetFooter>
                                             <SheetClose asChild>
                                                 <Button className="hidden" type="button" variant="destructive">Delete Selected Images</Button>
