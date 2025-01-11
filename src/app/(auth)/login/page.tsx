@@ -6,12 +6,11 @@ import InputError from '@/components/InputError'
 import Label from '@/components/Label'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { ApiErrors } from '@/types/auth.types';
-import { Loader, LoaderCircle } from 'lucide-react';
+import { LoaderCircle } from 'lucide-react';
 import AuthLayout from '@/app/(auth)/components/auth-layout';
 
 const Login = () => {
@@ -28,14 +27,6 @@ const Login = () => {
     const [shouldRemember, setShouldRemember] = useState<boolean>(false)
     const [errors, setErrors] = useState<ApiErrors>({})
     const [status, setStatus] = useState<string | null>(null)
-
-    /*useEffect(() => {
-        if (router.reset?.length > 0 && errors.length === 0) {
-            setStatus(atob(router.reset))
-        } else {
-            setStatus(null)
-        }
-    })*/
 
     const submitForm = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault()
@@ -70,9 +61,7 @@ const Login = () => {
                     <InputError messages={errors.email} className="mt-2"/>
                 </div>
                 <div className="grid gap-2">
-                    <div className="flex items-center">
-                        <Label className htmlFor="password">Password</Label>
-                    </div>
+                    <Label className htmlFor="password">Password</Label>
                     <Input
                         id="password"
                         type="password"
