@@ -24,7 +24,7 @@ const PropertyContactEdit = () => {
     } = useFormContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rowSelection, setSelectedRowsChange] = useState<RowSelectionState>({});
-    const contact = getValues("contact"); // Estado local para el valor del select
+    const contact = getValues("contact");
 
 
     const handlerSelectContact = () => {
