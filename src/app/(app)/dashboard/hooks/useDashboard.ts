@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { DashboardService } from '@/services/dashboard.service';
+import { DashboardResponseType } from '@/types/dashboard.type';
 
 interface UsePropertyStatsResult {
     data: Record<string, number> | null;
@@ -11,7 +12,7 @@ interface UsePropertyStatsResult {
 }
 
 export function useDashboard() {
-    const [data, setData] = useState<Record<string, number> | null>(null);
+    const [data, setData] = useState<DashboardResponseType | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
