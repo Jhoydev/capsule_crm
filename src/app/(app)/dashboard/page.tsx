@@ -1,17 +1,10 @@
 "use client"
 
-import { task } from '@/components/shared/data-table/data/tasks';
-import { taskSchema } from '@/components/shared/data-table/data/schema';
-import { z } from 'zod';
 import * as React from 'react';
 import {PropertyStatus} from "@/app/(app)/dashboard/components/PropertyStatus";
 import {PropertyTypes} from "@/app/(app)/dashboard/components/PropertyTypes";
 import {ContactContactMedium} from "@/app/(app)/dashboard/components/ContactContactMedium";
 import { useDashboard } from '@/app/(app)/dashboard/hooks/useDashboard';
-
-function getTasks() {
-    return z.array(taskSchema).parse(task)
-}
 
 const Dashboard = () => {
     const {
@@ -32,14 +25,14 @@ const Dashboard = () => {
                     <div >
                         <div className="text-2xl font-bold text-center mb-5">Properties</div>
                         <div className="flex gap-5">
-                            <PropertyStatus/>
-                            <PropertyTypes data={data.count_type}/>
+                            <PropertyStatus data={data.count_property_status}/>
+                            <PropertyTypes data={data.count_property_type}/>
                         </div>
                     </div>
                     <div>
                         <div className="text-2xl font-bold text-center mb-5">Contacts</div>
                         <div className="flex">
-                            <ContactContactMedium/>
+                            <ContactContactMedium data={data.count_contact_medium}/>
                         </div>
                     </div>
                 </div>
