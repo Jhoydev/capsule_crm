@@ -104,7 +104,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
 
     const handleUploadedFiles = useCallback((files: uploadedFileType[]) => {
         // Lógica para manejar archivos subidos
-        console.log(files); // Elimina esto en producción
+        console.log(files);
     }, []);
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement | HTMLInputElement>) => {
