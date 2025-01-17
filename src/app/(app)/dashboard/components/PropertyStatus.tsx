@@ -23,7 +23,7 @@ export function PropertyStatus() {
         };
 
         fetchData();
-    }, []); // Solo se ejecuta una vez, al montar el componente
+    }, []);
 
     if (loading) {
         return <SkeletonCard/>;
