@@ -4,7 +4,12 @@ import { Input } from '@/components/ui/input';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
 
 const PropertyCharacteristicsEdition = () => {
-    const { register, setValue, getValues, formState: { errors } } = useFormContext();
+    const {
+        register,
+        setValue,
+        getValues,
+        formState: { errors }
+    } = useFormContext();
     const [selectedType, setSelectedType] = useState(getValues("type")); // Estado local para el valor del select
     const [selectedState, setSelectedState] = useState(getValues("state")); // Estado local para el valor del select
 

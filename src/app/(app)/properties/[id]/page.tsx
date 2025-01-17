@@ -47,7 +47,6 @@ const PropertyComponent = () => {
         setProperty(property);
     }
 
-
     if (loading) {
         return (
             <div>
@@ -58,6 +57,7 @@ const PropertyComponent = () => {
             </div>
         );
     }
+
     if (error || !property) return <div>Error al cargar propiedad</div>;
 
     return (

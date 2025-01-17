@@ -16,7 +16,12 @@ import '../styles/modal.css';
 import {RowSelectionState} from "@tanstack/table-core";
 
 const PropertyContactEdit = () => {
-    const { register, setValue, getValues } = useFormContext();
+    const {
+        register,
+        setValue,
+        getValues,
+        formState: { errors },
+    } = useFormContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rowSelection, setSelectedRowsChange] = useState<RowSelectionState>({});
     const contact = getValues("contact"); // Estado local para el valor del select
@@ -77,43 +82,44 @@ const PropertyContactEdit = () => {
                     <Input
                         type="text"
                         className="border p-1 rounded"
+                        readOnly
                         {...register("full_name")}
                     />
                 </div>
-
                 <div className="flex flex-col mb-2">
                     <label className="mb-2 text-slate-500">Email:</label>
                     <Input
                         type="email"
                         className="border p-1 rounded"
+                        readOnly
                         {...register("email")}
                     />
                 </div>
-
                 <div className="flex flex-col mb-2">
                     <label className="mb-2 text-slate-500">Phone:</label>
                     <Input
                         type="tel"
                         className="border p-1 rounded"
+                        readOnly
                         {...register("phone")}
                     />
                 </div>
-
                 <div className="flex flex-col mb-2">
                     <label className="mb-2 text-slate-500">Mobile:</label>
                     <Input
                         type="tel"
                         className="border p-1 rounded"
+                        readOnly
                         {...register("mobile")}
                     />
                 </div>
-
-                <Input
-                    type="hidden"
-                    {...register("id")}
-                />
-
+                <Input type="hidden"{...register("id")}/>
             </div>
+            {errors.contact_id && (
+                <p className="mt-1 text-sm text-red-600">
+                    {`${errors.contact_id.message}`}
+                </p>
+            )}
         </div>
     );
 };

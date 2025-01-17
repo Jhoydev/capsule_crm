@@ -5,17 +5,17 @@ import {Contact, contactSchema} from "@/types/contact.types";
 export const propertySchema = z.object({
     reference: z.string().nonempty({ message: "The reference cannot be empty" }),
     type: z.enum(["flat", "house", "duplex", "room", "garage", "country_house", "other"]),
-    title: z.string().optional(),
-    description: z.string().optional(),
+    title: z.string().min(3).max(100),
+    description: z.string().min(5).max(500),
     street: z.string().optional(),
-    street_number: z.string().optional(),
-    floor: z.string().optional(),
-    door: z.string().optional(),
+    street_number: z.string().min(1),
+    floor: z.string().min(1),
+    door: z.string().min(1),
     city: z.string().nonempty({ message: "The city cannot be empty" }),
     country_id: z.string().nonempty({ message: "The country cannot be empty" }),
     state: z.enum(['under_construction', 'new', 'reformated', 'semi_renovated', 'second_hand', 'to_renovate']),
-    zip_code: z.string().optional(),
-    zone: z.string().optional(),
+    zip_code: z.string().min(1),
+    zone: z.string().min(3),
     latitude: z.coerce.number().min(-90).max(90, "Invalid latitude"),
     longitude: z.coerce.number().min(-180).max(180, "Invalid longitude"),
     sale_price: z.coerce.number().optional(),
@@ -32,8 +32,8 @@ export const propertySchema = z.object({
     garage_spaces: z.coerce.number().optional(),
     is_available: z.boolean(),
     status: z.enum(["sold", "rented", "available", "off_market", "pending"]),
-    contact_id: z.coerce.number(),
-    user_id: z.coerce.number(),
+    contact_id: z.coerce.number({message: 'Owner is required'}).min(1, 'Owner is required'),
+    user_id: z.coerce.number().min(1, 'Agent is required'),
 });
 
 export const getDefaultValues = (data: Property) => ({
@@ -43,8 +43,8 @@ export const getDefaultValues = (data: Property) => ({
     description: data.description || "",
     street: data.street || "",
     street_number: data.street_number || "",
-    floor: data.floor || "",
-    door: data.door || "",
+    floor: data.floor || '0',
+    door: data.door || '0',
     city: data.city || "",
     state: data.state || "",
     country_id: data.country_id || "",
@@ -55,7 +55,7 @@ export const getDefaultValues = (data: Property) => ({
     sale_price: data.sale_price || 0,
     rent_price: data.rent_price || 0,
     transfer_price: data.transfer_price || 0,
-    operation: data.operation || "",
+    operation: data.operation || "sale",
     constructed_area: data.constructed_area || 0,
     usable_area: data.usable_area || 0,
     plot_area: data.plot_area || 0,
@@ -65,7 +65,7 @@ export const getDefaultValues = (data: Property) => ({
     toilets: data.toilets || 0,
     garage_spaces: data.garage_spaces || 0,
     is_available: data.is_available || false,
-    status: data.status || "pending",
+    status: data.status || "available",
     contact_id: data.contact_id || 0,
     user_id: data.user_id || 0,
     image: data.image || [],
@@ -81,8 +81,8 @@ export type Property = {
     description?: string;
     street?: string;
     street_number?: string;
-    floor?: string;
-    door?: string;
+    floor: string;
+    door: string;
     city?: string;
     state: "under_construction" | "new" | "reformated" | "semi_renovated" | "second_hand" | "to_renovate";
     country_id?: string;

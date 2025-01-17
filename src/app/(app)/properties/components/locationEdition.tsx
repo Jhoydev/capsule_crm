@@ -78,6 +78,11 @@ const LocationDetails: React.FC = () => {
                             {...register("street_number")}
                             onBlur={handleBlur}
                         />
+                        {errors.street_number && (
+                            <p className="mt-1 text-sm text-red-600">
+                                {`${errors.street_number.message}`}
+                            </p>
+                        )}
                     </div>
                     <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
@@ -88,6 +93,11 @@ const LocationDetails: React.FC = () => {
                             className="border p-1 rounded"
                             {...register("floor")}
                         />
+                        {errors.floor && (
+                            <p className="mt-1 text-sm text-red-600">
+                                {`${errors.floor.message}`}
+                            </p>
+                        )}
                     </div>
                     <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
@@ -98,6 +108,11 @@ const LocationDetails: React.FC = () => {
                             className="border p-1 rounded"
                             {...register("door")}
                         />
+                        {errors.door && (
+                            <p className="mt-1 text-sm text-red-600">
+                                {`${errors.door.message}`}
+                            </p>
+                        )}
                     </div>
                     <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
@@ -118,6 +133,11 @@ const LocationDetails: React.FC = () => {
                             className="border p-1 rounded"
                             {...register("zip_code")}
                         />
+                        {errors.zip_code && (
+                            <p className="mt-1 text-sm text-red-600">
+                                {`${errors.zip_code.message}`}
+                            </p>
+                        )}
                     </div>
                     <div className="flex flex-col md:mr-10 mb-5">
                         <label className="mb-2 flex items-center text-slate-500">
@@ -128,6 +148,11 @@ const LocationDetails: React.FC = () => {
                             className="border p-1 rounded"
                             {...register("zone")}
                         />
+                        {errors.zone && (
+                            <p className="mt-1 text-sm text-red-600">
+                                {`${errors.zone.message}`}
+                            </p>
+                        )}
                     </div>
                     <div className="flex flex-col md:mr-10 mb-5 hidden">
                         <label className="mb-2 flex items-center text-slate-500">

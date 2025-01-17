@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { FaSave, FaTimes } from 'react-icons/fa';
+import { FaSave } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import Breadcrumbs from '@/components/shared/breadCrumbs';
 import { Property, getDefaultValues, propertySchema } from '@/types/property.types';
@@ -39,7 +39,6 @@ import {
     SheetTitle,
     SheetTrigger
 } from "@/components/ui/sheet";
-import {ContactsTable} from "@/app/(app)/contacts/components/contacts-table/contacts-table";
 import {ImageModal} from "@/app/(app)/properties/components/imageModal";
 
 
@@ -94,7 +93,6 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
             setIsSubmitting(false);
             setIsEditing(false);
         } catch (error) {
-            console.error('Error saving data:', error);
             toast({
                 variant: 'destructive',
                 title: 'Error',

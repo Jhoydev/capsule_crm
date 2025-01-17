@@ -7,10 +7,15 @@ import { Input } from '@/components/ui/input';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 const PricesEdition: React.FC = () => {
-    const { register, setValue, getValues, control } = useFormContext();
-    const [selectedStatus, setSelectedStatus] = useState(getValues("status")); // Estado local para el valor del select
-    const [selectedOperation, setSelectedOperation] = useState(getValues("operation")); // Estado local para el valor del select
-    const [isAvailable, setIsAvailable] = useState(getValues("is_available")); // Estado local para el valor del select
+    const {
+        register,
+        setValue,
+        getValues,
+        control
+    } = useFormContext();
+    const [selectedStatus, setSelectedStatus] = useState(getValues("status"));
+    const [selectedOperation, setSelectedOperation] = useState(getValues("operation"));
+    const [isAvailable, setIsAvailable] = useState(getValues("is_available"));
 
 
     // Manejar cambios de valor en el select
@@ -37,7 +42,7 @@ const PricesEdition: React.FC = () => {
                     </label>
                     <Select
                         onValueChange={handleSelectChange}
-                        value={selectedStatus} // Estado controlado
+                        value={selectedStatus}
                     >
                         <SelectTrigger className="w-full border p-1 rounded">
                             <SelectValue placeholder="Select Property Status"/>
@@ -72,8 +77,8 @@ const PricesEdition: React.FC = () => {
                                     <SelectValue placeholder="Select Property Operation" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="rent">Rent</SelectItem>
                                     <SelectItem value="sale">Sale</SelectItem>
+                                    <SelectItem value="rent">Rent</SelectItem>
                                     <SelectItem value="transfer">Transfer</SelectItem>
                                 </SelectContent>
                             </Select>

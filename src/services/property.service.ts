@@ -32,9 +32,11 @@ export class PropertyService {
     }
 
     public async save(property: Omit<Omit<Property, "id">, "contact">): Promise<ApiResponseProperty> {
+        // @ts-ignore
+        property.operation = { operation: property.operation }
         const { data } = await HttpService.getInstance().post<ApiResponseProperty>(`${ConfigService.apiUrl}/properties`, property);
         // @ts-ignore
-        data.property.operation = data.property.operation?.operation ?? 'rent';
+        data.property.operation = data?.property?.operation?.operation ?? 'rent';
         return data;
     };
 
