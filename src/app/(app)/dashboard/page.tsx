@@ -20,20 +20,13 @@ const Dashboard = () => {
 
     return (
         <div className="w-full gap-4 p-4 lg:gap-6 lg:p-6">
-            <div className=" overflow-hidden shadow-sm sm:rounded-lg p-10">
-                <div className='flex flex-col gap-10 justify-center items-center'>
-                    <div >
-                        <div className="text-2xl font-bold text-center mb-5">Properties</div>
-                        <div className="flex gap-5">
-                            <PropertyStatus data={data.count_property_status}/>
-                            <PropertyTypes data={data.count_property_type}/>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="text-2xl font-bold text-center mb-5">Contacts</div>
-                        <div className="flex">
-                            <ContactContactMedium data={data.count_contact_medium}/>
-                        </div>
+            <div className=" overflow-hidden sm:rounded-lg">
+                <div className='flex flex-col gap-5 justify-center'>
+                    <div className="text-2xl font-bold">Dashboard</div>
+                    <div className="flex gap-5">
+                        <PropertyStatus data={data.count_property_status}/>
+                        <PropertyTypes data={data.count_property_type}/>
+                        <ContactContactMedium data={data.count_contact_medium}/>
                     </div>
                 </div>
             </div>

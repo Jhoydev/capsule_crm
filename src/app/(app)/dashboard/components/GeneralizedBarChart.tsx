@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
 import {
     Card,
@@ -69,41 +69,27 @@ export function GeneralizedBarChart({
     };
 
     return (
-        <Card className="min-w-[500px]">
-            <CardHeader className="items-center">
+        <Card className="flex-grow">
+            <CardHeader>
                 <CardTitle>{chartTitle}</CardTitle>
                 <CardDescription>{chartDescription}</CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
-                    <BarChart
-                        accessibilityLayer
-                        data={chartData}
-                        layout="vertical"
-                        margin={{
-                            left: 0,
-                        }}
-                    >
-                        <YAxis
+                    <BarChart accessibilityLayer data={chartData}>
+                        <CartesianGrid vertical={false} />
+                        <XAxis
                             dataKey={keyName}
-                            type="category"
                             tickLine={false}
-                            tickMargin={10}
+                            tickMargin={2}
                             axisLine={false}
-                            tickFormatter={(value) =>
-                                chartConfig[value as keyof typeof chartConfig]?.label || value
-                            }
+                            tickFormatter={(value) => value.slice(0, 3)}
                         />
-                        <XAxis dataKey={valueName} type="number" hide />
                         <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar
-                            dataKey={valueName}
-                            layout="vertical"
-                            radius={5}
-                        />
+                        <Bar dataKey={valueName} radius={2} barSize={10} />
                     </BarChart>
                 </ChartContainer>
             </CardContent>
