@@ -1,13 +1,13 @@
 'use client'
 
-import ApplicationLogo from '@/components/ApplicationLogo'
-import Dropdown from '@/components/Dropdown'
+import ApplicationLogo from '@/components/atoms/ApplicationLogo'
+import Dropdown from '@/components/molecules/common/Dropdown'
 import Link from 'next/link'
-import NavLink from '@/components/NavLink'
+import NavLink from '@/components/molecules/common/NavLink'
 import ResponsiveNavLink, {
     ResponsiveNavButton,
-} from '@/components/ResponsiveNavLink'
-import { DropdownButton } from '@/components/DropdownLink'
+} from '@/components/molecules/common/ResponsiveNavLink'
+import { DropdownButton } from '@/components/molecules/common/DropdownLink'
 import { useAuth } from '@/hooks/auth'
 import { usePathname } from 'next/navigation'
 import React, { useRef, useState } from 'react'

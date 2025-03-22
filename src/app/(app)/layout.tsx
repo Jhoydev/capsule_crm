@@ -3,7 +3,7 @@
 import { useAuth } from '@/hooks/auth'
 import Loading from '@/components/shared/loading';
 import React from 'react';
-import CrmLayout from '@/components/crm-layout/crm-layout';
+import CrmLayout from '@/components/layouts/crm/crm-layout';
 
 type DashboardType = {
     children?: React.ReactNode;

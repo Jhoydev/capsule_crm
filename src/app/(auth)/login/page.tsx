@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import InputError from '@/components/InputError'
-import Label from '@/components/Label'
+import InputError from '@/components/atoms/InputError'
+import Label from '@/components/atoms/Label'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import React, { useState } from 'react'

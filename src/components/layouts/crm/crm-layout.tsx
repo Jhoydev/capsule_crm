@@ -1,9 +1,9 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ReactNode } from 'react';
-import SidebarExtended from '@/components/crm-layout/sidebar-extended/sidebar-extended';
-import AvatarDropdownMenu from '@/components/crm-layout/avatar-dropdown-menu/avatar-dropdown-menu';
-import SidebarSheet from '@/components/crm-layout/sidebar-sheet/sidebar-sheet';
+import SidebarExtended from '@/components/layouts/crm/sidebar-extended/sidebar-extended';
+import AvatarDropdownMenu from '@/components/layouts/crm/avatar-dropdown-menu/avatar-dropdown-menu';
+import SidebarSheet from '@/components/layouts/crm/sidebar-sheet/sidebar-sheet';
 import { Bell, Pill } from 'lucide-react';
 import { UserType } from '@/types/user.type';
 import { ThemeProvider } from "@/components/structure/theme-provider";

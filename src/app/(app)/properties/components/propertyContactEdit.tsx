@@ -10,7 +10,7 @@ import {
     SheetTitle,
     SheetTrigger
 } from '@/components/ui/sheet';
-import Button from "@/components/Button";
+import Button from "@/components/atoms/Button";
 import {ContactsTable} from "@/app/(app)/contacts/components/contacts-table/contacts-table";
 import '../styles/modal.css';
 import {RowSelectionState} from "@tanstack/table-core";

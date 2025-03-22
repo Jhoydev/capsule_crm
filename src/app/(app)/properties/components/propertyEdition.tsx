@@ -14,7 +14,7 @@ import AgentEdition from './agentEdition';
 import PricesEdition from './pricesEdition';
 import PropertyCharacteristicsEdition from './propertyCharacteristicsEdition';
 import PropertyDescriptionsEdition from './propertyDescriptionsEdition';
-import ImageUpload from '@/components/ImageUpload';
+import ImageUpload from '@/components/organisms/common/ImageUpload';
 import { PropertyService } from '@/services/property.service';
 import {
     Dialog,

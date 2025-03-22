@@ -21,7 +21,7 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
-import ImageUpload from "@/components/ImageUpload";
+import ImageUpload from "@/components/organisms/common/ImageUpload";
 import ContactDetailsEdition from "@/app/(app)/contacts/components/contactDetailsEdition";
 import PersonalInformationEdit from "@/app/(app)/contacts/components/personalInformationEdit";
 import ProfessionEdit from "@/app/(app)/contacts/components/professionEdit";

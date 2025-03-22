@@ -24,7 +24,7 @@ import { useAuth } from '@/hooks/auth';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import { LogOut, Settings, User} from "lucide-react";
 import React, {useCallback} from "react";
-import ImageUpload from '@/components/ImageUpload';
+import ImageUpload from '@/components/organisms/common/ImageUpload';
 import {UserService} from "@/services/user.service";
 import {useForm} from "react-hook-form";
 import {toast} from "@/hooks/use-toast";

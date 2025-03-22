@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import AuthCard from '@/app/(auth)/AuthCard'
-import ApplicationLogo from '@/components/ApplicationLogo'
+import ApplicationLogo from '@/components/atoms/ApplicationLogo'
 import React from 'react';
 import { Pill } from 'lucide-react';
 

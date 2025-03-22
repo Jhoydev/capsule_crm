@@ -1,9 +1,9 @@
 'use client'
 
-import Button from '@/components/Button'
-import Input from '@/components/Input'
-import InputError from '@/components/InputError'
-import Label from '@/components/Label'
+import Button from '@/components/atoms/Button'
+import Input from '@/components/atoms/Input'
+import InputError from '@/components/atoms/InputError'
+import Label from '@/components/atoms/Label'
 import { useAuth } from '@/hooks/auth'
 import React, { useState } from 'react'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'

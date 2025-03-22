@@ -14,7 +14,7 @@ import {
     DialogTrigger
 } from "@/components/ui/dialog";
 import React from "react";
-import ImageUpload from "@/components/ImageUpload";
+import ImageUpload from "@/components/organisms/common/ImageUpload";
 import {ImportPropertyService} from "@/services/importProperty.service";
 
 const Propiedades = () => {

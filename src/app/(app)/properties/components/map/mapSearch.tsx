@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
-import Button from '@/components/Button';
+import Button from '@/components/atoms/Button';
 import {IoReloadSharp} from "react-icons/io5";
 import {toast, useToast} from "@/hooks/use-toast";
 import {Loader2} from "lucide-react";

@@ -17,7 +17,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle
 } from "@/components/ui/alert-dialog";
-import Button from "@/components/Button";
+import Button from "@/components/atoms/Button";
 
 export default function Create() {
     const { user } = useAuth();
