@@ -1,6 +1,6 @@
 'use client'
 
-import Button from '@/components/atoms/Button'
+import { Button } from '@/components/ui/button'
 import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
 
@@ -29,7 +29,7 @@ const Page = () => {
             )}
 
             <div className="mt-4 flex items-center justify-between">
-                <Button className onClick={() => resendEmailVerification({ setStatus })}>
+                <Button onClick={() => resendEmailVerification({ setStatus })}>
                     Resend Verification Email
                 </Button>
 

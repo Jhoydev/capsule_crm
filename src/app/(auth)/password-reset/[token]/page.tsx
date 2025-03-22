@@ -1,6 +1,6 @@
 'use client'
 
-import Button from '@/components/atoms/Button'
+import { Button } from '@/components/ui/button'
 import Input from '@/components/atoms/Input'
 import InputError from '@/components/atoms/InputError'
 import Label from '@/components/atoms/Label'
@@ -104,7 +104,7 @@ const PasswordReset = () => {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <Button className>Reset Password</Button>
+                    <Button>Reset Password</Button>
                 </div>
             </form>
         </>
