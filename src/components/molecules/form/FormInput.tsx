@@ -7,7 +7,7 @@ interface FormInputProps {
     id: string;
     label: string;
     type?: string;
-    error?: FieldError;
+    error?: FieldError | undefined | any;
     register: any;
     className?: string;
     placeholder?: string;
