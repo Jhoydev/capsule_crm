@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { PropertyFormValues } from "@/types/property.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { propertySchema } from "@/lib/schemas/property.schema";
 import { useRouter } from "next/navigation";
 import { createProperty } from "@/services/property.service";
+import {PropertyFormValues} from "@/utils/forms/property.utils";
 
 export function useCreateProperty() {
     const router = useRouter();

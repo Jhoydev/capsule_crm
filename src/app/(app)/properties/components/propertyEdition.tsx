@@ -7,7 +7,7 @@ import * as z from 'zod';
 import { FaSave } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import Breadcrumbs from '@/components/shared/breadCrumbs';
-import { Property, getDefaultValues, propertySchema } from '@/types/property.types';
+import { Property } from '@/types/property.types';
 import { useToast } from '@/hooks/use-toast';
 import GalleryPhotos from '@/app/(app)/properties/components/galleryPhotos';
 import AgentEdition from './agentEdition';
@@ -40,6 +40,8 @@ import {
     SheetTrigger
 } from "@/components/ui/sheet";
 import {ImageModal} from "@/app/(app)/properties/components/imageModal";
+import {propertySchema} from "@/types/propertySchema";
+import {getDefaultValues} from "@/utils/forms/property.utils";
 
 
 interface PropertyEditionProps {

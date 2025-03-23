@@ -5,7 +5,7 @@ import {FieldError} from "react-hook-form";
 interface FormTextareaProps {
     id: string;
     label: string;
-    error?: FieldError;
+    error?: FieldError | undefined | any;
     register: any;
     className?: string;
     placeholder?: string;

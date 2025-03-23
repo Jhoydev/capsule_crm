@@ -1,50 +1,37 @@
 import React from 'react';
 import { useFormContext } from "react-hook-form";
-import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FormInput } from "@/components/molecules/form/FormInput";
+import { FormTextarea } from "@/components/molecules/form/FormTextarea";
 
 const PropertyDescriptionsEdition = () => {
-    const {
-        register,
-        formState: { errors }
-    } = useFormContext();
+  const {
+    register,
+    formState: { errors }
+  } = useFormContext();
 
-    return (
-        <div className="border p-4 text-sm shadow rounded-md">
-            <h3 className="text-sm font-bold mb-6">Property Descriptions</h3>
-            <div className="flex items-start flex-wrap">
-                <div className="flex flex-col w-full mb-5">
-                    <label className="mb-2 flex items-center text-slate-500">
-                        Title:
-                    </label>
-                    <Input
-                        type="text"
-                        className="border p-1 rounded w-full"
-                        {...register("title")}
-                    />
-                    {errors.title && (
-                        <p className="mt-1 text-sm text-red-600">
-                            {`${errors.title.message}`}
-                        </p>
-                    )}
-                </div>
-                <div className="flex flex-col w-full mb-5">
-                    <label className="mb-2 flex items-center text-slate-500">
-                        Description:
-                    </label>
-                    <textarea
-                        className="border p-1 rounded w-full"
-                        rows={5}
-                        {...register("description")}
-                    />
-                    {errors.description && (
-                        <p className="mt-1 text-sm text-red-600">
-                            {`${errors.description.message}`}
-                        </p>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Property Descriptions</CardTitle>
+      </CardHeader>
+      <CardContent className="grid grid-cols-1 gap-4">
+        <FormInput
+          id="title"
+          label="Title"
+          register={register("title")}
+          error={errors.title}
+        />
+        <FormTextarea
+          id="description"
+          label="Description"
+          register={register("description")}
+          error={errors.description}
+          rows={5}
+        />
+      </CardContent>
+    </Card>
+  );
 }
 
 export default PropertyDescriptionsEdition;

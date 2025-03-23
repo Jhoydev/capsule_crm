@@ -4,10 +4,10 @@ import { Table } from "@tanstack/react-table"
 import { Input } from "@/components/ui/input"
 import { DataTableViewOptions } from '@/components/shared/data-table/data-table-view-options';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { propertySchema } from '@/types/property.types';
 import { IoBed } from "react-icons/io5";
 import { PiBathtubBold, PiToiletLight } from "react-icons/pi";
 import { Euro, Type } from 'lucide-react';
+import {propertySchema} from "@/types/propertySchema";
 
 interface DataTableToolbarProps<TData> {
     table?: Table<TData>

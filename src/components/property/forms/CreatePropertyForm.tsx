@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { PropertyFields } from "./PropertyFields";
 import { useForm } from "react-hook-form";
-import { PropertyFormValues } from "@/types/property.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { propertySchema } from "@/lib/schemas/property.schema";
+import {PropertyFormValues} from "@/utils/forms/property.utils";
 
 interface Props {
     onSubmit: (data: PropertyFormValues) => void;

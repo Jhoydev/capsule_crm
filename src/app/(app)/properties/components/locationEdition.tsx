@@ -1,188 +1,123 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useFormContext } from "react-hook-form";
 import dynamic from "next/dynamic";
-import { Input } from '@/components/ui/input';
+import { FormInput } from '@/components/molecules/form/FormInput';
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 
-
-//Esto es útil para componentes que dependen de objetos o propiedades disponibles solo en el navegador, como window o document, que no existen en el entorno de servidor.
-//porl o que con la siguiente intruccion le decimos que cargue el componente mapa de forma dinamica y le indicamos con el ssr false que no lo haga en el lado del servidor.
+// Carga dinámica del mapa
 const MapDetails = dynamic(() => import('./map/mapDetails'), {
-    ssr: false
+  ssr: false,
 });
 
 const LocationDetails: React.FC = () => {
-    const { register, watch, setValue, getValues, formState: { errors } } = useFormContext();
-    const [search, setSearch] = useState("");
+  const {
+    register,
+    watch,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useFormContext();
 
-    const handleBlur = () => {
-        const values = getValues();
-        const street = values.street || "";
-        const streetNumber = values.street_number || "";
-        const city = values.city || "";
+  const [search, setSearch] = useState("");
 
-        let constructedAddress = `${street} ${streetNumber}, ${city}`;
-        constructedAddress = street === "" && city !== "" ? city : constructedAddress;
-        constructedAddress = street === "" && city === "" ? "" : constructedAddress;
-        setSearch(constructedAddress);
-    };
+  const handleBlur = () => {
+    const values = getValues();
+    const street = values.street || "";
+    const streetNumber = values.street_number || "";
+    const city = values.city || "";
 
-    const handleCoordinatesChange = (newLat: number, newLon: number) => {
-        // Actualiza los valores del formulario directamente
-        setValue("latitude", newLat);
-        setValue("longitude", newLon);
-    };
+    let constructedAddress = `${street} ${streetNumber}, ${city}`;
+    constructedAddress = street === "" && city !== "" ? city : constructedAddress;
+    constructedAddress = street === "" && city === "" ? "" : constructedAddress;
+    setSearch(constructedAddress);
+  };
 
-    // Capturar valores del formulario
-    const latitude = watch("latitude");
-    const longitude = watch("longitude");
+  const handleCoordinatesChange = (newLat: number, newLon: number) => {
+    setValue("latitude", newLat);
+    setValue("longitude", newLon);
+  };
 
-    return (
-        <div className="border p-4 text-sm rounded-md mb-4 shadow">
-            <h3 className="text-sm font-bold mb-6">Location Details</h3>
-            <div className="flex flex-col md:flex-row">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
-                    <div className="flex flex-col md:mr-10 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            City:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("city")}
-                            onBlur={handleBlur}
-                        />
-                        {errors.city && (
-                            <p className="mt-1 text-sm text-red-600">
-                                {`${errors.city.message}`}
-                            </p>
-                        )}
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Street:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("street")}
-                            onBlur={handleBlur}
-                        />
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Number:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("street_number")}
-                            onBlur={handleBlur}
-                        />
-                        {errors.street_number && (
-                            <p className="mt-1 text-sm text-red-600">
-                                {`${errors.street_number.message}`}
-                            </p>
-                        )}
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Floor:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("floor")}
-                        />
-                        {errors.floor && (
-                            <p className="mt-1 text-sm text-red-600">
-                                {`${errors.floor.message}`}
-                            </p>
-                        )}
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Door:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("door")}
-                        />
-                        {errors.door && (
-                            <p className="mt-1 text-sm text-red-600">
-                                {`${errors.door.message}`}
-                            </p>
-                        )}
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Country ID:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("country_id")}
-                        />
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Zip Code:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("zip_code")}
-                        />
-                        {errors.zip_code && (
-                            <p className="mt-1 text-sm text-red-600">
-                                {`${errors.zip_code.message}`}
-                            </p>
-                        )}
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Zone:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            {...register("zone")}
-                        />
-                        {errors.zone && (
-                            <p className="mt-1 text-sm text-red-600">
-                                {`${errors.zone.message}`}
-                            </p>
-                        )}
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5 hidden">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Latitude:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            value={latitude}
-                            readOnly
-                        />
-                        {/*{errors.longitude && <span className="text-red-500 text-sm">{errors.longitude.message}</span>} /!* Mostrar el mensaje de error *!/*/}
-                    </div>
-                    <div className="flex flex-col md:mr-10 mb-5 hidden">
-                        <label className="mb-2 flex items-center text-slate-500">
-                            Longitude:
-                        </label>
-                        <Input
-                            type="text"
-                            className="border p-1 rounded"
-                            value={longitude}
-                            readOnly
-                        />
-                        {/*{errors.longitude && <span className="text-red-500 text-sm">{errors.longitude.message}</span>} /!* Mostrar el mensaje de error *!/*/}
-                    </div>
-                </div>
-                <MapDetails latitude={latitude} longitude={longitude} search={search} onCoordinatesChange={handleCoordinatesChange}/>
-            </div>
-        </div>
-    );
-}
+  const latitude = watch("latitude");
+  const longitude = watch("longitude");
+
+  return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Location Details</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <FormInput
+                id="city"
+                label="City"
+                register={register("city")}
+                error={errors.city}
+                onBlur={handleBlur}
+            />
+            <FormInput
+                id="street"
+                label="Street"
+                register={register("street")}
+                onBlur={handleBlur}
+            />
+            <FormInput
+                id="street_number"
+                label="Number"
+                register={register("street_number")}
+                error={errors.street_number}
+                onBlur={handleBlur}
+            />
+            <FormInput
+                id="floor"
+                label="Floor"
+                register={register("floor")}
+                error={errors.floor}
+            />
+            <FormInput
+                id="door"
+                label="Door"
+                register={register("door")}
+                error={errors.door}
+            />
+            <FormInput
+                id="country_id"
+                label="Country ID"
+                register={register("country_id")}
+            />
+            <FormInput
+                id="zip_code"
+                label="Zip Code"
+                register={register("zip_code")}
+                error={errors.zip_code}
+            />
+            <FormInput
+                id="zone"
+                label="Zone"
+                register={register("zone")}
+                error={errors.zone}
+            />
+            <FormInput
+                id="latitude"
+                label="Latitude"
+                register={register("latitude")}
+                className="hidden"
+            />
+            <FormInput
+                id="longitude"
+                label="Longitude"
+                register={register("longitude")}
+                className="hidden"
+            />
+          </div>
+          <MapDetails
+              latitude={latitude}
+              longitude={longitude}
+              search={search}
+              onCoordinatesChange={handleCoordinatesChange}
+          />
+        </CardContent>
+      </Card>
+  );
+};
 
 export default LocationDetails;

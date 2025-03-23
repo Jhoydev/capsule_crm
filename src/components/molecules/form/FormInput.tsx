@@ -12,18 +12,20 @@ interface FormInputProps {
     className?: string;
     placeholder?: string;
     icon?: React.ReactNode;
+    onBlur?: (value: string) => void;
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
-    id,
-    label,
-    type = "text",
-    error,
-    register,
-    className,
-    placeholder,
-    icon,
-}: FormInputProps) => {
+                                                        id,
+                                                        label,
+                                                        type = "text",
+                                                        error,
+                                                        register,
+                                                        className,
+                                                        placeholder,
+                                                        icon,
+                                                        onBlur
+                                                    }: FormInputProps) => {
     return (
         <div className={`flex flex-col space-y-1 ${className}`}>
             <Label htmlFor={id}>{label}</Label>
@@ -39,6 +41,7 @@ export const FormInput: React.FC<FormInputProps> = ({
                     placeholder={placeholder}
                     className={icon ? 'pl-10' : ''}
                     {...register}
+                    onBlur={e => onBlur?.(e.target.value)}
                 />
             </div>
             {error && <p className="text-sm text-red-600">{error.message}</p>}
