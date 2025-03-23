@@ -61,11 +61,23 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, r
         defaultValues: getDefaultValues(data)
     });
 
+    const { watch, setValue } = methods;
+
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         methods.reset(getDefaultValues(data));
     }, [data]);
+
+    useEffect(() => {
+        const subscription = watch((value, { name }) => {
+            if (name === 'status') {
+                setValue('is_available', value.status === 'available');
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, [watch, setValue]);
+
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true);
