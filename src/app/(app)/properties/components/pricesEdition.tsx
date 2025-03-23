@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useFormContext, Controller} from 'react-hook-form';
 import {FormCurrencyInput} from '@/components/molecules/form/FormCurrencyInput';
 import {FormSelect} from '@/components/molecules/form/FormSelect';
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 
 const PricesEdition: React.FC = () => {
-    const {register, getValues, control} = useFormContext();
+    const {register, control} = useFormContext();
 
     return (
         <Card>
