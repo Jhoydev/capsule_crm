@@ -1,6 +1,6 @@
 import * as z from "zod";
-import {propertySchema} from "@/types/propertySchema";
 import {Property} from "@/types/property.types";
+import {propertySchema} from "@/schemas/property.schema";
 
 export type PropertyFormValues = z.infer<typeof propertySchema>;
 

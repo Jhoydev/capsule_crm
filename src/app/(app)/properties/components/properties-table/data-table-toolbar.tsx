@@ -7,7 +7,8 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { IoBed } from "react-icons/io5";
 import { PiBathtubBold, PiToiletLight } from "react-icons/pi";
 import { Euro, Type } from 'lucide-react';
-import {propertySchema} from "@/types/propertySchema";
+
+import {propertySchema} from "@/schemas/property.schema";
 
 interface DataTableToolbarProps<TData> {
     table?: Table<TData>
