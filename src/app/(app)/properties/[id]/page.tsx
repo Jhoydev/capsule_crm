@@ -1,74 +1,76 @@
 'use client'
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import { Property } from '@/types/property.types';
+import React, { useMemo, useState } from "react";
 import Breadcrumbs from "@/components/shared/breadCrumbs";
-import { SkeletonCard } from '@/app/(app)/properties/components/skeleton';
-import PropertyView from "@/app/(app)/properties/components/propertyView";
+import { SkeletonCard } from "@/app/(app)/properties/components/skeleton";
 import PropertyEdition from "@/app/(app)/properties/components/propertyEdition";
-import { ApiParamsPropertyType, PropertyService } from '@/services/property.service';
-import {ContactService} from "@/services/contact.service";
-import {Contact} from "@/types/contact.types";
+import { usePropertyData } from "@/hooks/property/usePropertyData";
+import { usePropertyContact } from "@/hooks/property/usePropertyContact";
+import {Button} from "@/components/ui/button";
+import {FaEdit} from "react-icons/fa";
+import PropertyDetail from "@/app/(app)/properties/components/PropertyDetail";
+import {usePropertyHandlers} from "@/hooks/property/usePropertyHandlers";
 
 const PropertyComponent = () => {
-    const { id } = useParams();
-    const [property, setProperty] = useState<Property | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
+    const { property, setProperty, loading, error } = usePropertyData();
+    const { handlerRechargeProperty } = usePropertyContact(setProperty);
+    const [mode, setMode] = useState<"view" | "edit">("view");
 
-    useEffect(() => {
-        const fetchProperty= async () => {
-            if (id) {
-                try {
-                    const propertyService = new PropertyService();
-                    const data: Property = await propertyService.getProperty(Number(id));
-                    data.is_available = !!data.is_available;
-                    setProperty(data);
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                    setError(true);
-                } finally {
-                    setLoading(false);
-                }
-            }
+    const {handleSubmit, handleDelete } = property
+        ? usePropertyHandlers(
+            property,
+            false,
+            handlerRechargeProperty,
+            () => setMode('view')
+          )
+        : {
+            handleSubmit: () => {},
+            handleDelete: () => {}
         };
 
-        fetchProperty();
-    }, [id]);
-
-    const handlerRechargeProperty = async (property: Property) => {
-        if (property.contact == null) {
-            const contactService = new ContactService();
-            const contact: Contact = await contactService.getContact(Number(property.contact_id));
-            property.contact = contact;
-        }
-        setProperty(property);
-    }
-
-    if (loading) {
-        return (
-            <div>
-                <div className="p-6">
-                    <Breadcrumbs/>
+    const renderContent = useMemo(() => {
+        if (loading) {
+            return (
+                <div>
+                    <div className="p-6">
+                        <Breadcrumbs />
+                    </div>
+                    <SkeletonCard />
                 </div>
-                <SkeletonCard/>
+            );
+        }
+
+        if (error || !property) {
+            return <div className="p-6 text-red-500">Error loading property</div>;
+        }
+
+        return (
+            <div className="flex flex-col w-full h-full p-6 gap-6">
+                {mode === "edit" ? (
+                    <PropertyEdition
+                        mode="edit"
+                        editFunction={setMode}
+                        rechargeFunctionProperty={handlerRechargeProperty}
+                        data={property}
+                        handleDelete={handleDelete}
+                    />
+                ) : (
+                    <>
+                        <div className="flex justify-between items-center">
+                            <div className="p-4"><Breadcrumbs /></div>
+                            <Button type="button" className="" onClick={() => setMode('edit')}>
+                                <FaEdit/>
+                                <span className="ml-2">Edit</span>
+                            </Button>
+                        </div>
+                        <PropertyDetail data={property} />
+                    </>
+                )}
             </div>
         );
-    }
+    }, [loading, error, property, mode, handlerRechargeProperty]);
 
-    if (error || !property) return <div>Error al cargar propiedad</div>;
-
-    return (
-        <div className="flex flex-1 w-full h-full">
-            {isEditing ? (
-                <PropertyEdition editFunction={setIsEditing} rechargeFunctionProperty={handlerRechargeProperty} data={property} />
-            ) : (
-                <PropertyView editFunction={setIsEditing} data={property}/>
-            )}
-        </div>
-    );
+    return renderContent;
 };
 
 export default PropertyComponent;

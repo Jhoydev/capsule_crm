@@ -5,30 +5,38 @@ import {Property} from '@/types/property.types';
 import {propertySchema} from '@/schemas/property.schema';
 import {usePropertyForm} from "@/hooks/property/usePropertyForm";
 import {PropertyForm} from "@/app/(app)/properties/components/PropertyForm";
-import { usePropertyHandlers } from "@/hooks/property/usePropertyHandlers";
+import {usePropertyHandlers} from "@/hooks/property/usePropertyHandlers";
 
 interface PropertyEditionProps {
-    editFunction: (isEditing: boolean) => void;
+    mode: 'edit' | 'view';
+    editFunction: (mode: 'edit' | 'view') => void;
     data: Property;
     rechargeFunctionProperty?: (propertyData: Property) => void;
     isNew?: boolean;
+    handleDelete: () => Promise<any>;
 }
 
 const formSchema = propertySchema;
 
-const PropertyEdition: React.FC<PropertyEditionProps> = ({ editFunction, data, rechargeFunctionProperty, isNew }) => {
+const PropertyEdition: React.FC<PropertyEditionProps> = ({
+                                                             editFunction,
+                                                             data,
+                                                             rechargeFunctionProperty,
+                                                             isNew,
+                                                             handleDelete
+                                                         }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const methods = usePropertyForm(data);
 
-    const setIsEditing = (param: boolean) => {
-        editFunction(param);
+    const setIsEditing = (mode: PropertyEditionProps["mode"]) => {
+        editFunction(mode);
     };
 
-    const { handleSubmit, handleDelete, router } = usePropertyHandlers(
+    const {handleSubmit, router} = usePropertyHandlers(
         data,
         isNew,
         rechargeFunctionProperty,
-        () => setIsEditing(false)
+        () => setIsEditing('view')
     );
 
     return (

@@ -42,7 +42,7 @@ export const PropertyForm: React.FC<{
     handleSubmit: (values: PropertyFormValues) => Promise<void>;
     isSubmitting: boolean;
     data: Property;
-    setIsEditing: (param: boolean) => void;
+    setIsEditing: (mode: 'edit' | 'view') => void;
     handleDelete: () => Promise<any>;
     router: ReturnType<typeof useRouter>;
     rechargeFunctionProperty?: (propertyData: Property) => void;
@@ -91,7 +91,7 @@ export const PropertyForm: React.FC<{
                             variantButtonTrigger="destructive"
                             onAccept={async () => {
                                 await handleDelete();
-                                setIsEditing(false);
+                                setIsEditing('view');
                                 router.push('/properties');
                             }}
                         />
@@ -104,7 +104,7 @@ export const PropertyForm: React.FC<{
                                 if (isNew) {
                                     router.push('/properties');
                                 } else {
-                                    setIsEditing(false);
+                                    setIsEditing('view');
                                 }
                             }}
                         />
