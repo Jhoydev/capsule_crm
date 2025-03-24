@@ -44,7 +44,6 @@ export const PropertyForm: React.FC<{
     data: Property;
     setIsEditing: (mode: 'edit' | 'view') => void;
     handleDelete: () => Promise<any>;
-    router: ReturnType<typeof useRouter>;
     rechargeFunctionProperty?: (propertyData: Property) => void;
     isNew?: boolean;
 }> = ({
@@ -54,7 +53,6 @@ export const PropertyForm: React.FC<{
           data,
           setIsEditing,
           handleDelete,
-          router,
           rechargeFunctionProperty,
           isNew
       }) => {
@@ -70,14 +68,16 @@ export const PropertyForm: React.FC<{
         }
     };
 
+    const router = useRouter();
+
     return (
         <FormProvider {...methods}>
             <form
                 onSubmit={methods.handleSubmit(handleSubmit)}
                 onKeyDown={handleKeyDown}
-                className="h-full w-full"
+                className="flex flex-col h-full w-full gap-6"
             >
-                <div className="flex justify-between items-center gap-2 p-4 mb-4">
+                <div className="flex justify-between items-center gap-4">
                     <Breadcrumbs/>
                     <div className="flex justify-end items-center w-1/3 gap-4">
                         <Button type="submit" disabled={isSubmitting}>
@@ -110,7 +110,7 @@ export const PropertyForm: React.FC<{
                         />
                     </div>
                 </div>
-                <div className="flex flex-col w-full gap-6 box-border p-5 h-[calc(100vh-150px)] overflow-y-auto">
+                <div className="flex flex-col w-full gap-6 box-border overflow-y-auto">
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 gap-4">
                         <div className="md:col-span-5 border p-5 shadow rounded-md relative">
                             <GalleryPhotos property={data}/>

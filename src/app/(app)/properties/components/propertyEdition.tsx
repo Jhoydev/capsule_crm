@@ -1,11 +1,11 @@
 'use client';
 
-import React, {useState} from 'react';
-import {Property} from '@/types/property.types';
-import {propertySchema} from '@/schemas/property.schema';
-import {usePropertyForm} from "@/hooks/property/usePropertyForm";
-import {PropertyForm} from "@/app/(app)/properties/components/PropertyForm";
-import {usePropertyHandlers} from "@/hooks/property/usePropertyHandlers";
+import React, { useState } from 'react';
+import { Property } from '@/types/property.types';
+import { propertySchema } from '@/schemas/property.schema';
+import { usePropertyForm } from "@/hooks/property/usePropertyForm";
+import { PropertyForm } from "@/app/(app)/properties/components/PropertyForm";
+import {PropertyFormValues} from "@/utils/forms/property.utils";
 
 interface PropertyEditionProps {
     mode: 'edit' | 'view';
@@ -13,18 +13,20 @@ interface PropertyEditionProps {
     data: Property;
     rechargeFunctionProperty?: (propertyData: Property) => void;
     isNew?: boolean;
-    handleDelete: () => Promise<any>;
+    handleSubmit: (values: PropertyFormValues) => Promise<void>;
+    handleDelete: () => Promise<void>;
 }
 
 const formSchema = propertySchema;
 
 const PropertyEdition: React.FC<PropertyEditionProps> = ({
-                                                             editFunction,
-                                                             data,
-                                                             rechargeFunctionProperty,
-                                                             isNew,
-                                                             handleDelete
-                                                         }) => {
+    editFunction,
+    data,
+    rechargeFunctionProperty,
+    isNew,
+    handleSubmit,
+    handleDelete
+}) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const methods = usePropertyForm(data);
 
@@ -32,27 +34,17 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({
         editFunction(mode);
     };
 
-    const {handleSubmit, router} = usePropertyHandlers(
-        data,
-        isNew,
-        rechargeFunctionProperty,
-        () => setIsEditing('view')
-    );
-
     return (
-        <div className="flex flex-col flex-1 w-full">
-            <PropertyForm
-                methods={methods}
-                handleSubmit={handleSubmit}
-                isSubmitting={isSubmitting}
-                data={data}
-                setIsEditing={setIsEditing}
-                handleDelete={handleDelete}
-                router={router}
-                rechargeFunctionProperty={rechargeFunctionProperty}
-                isNew={isNew}
-            />
-        </div>
+        <PropertyForm
+            methods={methods}
+            handleSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
+            data={data}
+            setIsEditing={setIsEditing}
+            handleDelete={handleDelete}
+            rechargeFunctionProperty={rechargeFunctionProperty}
+            isNew={isNew}
+        />
     );
 };
 

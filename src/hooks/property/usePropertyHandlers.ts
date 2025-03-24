@@ -5,7 +5,7 @@ import { Property } from "@/types/property.types";
 import { PropertyFormValues } from "@/utils/forms/property.utils";
 
 export const usePropertyHandlers = (
-    data: Property,
+    data: Property | null,
     isNew: boolean | undefined,
     rechargeFunctionProperty?: (propertyData: Property) => void,
     onDone?: () => void
@@ -21,6 +21,8 @@ export const usePropertyHandlers = (
                 router.push(`/properties/${property.id}`);
                 return;
             }
+
+            if (!data) return;
 
             const updatedProperty = { id: data.id, ...values };
             const { property } = await propertyService.update(data.id, updatedProperty);
@@ -47,6 +49,8 @@ export const usePropertyHandlers = (
 
     const handleDelete = async (): Promise<number | void> => {
         try {
+            if (!data) return;
+
             const { status } = await propertyService.delete(data.id);
 
             if (status === 200) {
