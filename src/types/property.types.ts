@@ -4,7 +4,7 @@ import {Contact} from "@/types/contact.types";
 export type Property = {
     id: number;
     reference: string;
-    type: "flat" | "house" | "duplex" | "room" | "garage" | "country_house" | "other";
+    type: string;
     title?: string;
     description?: string;
     street?: string;
@@ -12,7 +12,7 @@ export type Property = {
     floor: string;
     door: string;
     city?: string;
-    state: "under_construction" | "new" | "reformated" | "semi_renovated" | "second_hand" | "to_renovate";
+    state: string;
     country_id?: string;
     zip_code?: string;
     zone?: string;
@@ -31,7 +31,7 @@ export type Property = {
     toilets?: number;
     garage_spaces?: number;
     is_available?: boolean;
-    status: "sold" | "rented" | "available" | "off_market" | "pending";
+    status: string;
     contact_id: number;
     user_id: number;
     image?: Image[];
