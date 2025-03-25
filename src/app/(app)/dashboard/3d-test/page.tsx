@@ -1,10 +1,10 @@
-import { BasicScene } from "@/three/scenes/BasicScene";
+import { ThreeCanvas } from "@/components/three/ThreeCanvas";
+import { Scene } from "@/components/three/Scene";
 
-export default function Page() {
+export default function Property3DView() {
     return (
-        <div className="p-6 space-y-4">
-            <h1 className="text-xl font-bold">Escena 3D de prueba</h1>
-            <BasicScene />
-        </div>
+        <ThreeCanvas backgroundColor="#e0e0e0">
+            <Scene />
+        </ThreeCanvas>
     );
 }
