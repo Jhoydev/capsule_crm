@@ -10,36 +10,20 @@ import { usePropertyHandlers } from '@/hooks/property/usePropertyHandlers';
 import { Button } from '@/components/ui/button';
 import { FaEdit } from 'react-icons/fa';
 import PropertyDetail from '@/app/(app)/properties/components/PropertyDetail';
-import { PropertyFormValues } from '@/utils/forms/property.utils';
 
-const PropertyComponent = () => {
+const Property = () => {
   const { property, setProperty, loading, error } = usePropertyData();
   const { handlerRechargeProperty } = usePropertyContact(setProperty);
   const [mode, setMode] = useState<'view' | 'edit'>('view');
 
   const onSuccess = useCallback(() => setMode('view'), []);
 
-  const handlers = usePropertyHandlers(
-    property,
-    false,
-    handlerRechargeProperty,
-    onSuccess
+  const { handleSubmit, handleDelete, isSubmitting } = usePropertyHandlers(
+      property,
+      false,
+      handlerRechargeProperty,
+      onSuccess
   );
-
-  const handleSubmit = useCallback(
-    async (values: PropertyFormValues) => {
-      if (handlers) {
-        return handlers.handleSubmit(values);
-      }
-    },
-    [handlers, property]
-  );
-
-  const handleDelete = useCallback(async () => {
-    if (handlers) {
-      await handlers.handleDelete();
-    }
-  }, [handlers]);
 
   if (loading) {
     return (
@@ -59,11 +43,12 @@ const PropertyComponent = () => {
       {mode === 'edit' ? (
         <PropertyEdition
           mode="edit"
-          editFunction={setMode}
+          handleViewMode={setMode}
           rechargeFunctionProperty={handlerRechargeProperty}
           data={property}
           handleDelete={handleDelete}
           handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
         />
       ) : (
         <>
@@ -81,4 +66,4 @@ const PropertyComponent = () => {
   );
 };
 
-export default PropertyComponent;
+export default Property;

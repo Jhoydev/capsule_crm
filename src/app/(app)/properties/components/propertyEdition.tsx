@@ -2,37 +2,31 @@
 
 import React, { useState } from 'react';
 import { Property } from '@/types/property.types';
-import { propertySchema } from '@/schemas/property.schema';
 import { usePropertyForm } from "@/hooks/property/usePropertyForm";
 import { PropertyForm } from "@/app/(app)/properties/components/PropertyForm";
 import {PropertyFormValues} from "@/utils/forms/property.utils";
 
 interface PropertyEditionProps {
     mode: 'edit' | 'view';
-    editFunction: (mode: 'edit' | 'view') => void;
+    handleViewMode: (mode: 'edit' | 'view') => void;
     data: Property;
     rechargeFunctionProperty?: (propertyData: Property) => void;
     isNew?: boolean;
     handleSubmit: (values: PropertyFormValues) => Promise<void>;
-    handleDelete: () => Promise<void>;
+    handleDelete: () => Promise<number | void>;
+    isSubmitting: boolean;
 }
 
-const formSchema = propertySchema;
-
 const PropertyEdition: React.FC<PropertyEditionProps> = ({
-    editFunction,
+    handleViewMode,
     data,
     rechargeFunctionProperty,
     isNew,
     handleSubmit,
-    handleDelete
+    handleDelete,
+    isSubmitting
 }) => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const methods = usePropertyForm(data);
-
-    const setIsEditing = (mode: PropertyEditionProps["mode"]) => {
-        editFunction(mode);
-    };
 
     return (
         <PropertyForm
@@ -40,7 +34,7 @@ const PropertyEdition: React.FC<PropertyEditionProps> = ({
             handleSubmit={handleSubmit}
             isSubmitting={isSubmitting}
             data={data}
-            setIsEditing={setIsEditing}
+            handleViewMode={handleViewMode}
             handleDelete={handleDelete}
             rechargeFunctionProperty={rechargeFunctionProperty}
             isNew={isNew}

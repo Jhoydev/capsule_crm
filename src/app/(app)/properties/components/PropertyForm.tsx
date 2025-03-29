@@ -42,11 +42,11 @@ export const PropertyForm: React.FC<{
     handleSubmit: (values: PropertyFormValues) => Promise<void>;
     isSubmitting: boolean;
     data: Property;
-    setIsEditing: (mode: 'edit' | 'view') => void;
+    handleViewMode: (mode: 'edit' | 'view') => void;
     handleDelete: () => Promise<any>;
     rechargeFunctionProperty?: (propertyData: Property) => void;
     isNew?: boolean;
-}> = ({ methods, handleSubmit, isSubmitting, data, setIsEditing, handleDelete, rechargeFunctionProperty, isNew }) => {
+}> = ({ methods, handleSubmit, isSubmitting, data, handleViewMode, handleDelete, rechargeFunctionProperty, isNew }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleUploadedFiles = useCallback((files: uploadedFileType[]) => {
@@ -82,7 +82,7 @@ export const PropertyForm: React.FC<{
                             variantButtonTrigger="destructive"
                             onAccept={async () => {
                                 await handleDelete();
-                                setIsEditing('view');
+                                handleViewMode('view');
                                 router.push('/properties');
                             }}
                         />
@@ -95,7 +95,7 @@ export const PropertyForm: React.FC<{
                                 if (isNew) {
                                     router.push('/properties');
                                 } else {
-                                    setIsEditing('view');
+                                    handleViewMode('view');
                                 }
                             }}
                         />

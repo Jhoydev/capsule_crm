@@ -17,7 +17,7 @@ import React from "react";
 import ImageUpload from "@/components/organisms/common/ImageUpload";
 import {ImportPropertyService} from "@/services/importProperty.service";
 
-const Propiedades = () => {
+const Properties = () => {
     const importService = new ImportPropertyService()
 
     return (
@@ -65,4 +65,4 @@ const Propiedades = () => {
     );
 };
 
-export default Propiedades;
+export default Properties;
