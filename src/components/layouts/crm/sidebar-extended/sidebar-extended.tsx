@@ -43,6 +43,17 @@ const SidebarExtended = () => {
                 <Contact/>
                 Contacts
             </Link>
+            <Link
+                href="/ecard"
+                className={`
+                    flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary
+                    ${pathname === '/ecard' ? statusLink.active : statusLink.default}
+                `}
+                prefetch={false}
+            >
+                <Contact/>
+                E-Card
+            </Link>
         </nav>
     )
 }

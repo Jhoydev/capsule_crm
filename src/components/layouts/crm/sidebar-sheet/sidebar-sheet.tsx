@@ -4,6 +4,7 @@ import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Contact, Home, LayoutDashboard, Menu, Pill } from 'lucide-react';
+import EcardPage from "@/app/(app)/ecard/page";
 
 const SidebarSheet = () => (
     <Sheet>
@@ -45,6 +46,14 @@ const SidebarSheet = () => (
                 >
                     <Contact/>
                     Contacts
+                </Link>
+                <Link
+                    href="/ecard"
+                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                    prefetch={false}
+                >
+                    <Contact/>
+                    E-Card
                 </Link>
             </nav>
         </SheetContent>
