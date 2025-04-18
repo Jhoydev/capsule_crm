@@ -31,7 +31,11 @@ const initialConfig: EcardConfig = {
     title: "Título de ejemplo",
     subtitle: "Subtítulo de ejemplo",
     photoUrl: "/default-avatar.png",
-    elements: [],
+    elements: [
+        { type: "button", content: "Botón de ejemplo", href: "#" },
+        { type: "text", content: "Texto de ejemplo" },
+        { type: "social", content: "Redes sociales", href: "#" },
+    ],
 };
 
 export function useEcardConfig() {
