@@ -15,7 +15,7 @@ export const ThreeCanvas: React.FC<ThreeCanvasProps> = ({
     backgroundColor = '#ffffff',
 }) => {
     return (
-        <Canvas camera={{ position: [0, 2, 5], fov: 50 }} style={{ background: backgroundColor }}>
+        <Canvas camera={{ position: [0, 0, 10], fov: 50}} style={{ background: backgroundColor }}>
             <Suspense fallback={null}>{children}</Suspense>
         </Canvas>
     );

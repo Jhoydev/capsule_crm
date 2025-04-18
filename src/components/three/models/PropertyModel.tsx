@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export const PropertyModel = () => {
+export const    PropertyModel = () => {
     const { scene } = useGLTF('/models/low_poly_house_1.glb');
     const modelRef = useRef<THREE.Object3D>(null);
     const { camera } = useThree(); // ✅ obtenemos la cámara
@@ -30,19 +30,12 @@ export const PropertyModel = () => {
     }, []);
 
     return (
-        <>
-            <axesHelper args={[3]} />
-            <gridHelper args={[10, 10]} />
-            <OrbitControls />
-            <TransformControls mode="translate" showX showY showZ attachArray={undefined} attachObject={undefined}>
-                <primitive
-                    ref={modelRef}
-                    object={scene}
-                    scale={1}
-                    rotation={[0, Math.PI * 1.5, 0]}
-                    position={[0, -1, 0]}
-                />
-            </TransformControls>
-        </>
+        <primitive
+            ref={modelRef}
+            object={scene}
+            scale={1}
+            rotation={[0, Math.PI * 1.5, 0]}
+            position={[0, -1, 0]}
+        />
     );
 };
