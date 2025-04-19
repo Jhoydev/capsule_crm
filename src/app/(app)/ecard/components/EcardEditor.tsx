@@ -1,27 +1,26 @@
 'use client';
 
-import { useEcardConfig } from '@/hooks/useEcardConfig';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { EcardConfig } from '@/types/ecard.types';
 
-export const EcardEditor = ({ configState }: { configState: ReturnType<typeof useEcardConfig> }) => {
-    const { config, updateConfig } = configState;
 
-    const handleColorChange = (key: 'textColor' | 'buttonColor', value: string) => {
-        updateConfig({
+type props = {
+    config: EcardConfig;
+    setConfig: React.Dispatch<React.SetStateAction<EcardConfig>>;
+};
+
+export const EcardEditor = ({ config, setConfig }: props) => {
+    const updateCustomTheme = (changes: Partial<typeof config.customTheme>) => {
+        setConfig({
+            ...config,
             customTheme: {
                 ...config.customTheme,
-                [key]: value,
+                ...changes,
             },
-        });
-    };
-
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        updateConfig({
-            customTheme: {
-                ...config.customTheme,
-                backgroundImage: value,
+            theme: {
+                ...config.theme,
+                ...changes,
             },
         });
     };
@@ -37,7 +36,7 @@ export const EcardEditor = ({ configState }: { configState: ReturnType<typeof us
                     id="textColor"
                     type="color"
                     value={config.customTheme.textColor}
-                    onChange={(e) => handleColorChange('textColor', e.target.value)}
+                    onChange={(e) => updateCustomTheme({ 'textColor' : e.target.value })}
                 />
             </div>
 
@@ -48,7 +47,7 @@ export const EcardEditor = ({ configState }: { configState: ReturnType<typeof us
                     id="buttonColor"
                     type="color"
                     value={config.customTheme.buttonColor}
-                    onChange={(e) => handleColorChange('buttonColor', e.target.value)}
+                    onChange={(e) => updateCustomTheme({ 'buttonColor': e.target.value })}
                 />
             </div>
 
@@ -60,7 +59,7 @@ export const EcardEditor = ({ configState }: { configState: ReturnType<typeof us
                     type="text"
                     placeholder="https://..."
                     value={config.customTheme.backgroundImage}
-                    onChange={handleImageChange}
+                    onChange={ (e) => updateCustomTheme({ 'backgroundImage': e.target.value })}
                 />
             </div>
         </div>
