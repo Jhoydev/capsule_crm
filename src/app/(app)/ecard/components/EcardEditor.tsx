@@ -3,14 +3,16 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { EcardConfig } from '@/types/ecard.types';
+import { Button } from '@/components/ui/button';
 
 
 type props = {
     config: EcardConfig;
     setConfig: React.Dispatch<React.SetStateAction<EcardConfig>>;
+    onSubmit: () => void;
 };
 
-export const EcardEditor = ({ config, setConfig }: props) => {
+export const EcardEditor = ({ config, setConfig, onSubmit }: props) => {
     const updateCustomTheme = (changes: Partial<typeof config.customTheme>) => {
         setConfig({
             ...config,
@@ -61,6 +63,10 @@ export const EcardEditor = ({ config, setConfig }: props) => {
                     value={config.customTheme.backgroundImage}
                     onChange={ (e) => updateCustomTheme({ 'backgroundImage': e.target.value })}
                 />
+            </div>
+            <div className="flex justify-end gap-2 mt-4">
+                <Button type="button" variant="ghost">Cancelar</Button>
+                <Button type="button" variant="outline" onClick={ () => onSubmit() }>Guardar</Button>
             </div>
         </div>
     );

@@ -1,12 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useEcardConfig } from '@/hooks/ecard/useEcardConfig';
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import {
     AlertDialog,
-    AlertDialogTrigger,
     AlertDialogContent,
     AlertDialogHeader,
     AlertDialogFooter,
@@ -64,9 +62,9 @@ export const EcardToolbar = ({ config, setConfig, onShowEditor }: props) => {
 
     return (
         <>
-            <div className="flex items-center justify-between gap-4 bg-white p-4 border rounded-lg shadow-sm">
+            <div className="flex items-center justify-between gap-4 bg-muted/40 p-4 border-b-1 shadow-sm">
                 <div className="flex items-center gap-2">
-                    <label className="text-sm font-medium">Tema:</label>
+                    <label className="text-sm font-medium">Tema</label>
                     <Select value={selectedTheme} onValueChange={handleThemeChange}>
                         <SelectTrigger className="w-40">
                             <SelectValue placeholder="Selecciona un tema" />

@@ -15,6 +15,11 @@ export default function EcardPage() {
     const [showEditor, setShowEditor] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    const handleSubmit = () => {
+        console.log('Configuración guardada:', config);
+        setShowEditor(false);
+    }
+
     useEffect(() => {
         if (!user?.id) return;
 
@@ -48,10 +53,11 @@ export default function EcardPage() {
             </div>
 
             {showEditor && (
-                <div className="md:col-span-2">
+                <div className="md:col-span-2 px-4">
                     <EcardEditor
                         config={config}
                         setConfig={setConfig as React.Dispatch<React.SetStateAction<EcardConfig>>}
+                        onSubmit={() => handleSubmit()}
                     />
                 </div>
             )}

@@ -1,10 +1,17 @@
 'use client';
 
-import { useEcardConfig } from '@/hooks/ecard/useEcardConfig';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { UserType } from '@/types/user.type';
-import { EcardConfig } from '@/types/ecard.types';
-
+import { EcardConfig, EcardElement } from '@/types/ecard.types';
+import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ReactSortable } from 'react-sortablejs';
+import { useState } from 'react';
 
 type props = {
     user: UserType;
@@ -13,6 +20,44 @@ type props = {
 };
 export const EcardPreview = ({ user, config, setConfig }: props) => {
     const theme = config.theme;
+    const [list, setList] = useState(config.contentConfig.elements);
+
+    const addElement = (type: 'text' | 'button' | 'social') => {
+        const newElement = {
+            id: crypto.randomUUID(),
+            type,
+            content: type,
+            href: '',
+        };
+
+        setList((prev) => [...prev, newElement]);
+
+        setConfig({
+            ...config,
+            contentConfig: {
+                ...config.contentConfig,
+                elements: [...config.contentConfig.elements, newElement],
+            },
+        });
+    };
+
+    const handleSort = (order: string[]) => {
+        const reordered = order
+            .map((id) => config.contentConfig.elements.find((el) => el.id === id))
+            .filter(Boolean) as EcardElement[];
+
+        if (reordered.length === 0) {
+            return;
+        }
+
+        setConfig({
+            ...config,
+            contentConfig: {
+                ...config.contentConfig,
+                elements: reordered,
+            },
+        });
+    };
 
     return (
         <div
@@ -42,40 +87,59 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
 
                 {/* ✅ Elementos (botones, texto, redes) */}
                 <div className="mt-4 flex flex-col gap-2 items-center w-full">
-                    {config.contentConfig.elements.map((el, i) => {
-                        if (el.type === 'button') {
-                            return (
-                                <a
-                                    key={i}
-                                    href={el.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-4 py-2 rounded-md text-white text-sm font-medium"
-                                    style={{ backgroundColor: theme.buttonColor }}
-                                >
-                                    {el.content}
-                                </a>
-                            );
-                        }
+                    <ReactSortable
+                        list={list}
+                        setList={setList}
+                        className="flex flex-col gap-2 w-full pt-4"
+                    >
+                        {config.contentConfig.elements.map((el, i) => {
+                            if (el.type === 'button') {
+                                return (
+                                    <a
+                                        key={i}
+                                        href={el.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+                                        style={{ backgroundColor: theme.buttonColor }}
+                                    >
+                                        {el.content}
+                                    </a>
+                                );
+                            }
 
-                        if (el.type === 'text') {
-                            return (
-                                <p key={i} className="text-sm italic">
-                                    {el.content}
-                                </p>
-                            );
-                        }
+                            if (el.type === 'text') {
+                                return (
+                                    <p key={i} className="text-sm italic">
+                                        {el.content}
+                                    </p>
+                                );
+                            }
 
-                        if (el.type === 'social') {
-                            return (
-                                <a key={i} href={el.href} className="text-sm underline">
-                                    {el.content}
-                                </a>
-                            );
-                        }
+                            if (el.type === 'social') {
+                                return (
+                                    <a key={i} href={el.href} className="text-sm underline">
+                                        {el.content}
+                                    </a>
+                                );
+                            }
 
-                        return null;
-                    })}
+                            return null;
+                        })}
+                    </ReactSortable>
+                    <div className="mt-6">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline">+ Agregar elemento</Button>
+                            </DropdownMenuTrigger>
+
+                            <DropdownMenuContent align="start">
+                                <DropdownMenuItem onClick={() => addElement('text')}>Texto</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => addElement('button')}>Botón</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => addElement('social')}>Red social</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                 </div>
             </div>
         </div>

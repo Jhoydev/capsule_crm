@@ -1,4 +1,5 @@
 export type EcardElement = {
+    id: string;
     type: 'button' | 'text' | 'social';
     content: string;
     href?: string;
