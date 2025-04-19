@@ -14,8 +14,8 @@ export const mockEcardConfig: EcardConfigApiType = {
         subtitle: "Conoce más sobre mí",
         photoUrl: "/avatars/jhoseph.png",
         elements: [
-            { type: "button", content: "Mi portafolio", href: "https://jhoseph.dev" },
-            { type: "text", content: "Gracias por tu tiempo" },
+            { id: crypto.randomUUID(), type: "button", content: "Mi portafolio", href: "https://jhoseph.dev" },
+            { id: crypto.randomUUID(),  type: "text", content: "Gracias por tu tiempo" },
         ],
     }
 };

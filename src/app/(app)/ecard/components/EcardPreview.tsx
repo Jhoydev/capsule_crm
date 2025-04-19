@@ -10,8 +10,8 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ReactSortable } from 'react-sortablejs';
 import { useState } from 'react';
+import { Reorder } from 'framer-motion';
 
 type props = {
     user: UserType;
@@ -20,7 +20,6 @@ type props = {
 };
 export const EcardPreview = ({ user, config, setConfig }: props) => {
     const theme = config.theme;
-    const [list, setList] = useState(config.contentConfig.elements);
 
     const addElement = (type: 'text' | 'button' | 'social') => {
         const newElement = {
@@ -29,8 +28,6 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
             content: type,
             href: '',
         };
-
-        setList((prev) => [...prev, newElement]);
 
         setConfig({
             ...config,
@@ -41,20 +38,12 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
         });
     };
 
-    const handleSort = (order: string[]) => {
-        const reordered = order
-            .map((id) => config.contentConfig.elements.find((el) => el.id === id))
-            .filter(Boolean) as EcardElement[];
-
-        if (reordered.length === 0) {
-            return;
-        }
-
+    const updateOrder = (newOrder: EcardElement[]) => {
         setConfig({
             ...config,
             contentConfig: {
                 ...config.contentConfig,
-                elements: reordered,
+                elements: newOrder,
             },
         });
     };
@@ -68,7 +57,8 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
                 backgroundPosition: 'center',
             }}
         >
-            <div className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 space-y-4 overflow-y-auto bg-black/40">
+            <div
+                className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 space-y-4 overflow-y-auto bg-black/40">
                 <div className="w-full">
                     {/* ✅ Avatar */}
                     <Avatar className="w-24 h-24 mx-auto border-4 border-white mb-3">
@@ -87,61 +77,61 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
 
                 {/* ✅ Elementos (botones, texto, redes) */}
                 <div className="mt-4 flex flex-col gap-2 items-center w-full">
-                    <ReactSortable
-                        list={list}
-                        setList={setList}
-                        className="flex flex-col gap-2 w-full pt-4"
+                    <Reorder.Group
+                        axis="y"
+                        values={config.contentConfig.elements}
+                        onReorder={updateOrder}
+                        className="flex flex-col gap-2 pt-4 w-full"
                     >
-                        {config.contentConfig.elements.map((el, i) => {
-                            if (el.type === 'button') {
-                                return (
+                        {config.contentConfig.elements.map((el, i) => (
+                            <Reorder.Item
+                                key={el.id}
+                                value={el}
+                                className="p-2 rounded bg-white/10 cursor-grab"
+                                whileDrag={{ scale: 1.02, boxShadow: '0 2px 10px rgba(0,0,0,0.2)' }}
+                            >
+                                { el.type === 'button' && (
                                     <a
-                                        key={i}
                                         href={el.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="px-4 py-2 rounded-md text-white text-sm font-medium"
-                                        style={{ backgroundColor: theme.buttonColor }}
+                                        className="px-4 py-2 rounded-md text-white text-sm inline-block"
+                                        style={{ backgroundColor: config.customTheme.buttonColor }}
                                     >
-                                        {el.content}
+                                        {el.content || 'Botón'}
                                     </a>
-                                );
-                            }
+                                )}
 
-                            if (el.type === 'text') {
-                                return (
+                                { el.type === 'text' && (
                                     <p key={i} className="text-sm italic">
                                         {el.content}
                                     </p>
-                                );
-                            }
+                                )}
 
-                            if (el.type === 'social') {
-                                return (
+                                {el.type === 'social' && (
                                     <a key={i} href={el.href} className="text-sm underline">
                                         {el.content}
                                     </a>
-                                );
-                            }
+                                )}
+                            </Reorder.Item>
+                        ))}
+                </Reorder.Group>
+                <div className="mt-6">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline">+ Agregar elemento</Button>
+                        </DropdownMenuTrigger>
 
-                            return null;
-                        })}
-                    </ReactSortable>
-                    <div className="mt-6">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline">+ Agregar elemento</Button>
-                            </DropdownMenuTrigger>
-
-                            <DropdownMenuContent align="start">
-                                <DropdownMenuItem onClick={() => addElement('text')}>Texto</DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => addElement('button')}>Botón</DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => addElement('social')}>Red social</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
+                        <DropdownMenuContent align="start">
+                            <DropdownMenuItem onClick={() => addElement('text')}>Texto</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => addElement('button')}>Botón</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => addElement('social')}>Red social</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             </div>
         </div>
-    );
+</div>
+)
+    ;
 };
