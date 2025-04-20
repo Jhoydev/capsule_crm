@@ -11,7 +11,10 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useState } from 'react';
-import { Reorder } from 'framer-motion';
+import { Reorder, useDragControls } from 'framer-motion';
+import EcardButtonElement from '@/app/(app)/ecard/components/EcardButtonElement';
+import EcardTextElement from '@/app/(app)/ecard/components/EcardTextElement';
+import EcardSocialElement from '@/app/(app)/ecard/components/EcardSocialElement';
 
 type props = {
     user: UserType;
@@ -20,6 +23,7 @@ type props = {
 };
 export const EcardPreview = ({ user, config, setConfig }: props) => {
     const theme = config.theme;
+    const controls = useDragControls()
 
     const addElement = (type: 'text' | 'button' | 'social') => {
         const newElement = {
@@ -57,8 +61,7 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
                 backgroundPosition: 'center',
             }}
         >
-            <div
-                className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 space-y-4 overflow-y-auto bg-black/40">
+            <div className="absolute inset-0 flex flex-col items-center justify-start text-center p-6 space-y-4 overflow-y-auto bg-black/40">
                 <div className="w-full">
                     {/* ✅ Avatar */}
                     <Avatar className="w-24 h-24 mx-auto border-4 border-white mb-3">
@@ -89,49 +92,46 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
                                 value={el}
                                 className="p-2 rounded bg-white/10 cursor-grab"
                                 whileDrag={{ scale: 1.02, boxShadow: '0 2px 10px rgba(0,0,0,0.2)' }}
+                                dragControls={controls}
                             >
-                                { el.type === 'button' && (
-                                    <a
+                                {el.type === 'button' && (
+                                    <EcardButtonElement
+                                        key={i}
                                         href={el.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="px-4 py-2 rounded-md text-white text-sm inline-block"
-                                        style={{ backgroundColor: config.customTheme.buttonColor }}
-                                    >
-                                        {el.content || 'Botón'}
-                                    </a>
+                                        buttonColor={config.theme.buttonColor}
+                                        text={el.content}
+                                    />
                                 )}
 
-                                { el.type === 'text' && (
-                                    <p key={i} className="text-sm italic">
-                                        {el.content}
-                                    </p>
+                                {el.type === 'text' && (
+                                    <EcardTextElement key={i} text={el.content} />
                                 )}
 
                                 {el.type === 'social' && (
-                                    <a key={i} href={el.href} className="text-sm underline">
-                                        {el.content}
-                                    </a>
+                                    <EcardSocialElement
+                                        key={i}
+                                        href={el.href}
+                                        text={el.content}
+                                    />
                                 )}
                             </Reorder.Item>
                         ))}
-                </Reorder.Group>
-                <div className="mt-6">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline">+ Agregar elemento</Button>
-                        </DropdownMenuTrigger>
+                    </Reorder.Group>
+                    <div className="mt-6">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline">+ Agregar elemento</Button>
+                            </DropdownMenuTrigger>
 
-                        <DropdownMenuContent align="start">
-                            <DropdownMenuItem onClick={() => addElement('text')}>Texto</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => addElement('button')}>Botón</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => addElement('social')}>Red social</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                            <DropdownMenuContent align="start">
+                                <DropdownMenuItem onClick={() => addElement('text')}>Texto</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => addElement('button')}>Botón</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => addElement('social')}>Red social</DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                 </div>
             </div>
         </div>
-</div>
-)
-    ;
+    );
 };
