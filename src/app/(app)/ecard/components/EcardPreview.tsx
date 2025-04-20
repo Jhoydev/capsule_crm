@@ -52,6 +52,18 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
         });
     };
 
+    const handleElementChange = (id: string, updatedElement: { text?: string; href?: string }) => {
+        setConfig({
+            ...config,
+            contentConfig: {
+                ...config.contentConfig,
+                elements: config.contentConfig.elements.map((el) =>
+                    el.id === id ? { ...el, ...updatedElement } : el
+                ),
+            },
+        });
+    }
+
     return (
         <div
             className="w-full max-w-xs mx-auto aspect-[9/16] rounded-[2rem] shadow-2xl overflow-hidden border border-gray-300 bg-white relative"
@@ -96,20 +108,21 @@ export const EcardPreview = ({ user, config, setConfig }: props) => {
                             >
                                 {el.type === 'button' && (
                                     <EcardButtonElement
-                                        key={i}
+                                        key={el.id}
                                         href={el.href}
                                         buttonColor={config.theme.buttonColor}
                                         text={el.content}
+                                        onChange={(updatedElement) => handleElementChange(el.id, updatedElement)}
                                     />
                                 )}
 
                                 {el.type === 'text' && (
-                                    <EcardTextElement key={i} text={el.content} />
+                                    <EcardTextElement key={el.id} text={el.content} onChange={(updatedElement) => handleElementChange(el.id, updatedElement)} />
                                 )}
 
                                 {el.type === 'social' && (
                                     <EcardSocialElement
-                                        key={i}
+                                        key={el.id}
                                         href={el.href}
                                         text={el.content}
                                     />
