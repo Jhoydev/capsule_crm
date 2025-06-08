@@ -14,7 +14,7 @@ export default function PaymentStep() {
     const onSubmit = async (values: Form) => {
         setStepData('payment', values);
         try {
-            await submit({ payment: values });
+            await submit();
             alert('Formulario enviado correctamente');
         } catch (err: any) {
             alert(err.message);

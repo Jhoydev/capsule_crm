@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { EcardConfig } from '@/types/ecard.types';
 import { Button } from '@/components/ui/button';
+import React from 'react';
 
 
 type props = {
