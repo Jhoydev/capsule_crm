@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useSidebarStore } from '@/stores/use-sidebar-store';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 const SidebarExtended = () => {
     const pathname = usePathname();
@@ -33,31 +34,39 @@ const SidebarExtended = () => {
                 const isActive = pathname === item.href;
                 
                 return (
-                    <Link
-                        key={item.href}
-                        href={item.href}
-                        className={cn(
-                            "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                            isActive ? statusLink.active : statusLink.default,
-                            isCollapsed && "justify-center px-0"
+                    <Tooltip key={item.href} delayDuration={0} open={isCollapsed ? undefined : false}>
+                        <TooltipTrigger asChild>
+                            <Link
+                                href={item.href}
+                                className={cn(
+                                    "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+                                    isActive ? statusLink.active : statusLink.default,
+                                    isCollapsed && "justify-center px-0"
+                                )}
+                                prefetch={false}
+                            >
+                                <Icon className="h-5 w-5 shrink-0" />
+                                <AnimatePresence mode="wait">
+                                    {!isCollapsed && (
+                                        <motion.span
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -10 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="whitespace-nowrap"
+                                        >
+                                            {item.label}
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                            </Link>
+                        </TooltipTrigger>
+                        {isCollapsed && (
+                            <TooltipContent side="right">
+                                {item.label}
+                            </TooltipContent>
                         )}
-                        prefetch={false}
-                    >
-                        <Icon className="h-5 w-5 shrink-0" />
-                        <AnimatePresence mode="wait">
-                            {!isCollapsed && (
-                                <motion.span
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -10 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="whitespace-nowrap"
-                                >
-                                    {item.label}
-                                </motion.span>
-                            )}
-                        </AnimatePresence>
-                    </Link>
+                    </Tooltip>
                 );
             })}
         </nav>

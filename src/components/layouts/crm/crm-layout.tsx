@@ -14,6 +14,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { useSidebarStore } from "@/stores/use-sidebar-store";
 import { cn } from "@/lib/utils";
 import { SidebarToggle } from "@/components/layouts/crm/sidebar-toggle";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default function CrmLayout({ user, children }: { user: UserType, children: ReactNode }) {
     const { isCollapsed } = useSidebarStore();
@@ -25,12 +26,13 @@ export default function CrmLayout({ user, children }: { user: UserType, children
             enableSystem
             disableTransitionOnChange
         >
-        <div className={cn(
-            "grid h-screen w-full transition-all duration-300 ease-in-out",
-            isCollapsed 
-                ? "md:grid-cols-[70px_1fr] lg:grid-cols-[70px_1fr]" 
-                : "md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]"
-        )}>
+            <TooltipProvider>
+                <div className={cn(
+                    "grid h-screen w-full transition-all duration-300 ease-in-out",
+                    isCollapsed 
+                        ? "md:grid-cols-[70px_1fr] lg:grid-cols-[70px_1fr]" 
+                        : "md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]"
+                )}>
             <div className="hidden border-r bg-muted/40 md:block">
                 <div className="flex h-screen sticky top-0 flex-col gap-2">
                     <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -65,6 +67,7 @@ export default function CrmLayout({ user, children }: { user: UserType, children
                 </main>
             </div>
         </div>
+        </TooltipProvider>
         </ThemeProvider>
     )
 }
