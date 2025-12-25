@@ -6,7 +6,7 @@ export type PropertyFormValues = z.infer<typeof propertySchema>;
 
 export const getDefaultValues = (data?: Partial<Property>): PropertyFormValues => ({
     reference: data?.reference ?? "",
-    type: data?.type ?? "other",
+    type: (data?.type as any) ?? "other",
     title: data?.title ?? "",
     description: data?.description ?? "",
     street: data?.street ?? "",
@@ -14,7 +14,7 @@ export const getDefaultValues = (data?: Partial<Property>): PropertyFormValues =
     floor: data?.floor ?? "0",
     door: data?.door ?? "0",
     city: data?.city ?? "",
-    state: data?.state ?? "new",
+    state: (data?.state as any) ?? "new",
     country_id: data?.country_id ?? "",
     zip_code: data?.zip_code ?? "",
     zone: data?.zone ?? "",
@@ -33,7 +33,7 @@ export const getDefaultValues = (data?: Partial<Property>): PropertyFormValues =
     toilets: data?.toilets ?? 0,
     garage_spaces: data?.garage_spaces ?? 0,
     is_available: data?.is_available ?? false,
-    status: data?.status ?? "available",
+    status: (data?.status as any) ?? "available",
     contact_id: data?.contact_id ?? 0,
     user_id: data?.user_id ?? 0,
 });

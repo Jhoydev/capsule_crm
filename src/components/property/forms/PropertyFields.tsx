@@ -19,8 +19,8 @@ export function PropertyFields({ form }: Props) {
                 <Input id="title" {...register("title")} />
             </div>
             <div>
-                <Label htmlFor="price">Precio</Label>
-                <Input id="price" type="number" {...register("price")} />
+                <Label htmlFor="sale_price">Precio de venta</Label>
+                <Input id="sale_price" type="number" {...register("sale_price")} />
             </div>
         </div>
     );

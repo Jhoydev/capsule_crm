@@ -39,7 +39,7 @@ const meta: Meta<typeof PropertyForm> = {
         rechargeFunctionProperty: async () => {
             console.log('paz');
         },
-        setIsEditing: (mode: "edit" | "view") => {
+        handleViewMode: (mode: "edit" | "view") => {
             console.log(mode);
         },
     },

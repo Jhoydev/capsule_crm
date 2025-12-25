@@ -1,3 +1,5 @@
+"use client";
+
 import { CreatePropertyForm } from "@/components/property/forms/CreatePropertyForm";
 import { useCreateProperty } from "@/hooks/property/useCreateProperty";
 

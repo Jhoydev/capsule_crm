@@ -17,7 +17,9 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
 
                 router.push('/verify-email')
             }),
-    )
+    );
+
+
 
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
@@ -138,4 +140,4 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } : UseAuthOptions
         resendEmailVerification,
         logout,
     }
-}
+};

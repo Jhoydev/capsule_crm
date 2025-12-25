@@ -2,22 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { PropertyFields } from "./PropertyFields";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { propertySchema } from "@/lib/schemas/property.schema";
+import { UseFormReturn } from "react-hook-form";
 import {PropertyFormValues} from "@/utils/forms/property.utils";
 
 interface Props {
+    form: UseFormReturn<any>;
     onSubmit: (data: PropertyFormValues) => void;
-    defaultValues?: Partial<PropertyFormValues>;
 }
 
-export function CreatePropertyForm({ onSubmit, defaultValues }: Props) {
-    const form = useForm<PropertyFormValues>({
-        resolver: zodResolver(propertySchema),
-        defaultValues: defaultValues || { title: "", price: 0 },
-    });
-
+export function CreatePropertyForm({ form, onSubmit }: Props) {
     return (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <PropertyFields form={form} />
