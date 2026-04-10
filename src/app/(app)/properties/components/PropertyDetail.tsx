@@ -1,7 +1,6 @@
 'use client'
 
 import React from "react";
-import Breadcrumbs from "@/components/shared/breadCrumbs";
 import { Property } from "@/types/property.types";
 import TabProperty from "@/app/(app)/properties/components/tab";
 import AgentDetails from "@/app/(app)/properties/components/agentDetails";
@@ -10,6 +9,8 @@ import ClientPropertyDetails from "@/app/(app)/properties/components/clientPrope
 import dynamic from 'next/dynamic';
 import GalleryPhotos from "@/app/(app)/properties/components/galleryPhotos";
 import PropertyPrices from "@/app/(app)/properties/components/propertyPrices";
+import { EntityTimeline } from "@/components/shared/entity-timeline";
+import { buildPropertyTimeline } from "@/lib/timeline";
 
 // Cargar el mapa dinámicamente para evitar errores en SSR
 const MapDetails = dynamic(() => import('./map/mapDetails'), {
@@ -21,6 +22,8 @@ interface PropertyDetailProps {
 }
 
 const PropertyDetail: React.FC<PropertyDetailProps> = ({ data }) => {
+    const timelineItems = buildPropertyTimeline(data);
+
     return (
         <div className="flex flex-col flex-1 w-full h-[calc(100vh-80px)]">
             <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 grid-rows-[auto,auto] overflow-auto">
@@ -40,6 +43,13 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ data }) => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 w-full mt-4">
                     <ClientPropertyDetails property={data} />
+                </div>
+                <div className="mt-4 grid w-full grid-cols-1 md:col-span-1">
+                    <EntityTimeline
+                        title="Property timeline"
+                        description="Relevant milestones inferred from the current property record."
+                        items={timelineItems}
+                    />
                 </div>
             </div>
         </div>

@@ -3,10 +3,6 @@
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
 } from "@/components/ui/card";
 import {
     Tabs,
@@ -19,6 +15,8 @@ import {useRouter} from "next/navigation";
 import { Button } from "@/components/ui/button"
 import {ChevronRight} from "lucide-react";
 import React from "react";
+import { EntityTimeline } from "@/components/shared/entity-timeline";
+import { buildContactTimeline } from "@/lib/timeline";
 
 interface TabContactProps {
     contact: Contact;
@@ -27,6 +25,7 @@ interface TabContactProps {
 const TabContact: React.FC<TabContactProps> = ({ contact }) => {
     const router = useRouter();
     const properties = contact.properties ?? [];
+    const timelineItems = buildContactTimeline(contact);
     const renderField = (label: string, value: string | number | null | undefined) => (
         <p className="mr-20">
             <span className="font-semibold">{label == "" ? "" : label+":"}</span> {value || '-'}
@@ -37,9 +36,10 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
     return (
         <div className="flex p-5">
             <Tabs defaultValue="data" className="w-full">
-                <TabsList className="grid w-full grid-cols-5">
+                <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="data">Personal Information</TabsTrigger>
                     <TabsTrigger value="relations">Relationships</TabsTrigger>
+                    <TabsTrigger value="timeline">Timeline</TabsTrigger>
                 </TabsList>
                 <TabsContent value="data">
                     <Card className="border-0 shadow-none">
@@ -136,6 +136,15 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                             </div>
                         </CardContent>
                     </Card>
+                </TabsContent>
+                <TabsContent value="timeline">
+                    <div className="mt-4">
+                        <EntityTimeline
+                            title="Contact timeline"
+                            description="Relevant milestones inferred from the current contact record."
+                            items={timelineItems}
+                        />
+                    </div>
                 </TabsContent>
             </Tabs>
         </div>
