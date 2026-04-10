@@ -101,6 +101,11 @@ export function PropertiesTable() {
             setPagination={setPagination}
             columnFilters={columnFilters}
             setColumnFilters={setColumnFilters}
+            initialColumnVisibility={{
+                bedrooms: false,
+                bathrooms: false,
+                toilets: false,
+            }}
         >
             <DataTableToolbar></DataTableToolbar>
         </DataTable>

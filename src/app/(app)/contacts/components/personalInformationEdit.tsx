@@ -22,24 +22,24 @@ const PersonalInformationEdition: React.FC = () => {
     };
 
     return (
-        <div className="p-4 border rounded shadow">
+        <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
             <h3 className="font-bold">Personal Information</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">NIF</label>
+                    <label className="mb-2 text-sm text-muted-foreground">NIF</label>
                     <Input type="text" placeholder="NIF" {...register("nif")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Date of Birth</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Date of Birth</label>
                     <Input type="date" placeholder="Date of Birth" {...register("birthday")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Language</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Language</label>
                     <Select
                         onValueChange={(value) => handleSelectChange("language", value)}
                         value={selectedLanguage}
                     >
-                        <SelectTrigger className="w-full border p-1 rounded">
+                        <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select Language" />
                         </SelectTrigger>
                         <SelectContent>
@@ -52,12 +52,12 @@ const PersonalInformationEdition: React.FC = () => {
                     <input type="hidden" {...register("language")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Gender</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Gender</label>
                     <Select
                         onValueChange={(value) => handleSelectChange("gender", value)}
                         value={selectedGender}
                     >
-                        <SelectTrigger className="w-full border p-1 rounded">
+                        <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select Gender" />
                         </SelectTrigger>
                         <SelectContent>

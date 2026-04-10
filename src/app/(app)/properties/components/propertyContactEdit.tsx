@@ -56,11 +56,11 @@ const PropertyContactEdit = () => {
 
 
     return (
-        <div className="border p-4 text-sm rounded-md mb-4 shadow">
+        <div className="mb-4 rounded-md border bg-card p-4 text-sm text-card-foreground shadow-sm">
             <h3 className="text-sm font-bold mb-6">Contact Details
                 <Sheet open={isModalOpen}  onOpenChange={setIsModalOpen}>
                     <SheetTrigger asChild>
-                        <Button className="ml-5" type="button" onClick={() => setIsModalOpen(true)}>Search</Button>
+                        <Button className="ml-5" variant="secondary" type="button" onClick={() => setIsModalOpen(true)}>Search</Button>
                     </SheetTrigger>
                     <SheetContent className="modal-sheet-contacts">
                         <SheetHeader>
@@ -78,37 +78,33 @@ const PropertyContactEdit = () => {
             <Input type="hidden" {...register("id")}></Input>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
                 <div className="flex flex-col mb-2">
-                    <label className="mb-2 text-slate-500">Full Name:</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Full Name:</label>
                     <Input
                         type="text"
-                        className="border p-1 rounded"
                         readOnly
                         {...register("full_name")}
                     />
                 </div>
                 <div className="flex flex-col mb-2">
-                    <label className="mb-2 text-slate-500">Email:</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Email:</label>
                     <Input
                         type="email"
-                        className="border p-1 rounded"
                         readOnly
                         {...register("email")}
                     />
                 </div>
                 <div className="flex flex-col mb-2">
-                    <label className="mb-2 text-slate-500">Phone:</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Phone:</label>
                     <Input
                         type="tel"
-                        className="border p-1 rounded"
                         readOnly
                         {...register("phone")}
                     />
                 </div>
                 <div className="flex flex-col mb-2">
-                    <label className="mb-2 text-slate-500">Mobile:</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Mobile:</label>
                     <Input
                         type="tel"
-                        className="border p-1 rounded"
                         readOnly
                         {...register("mobile")}
                     />

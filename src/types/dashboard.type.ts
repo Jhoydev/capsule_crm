@@ -11,7 +11,7 @@ export type CountPropertyTypeType = {
     garage: number;
     country_house: number;
     other: number;
-}[]
+}
 
 export type CountPropertyStatusType = {
     sold: number;

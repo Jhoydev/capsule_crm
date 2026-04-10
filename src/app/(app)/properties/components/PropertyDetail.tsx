@@ -25,7 +25,7 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ data }) => {
         <div className="flex flex-col flex-1 w-full h-[calc(100vh-80px)]">
             <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 grid-rows-[auto,auto] overflow-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-7 md:col-span-1 gap-4">
-                    <div className="md:col-span-5 border p-5 shadow rounded-md">
+                    <div className="rounded-md border bg-card p-5 text-card-foreground shadow-sm md:col-span-5">
                         <GalleryPhotos property={data} />
                         <PropertyDetails property={data} />
                     </div>

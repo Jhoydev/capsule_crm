@@ -23,14 +23,14 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
     const status: string[] = propertySchema.shape.status.options;
 
     return (
-        <div className="flex items-center justify-between">
-            <div className="flex flex-1 items-center flex-wrap gap-5">
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+            <div className="flex min-w-0 flex-1 flex-wrap items-start gap-3">
                 <Select
                     onValueChange={(value) =>
                         table.getColumn("status")?.setFilterValue(value)
                     }
                 >
-                    <SelectTrigger className="w-[180px] capitalize">
+                    <SelectTrigger className="w-full capitalize sm:w-[180px]">
                         <SelectValue placeholder="Select a status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -45,7 +45,7 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-                <div className="relative">
+                <div className="relative w-full sm:w-[220px]">
                     <Type
                         className="absolute left-2 h-4 w-4 text-muted-foreground"
                         style={{ top: '13px' }}
@@ -56,7 +56,7 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
                         onChange={(event) =>
                             table.getColumn("reference")?.setFilterValue(event.target.value)
                         }
-                        className="pl-8"
+                        className="w-full pl-8"
                     />
                 </div>
 
@@ -65,7 +65,7 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
                         table.getColumn("type")?.setFilterValue(value)
                     }
                 >
-                    <SelectTrigger className="w-[180px] capitalize">
+                    <SelectTrigger className="w-full capitalize sm:w-[180px]">
                         <SelectValue placeholder="Select a type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -80,62 +80,62 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
                         </SelectGroup>
                     </SelectContent>
                 </Select>
-                <div className="relative">
+                <div className="relative w-full sm:w-[140px]">
                     <IoBed
                         className="absolute left-2 h-4 w-4 text-muted-foreground"
                         style={{ top: '13px' }}
                     />
                     <Input
-                        placeholder="Bedrooms" className="pl-8" type='number'
+                        placeholder="Bedrooms" className="w-full pl-8" type='number'
                         onChange={(event) =>
                             table.getColumn("bedrooms")?.setFilterValue(event.target.value)
                         }
                     />
                 </div>
-                <div className="relative">
+                <div className="relative w-full sm:w-[140px]">
                     <PiBathtubBold
                         className="absolute left-2 h-4 w-4 text-muted-foreground"
                         style={{ top: '13px' }}
                     />
                     <Input
-                        placeholder="Bathrooms" className="pl-8" type='number'
+                        placeholder="Bathrooms" className="w-full pl-8" type='number'
                         onChange={(event) =>
                             table.getColumn("bathrooms")?.setFilterValue(event.target.value)
                         }
                     />
                 </div>
-                <div className="relative">
+                <div className="relative w-full sm:w-[140px]">
                     <PiToiletLight
                         className="absolute left-2 h-4 w-4 text-muted-foreground"
                         style={{ top: '13px' }}
                     />
                     <Input
-                        placeholder="Toilets" className="pl-8" type='number'
+                        placeholder="Toilets" className="w-full pl-8" type='number'
                         onChange={(event) =>
                             table.getColumn("toilets")?.setFilterValue(event.target.value)
                         }
                     />
                 </div>
-                <div className="flex gap-2">
-                    <div className="relative">
+                <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+                    <div className="relative w-full sm:w-[160px]">
                         <Euro
                             className="absolute left-2 h-4 w-4 text-muted-foreground"
                             style={{ top: '13px' }}
                         />
                         <Input
-                            placeholder="Price from" className="pl-8" type='number'
+                            placeholder="Price from" className="w-full pl-8" type='number'
                             onChange={(event) =>
                                 table.getColumn("price_over")?.setFilterValue(event.target.value)
                             }
                         />
                     </div>
-                    <div className="relative">
+                    <div className="relative w-full sm:w-[160px]">
                         <Euro
                             className="absolute left-2 h-4 w-4 text-muted-foreground"
                             style={{ top: '13px' }}
                         />
                         <Input
-                            placeholder="Price to" className="pl-8" type='number'
+                            placeholder="Price to" className="w-full pl-8" type='number'
                             onChange={(event) =>
                                 table.getColumn("price_under")?.setFilterValue(event.target.value)
                             }
@@ -143,7 +143,9 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
                     </div>
                 </div>
             </div>
-            <DataTableViewOptions table={table} />
+            <div className="flex w-full justify-end xl:w-auto">
+                <DataTableViewOptions table={table} />
+            </div>
         </div>
     )
 }

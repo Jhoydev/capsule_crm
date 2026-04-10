@@ -54,7 +54,7 @@ const Property = () => {
         <>
           <div className="flex justify-between items-center">
             <Breadcrumbs />
-            <Button type="button" onClick={() => setMode('edit')}>
+            <Button type="button" variant="secondary" onClick={() => setMode('edit')}>
               <FaEdit />
               <span className="ml-2">Edit</span>
             </Button>

@@ -13,40 +13,40 @@ const ContactDetailsEdition: React.FC = () => {
     };
 
     return (
-        <div className="p-4 border rounded shadow">
+        <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
             <h3 className="font-bold">Contact Details</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">First Name</label>
+                    <label className="mb-2 text-sm text-muted-foreground">First Name</label>
                     <Input type="text" placeholder="First Name" {...register("first_name")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Last Name</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Last Name</label>
                     <Input type="text" placeholder="Last Name" {...register("last_name")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Email</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Email</label>
                     <Input type="email" placeholder="Email" {...register("email")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Alternate Email</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Alternate Email</label>
                     <Input type="email" placeholder="Alternate Email" {...register("alternate_email")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Phone</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Phone</label>
                     <Input type="text" placeholder="Phone" {...register("phone")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Mobile</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Mobile</label>
                     <Input type="text" placeholder="Mobile" {...register("mobile")} />
                 </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 text-slate-500">Contact Medium</label>
+                    <label className="mb-2 text-sm text-muted-foreground">Contact Medium</label>
                     <Select
                         onValueChange={(value) => handleSelectChange("contact_medium", value)}
                         value={selectedContactMedium}
                     >
-                        <SelectTrigger className="w-full border p-1 rounded">
+                        <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select Contact Medium"/>
                         </SelectTrigger>
                         <SelectContent>

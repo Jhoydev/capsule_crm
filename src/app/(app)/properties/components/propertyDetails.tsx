@@ -23,7 +23,7 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
                     className="mr-1"/>{price}</span>
             </div>
             <LocationDetails data={property}/>
-            <div className="flex mt-4 mb-4 text-sm text-slate-500">
+            <div className="mb-4 mt-4 flex text-sm text-muted-foreground">
                 <div className="flex items-center mr-4 text-lg">
                     <IoBedOutline className="ml-2 mr-1"/>
                     <span>{property.bedrooms} Beds</span>
@@ -37,10 +37,10 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
                     <span>{property.garage_spaces} Parks</span>
                 </div>
             </div>
-            <span className="border border-b-0 mb-6"></span>
+            <span className="mb-6 border border-b-0"></span>
             <div className="mb-4">
                 <h2 className="text-lg font-bold">{property.title}</h2>
-                <p className="text-sm mt-2 text-slate-500">{property.description}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{property.description}</p>
             </div>
         </div>
     );

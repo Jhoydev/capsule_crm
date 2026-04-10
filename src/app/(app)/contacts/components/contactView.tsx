@@ -24,6 +24,7 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
                 <Breadcrumbs/>
                 <div className="flex justify-end items-center">
                     <Button
+                        variant="secondary"
                         onClick={() => setIsEditing(true)}
                     >
                         <FaEdit className="mr-2"/> Edit

@@ -1,5 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import React from 'react';
+import { VisibilityState } from '@tanstack/react-table';
 
 export interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -11,4 +12,5 @@ export interface DataTableProps<TData, TValue> {
     setSelectedRowsChange?: any
     total: number
     children?: React.ReactElement
+    initialColumnVisibility?: VisibilityState
 }

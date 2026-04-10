@@ -46,7 +46,7 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                         <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto p-0 gap-4 mt-4">
                             <div className="grid grid-cols-1 gap-4">
                                 {/* Contact Details */}
-                                <div className="p-4 border rounded shadow">
+                                <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
                                     <h3 className="font-bold">Contact Details</h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5 min-h-[80px]">
                                         {renderField('Email', contact.email)}
@@ -60,7 +60,7 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                                 </div>
 
                                 {/* Personal Information */}
-                                <div className="p-4 border rounded shadow">
+                                <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
                                     <h3 className="font-bold">Personal Information</h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5 min-h-[80px]">
                                         {renderField('NIF', contact.nif)}
@@ -71,7 +71,7 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                                 </div>
 
                                 {/* Profession */}
-                                <div className="p-4  border rounded shadow">
+                                <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
                                     <h3 className="font-bold">Profession</h3>
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 min-h-[80px]">
                                         {renderField('Profession', contact.profession)}
@@ -81,7 +81,7 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                                 </div>
 
                                 {/* Notes */}
-                                <div className="p-4  border rounded shadow">
+                                <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
                                 <h3 className="font-bold">Notes</h3>
                                     <div className="flex flex-wrap min-h-[80px] p-5">
                                         {renderField('', contact.notes)}
@@ -89,7 +89,7 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                                 </div>
 
                                 {/* GDPR */}
-                                <div className="p-4  border rounded shadow">
+                                <div className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
                                     <h3 className="font-bold">RGPD</h3>
                                     <div className="flex flex-wrap min-h-[200px] p-5">
                                         {renderField('', contact.rgpd)}
@@ -104,12 +104,15 @@ const TabContact: React.FC<TabContactProps> = ({ contact }) => {
                         <CardContent className="space-y-4 h-[calc(100vh-350px)] overflow-auto p-0 gap-4 mt-4">
                             <div className="space-y-4">
                                 {properties.length === 0 ? (
-                                    <div className="text-center text-gray-500 mt-6">
+                                    <div className="mt-6 text-center text-muted-foreground">
                                         No relations exist for this contact.
                                     </div>
                                 ) : (
                                     properties.map((property) => (
-                                        <div key={property.id} className="border p-4 rounded-lg shadow-sm flex justify-between items-center">
+                                        <div
+                                            key={property.id}
+                                            className="flex items-center justify-between rounded-lg border bg-card p-4 text-card-foreground shadow-sm"
+                                        >
                                             <div>
                                                 <div>
                                                     <span className="mb-2 font-bold mr-2">Reference:</span>

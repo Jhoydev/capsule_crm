@@ -71,7 +71,7 @@ export const PropertyForm: React.FC<{
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                     <Breadcrumbs />
                     <div className="flex flex-wrap justify-end items-center w-full md:w-1/3 gap-4">
-                        <Button type="submit" disabled={isSubmitting} className="w-full md:w-auto">
+                        <Button type="submit" variant="secondary" disabled={isSubmitting} className="w-full md:w-auto">
                             <FaSave />
                             <span className="ml-2">Save</span>
                         </Button>
@@ -103,11 +103,14 @@ export const PropertyForm: React.FC<{
                 </div>
                 <div className="flex flex-col w-full gap-6 box-border overflow-y-auto">
                     <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
-                        <div className="md:col-span-5 border p-5 shadow rounded-md relative">
+                        <div className="relative rounded-md border bg-card p-5 text-card-foreground shadow-sm md:col-span-5">
                             <GalleryPhotos property={data} />
                             <Dialog>
                                 <DialogTrigger asChild>
-                                    <Button className="absolute top-6 left-6 z-10 bg-slate-900 bg-opacity-25 hover:bg-opacity-70 hover:bg-slate-900">
+                                    <Button
+                                        variant="secondary"
+                                        className="absolute left-6 top-6 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
+                                    >
                                         <MdCloudUpload />
                                     </Button>
                                 </DialogTrigger>
@@ -131,8 +134,9 @@ export const PropertyForm: React.FC<{
                             <Sheet open={isModalOpen} onOpenChange={setIsModalOpen}>
                                 <SheetTrigger asChild>
                                     <Button
+                                        variant="destructive"
                                         onClick={() => setIsModalOpen(true)}
-                                        className="absolute top-6 left-20 z-10 bg-red-600 bg-opacity-25 hover:bg-opacity-70 hover:bg-red-600 text-white"
+                                        className="absolute left-20 top-6 z-10 opacity-80 hover:opacity-100"
                                     >
                                         <MdDelete />
                                     </Button>

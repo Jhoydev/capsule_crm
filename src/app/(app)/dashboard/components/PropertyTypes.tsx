@@ -4,8 +4,8 @@ import {GeneralizedBarChart} from "@/app/(app)/dashboard/components/GeneralizedB
 
 
 export function PropertyTypes({ data }: { data: any[] }) {
-    if (!data) {
-        return <div>No data available</div>;
+    if (!data || Object.keys(data).length === 0) {
+        return <div className="rounded-lg border bg-card p-6 text-center text-sm text-muted-foreground">No data available</div>;
     }
 
     return (

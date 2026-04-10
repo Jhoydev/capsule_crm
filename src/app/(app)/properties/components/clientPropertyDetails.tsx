@@ -38,7 +38,7 @@ const ClientPropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => 
     }, [contact]);
 
     return (
-        <div className="md:col-span-5 border rounded shadow p-5">
+        <div className="rounded-md border bg-card p-5 text-card-foreground shadow-sm md:col-span-5">
             <div className="flex">
                 {/* Avatar Section */}
                 <div className="flex col-span-full md:col-span-1 ml-5 mr-10">
@@ -51,61 +51,61 @@ const ClientPropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => 
                     {/* Information Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 col-span-full">
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Full Name:</span>
+                            <span className="font-medium text-muted-foreground">Full Name:</span>
                             <span className="font-semibold truncate">{fullName ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">NIF:</span>
+                            <span className="font-medium text-muted-foreground">NIF:</span>
                             <span className="font-semibold">{contact?.nif ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Email:</span>
+                            <span className="font-medium text-muted-foreground">Email:</span>
                             <span className="font-semibold truncate">{contact?.email ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Alternate Email:</span>
+                            <span className="font-medium text-muted-foreground">Alternate Email:</span>
                             <span className="font-semibold truncate">{contact?.alternate_email ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Phone:</span>
+                            <span className="font-medium text-muted-foreground">Phone:</span>
                             <span className="font-semibold">{contact?.phone ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Mobile:</span>
+                            <span className="font-medium text-muted-foreground">Mobile:</span>
                             <span className="font-semibold">{contact?.mobile ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Birthday:</span>
+                            <span className="font-medium text-muted-foreground">Birthday:</span>
                             <span className="font-semibold">{contact?.birthday ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Preferred Contact Medium:</span>
+                            <span className="font-medium text-muted-foreground">Preferred Contact Medium:</span>
                             <span className="font-semibold">{contactMedium ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Language:</span>
+                            <span className="font-medium text-muted-foreground">Language:</span>
                             <span className="font-semibold">{contact?.language ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">RGPD Consent:</span>
+                            <span className="font-medium text-muted-foreground">RGPD Consent:</span>
                             <span className="font-semibold">{contact?.rgpd ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Profession:</span>
+                            <span className="font-medium text-muted-foreground">Profession:</span>
                             <span className="font-semibold">{contact?.profession ?? '-'}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-500 font-medium">Company:</span>
+                            <span className="font-medium text-muted-foreground">Company:</span>
                             <span className="font-semibold">{contact?.company ?? '-'}</span>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div className="flex flex-col md:col-span-1">
-                            <span className="text-gray-500 font-medium">Gender:</span>
+                            <span className="font-medium text-muted-foreground">Gender:</span>
                             <span className="font-semibold">{contact?.gender ?? '-'}</span>
                         </div>
                         <div className="flex flex-col md:col-span-3">
-                            <span className="text-gray-500 font-medium">Notes:</span>
+                            <span className="font-medium text-muted-foreground">Notes:</span>
                             <span className="font-semibold">{contact?.notes ?? '-'}</span>
                         </div>
                     </div>

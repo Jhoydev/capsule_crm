@@ -37,10 +37,12 @@ export function DataTable<TData, TValue>({
     setColumnFilters,
     setSelectedRowsChange,
     total,
-    children
+    children,
+    initialColumnVisibility,
 }: DataTableProps<TData, TValue>) {
     const [rowSelection, setRowSelection] = useState({})
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+        ...initialColumnVisibility,
         id: false,
     })
     const [sorting, setSorting] = useState<SortingState>([])
@@ -82,12 +84,12 @@ export function DataTable<TData, TValue>({
     }, [rowSelection]);
 
     return (
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-4">
             {children && React.Children.map(children, child => {
                 return React.cloneElement(child, { table });
             })}
-            <div className="rounded-md border">
-                <Table>
+            <div className="min-w-0 rounded-md border">
+                <Table className="min-w-full">
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>

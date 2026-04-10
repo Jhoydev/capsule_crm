@@ -36,7 +36,7 @@ export const propertiesColumns: ColumnDef<propertyTableType>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="ID" />
         ),
-        cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+        cell: ({ row }) => <div className="w-[64px]">{row.getValue("id")}</div>,
         enableSorting: false,
         enableHiding: false,
     },
@@ -60,7 +60,7 @@ export const propertiesColumns: ColumnDef<propertyTableType>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Status" />
         ),
-        cell: ({ row }) => <div className="w-[80px] capitalize">{row.getValue<string>("status").replace('_', ' ') }</div>,
+        cell: ({ row }) => <div className="w-[72px] capitalize">{row.getValue<string>("status").replace('_', ' ') }</div>,
         enableSorting: false,
         enableHiding: true,
     },
@@ -69,7 +69,7 @@ export const propertiesColumns: ColumnDef<propertyTableType>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Reference" />
         ),
-        cell: ({ row }) => <div className="w-[80px]">{row.getValue("reference")}</div>,
+        cell: ({ row }) => <div className="w-[72px]">{row.getValue("reference")}</div>,
         enableSorting: false,
         enableHiding: false,
     },
@@ -78,7 +78,7 @@ export const propertiesColumns: ColumnDef<propertyTableType>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Type" />
         ),
-        cell: ({ row }) => <div className="w-[80px] capitalize">{row.getValue<string>("type").replace('_', ' ') }</div>,
+        cell: ({ row }) => <div className="w-[72px] capitalize">{row.getValue<string>("type").replace('_', ' ') }</div>,
         enableSorting: false,
         enableHiding: false,
     },
@@ -89,8 +89,8 @@ export const propertiesColumns: ColumnDef<propertyTableType>[] = [
         ),
         cell: ({ row }) => {
             return (
-                <div className="flex space-x-2">
-                    <span className="max-w-[500px] truncate font-medium">
+                <div className="flex min-w-0 space-x-2">
+                    <span className="max-w-[180px] truncate font-medium md:max-w-[280px] lg:max-w-[360px]">
                         {row.getValue("title")}
                     </span>
                 </div>

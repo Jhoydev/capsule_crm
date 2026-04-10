@@ -11,19 +11,26 @@ const Dashboard = () => {
         data,
         loading,
         error,
-        refetch
     } = useDashboard();
+
+    if (loading) {
+        return <div className="p-4 text-center text-muted-foreground">Loading dashboard...</div>;
+    }
+
+    if (error) {
+        return <div className="p-4 text-center text-destructive">Unable to load dashboard data.</div>;
+    }
 
     if (!data) {
         return <div className="p-4 text-center">No data available.</div>;
     }
 
     return (
-        <div className="w-full gap-4 p-4 lg:gap-6 lg:p-6">
-            <div className=" overflow-hidden sm:rounded-lg">
-                <div className='flex flex-col gap-5 justify-center'>
-                    <div className="text-2xl font-bold">Dashboard</div>
-                    <div className="flex gap-5">
+        <div className="w-full p-4 lg:p-6">
+            <div className="overflow-hidden sm:rounded-lg">
+                <div className='flex flex-col gap-5'>
+                    <div className="text-2xl font-bold tracking-tight">Dashboard</div>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 lg:gap-6">
                         <PropertyStatus data={data.count_property_status}/>
                         <PropertyTypes data={data.count_property_type}/>
                         <ContactContactMedium data={data.count_contact_medium}/>

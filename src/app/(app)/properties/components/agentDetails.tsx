@@ -5,7 +5,7 @@ import {useAuth} from "@/hooks/auth";
 function AgentDetails() {
     const { user } = useAuth();
     return (
-        <div className="border p-4 rounded-md">
+        <div className="rounded-md border bg-card p-4 text-card-foreground shadow-sm">
             <h3 className="text-sm font-bold mb-6">Agent details</h3>
             <div className="flex items-center">
                 <Avatar className="h-[80px] w-[80px] mr-4">

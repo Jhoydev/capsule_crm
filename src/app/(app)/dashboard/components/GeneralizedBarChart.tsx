@@ -1,14 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -69,27 +67,29 @@ export function GeneralizedBarChart({
     };
 
     return (
-        <Card className="flex-grow">
-            <CardHeader>
-                <CardTitle>{chartTitle}</CardTitle>
-                <CardDescription>{chartDescription}</CardDescription>
+        <Card className="flex h-full min-w-0 flex-col">
+            <CardHeader className="px-4 pb-0 pt-4 sm:px-6 sm:pt-6">
+                <CardTitle className="text-base sm:text-lg">{chartTitle}</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">{chartDescription}</CardDescription>
             </CardHeader>
-            <CardContent>
-                <ChartContainer config={chartConfig}>
+            <CardContent className="px-3 pb-4 pt-2 sm:px-6 sm:pb-6">
+                <ChartContainer config={chartConfig} className="h-[220px] w-full sm:h-[250px]">
                     <BarChart accessibilityLayer data={chartData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
                             dataKey={keyName}
                             tickLine={false}
-                            tickMargin={2}
+                            tickMargin={8}
                             axisLine={false}
-                            tickFormatter={(value) => value.slice(0, 3)}
+                            tickFormatter={(value) => String(value).slice(0, 8)}
+                            interval={0}
+                            minTickGap={16}
                         />
                         <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey={valueName} radius={2} barSize={10} />
+                        <Bar dataKey={valueName} radius={4} maxBarSize={28} />
                     </BarChart>
                 </ChartContainer>
             </CardContent>

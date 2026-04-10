@@ -7,12 +7,10 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
 import {
-    ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
@@ -64,15 +62,15 @@ export function GeneralizedPieChart({
     };
 
     return (
-        <Card className="flex flex-col min-w-[300px]">
-            <CardHeader className="items-center pb-0">
-                <CardTitle>{chartTitle}</CardTitle>
-                <CardDescription>{chartDescription}</CardDescription>
+        <Card className="flex h-full min-w-0 flex-col">
+            <CardHeader className="items-center px-4 pb-0 pt-4 text-center sm:px-6 sm:pt-6">
+                <CardTitle className="text-base sm:text-lg">{chartTitle}</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">{chartDescription}</CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 pb-0">
+            <CardContent className="flex flex-1 items-center justify-center px-3 pb-4 pt-2 sm:px-6 sm:pb-6">
                 <ChartContainer
                     config={chartConfig}
-                    className="mx-auto aspect-square max-h-[250px]"
+                    className="mx-auto aspect-square h-[220px] w-full max-w-[280px] sm:h-[250px] sm:max-w-[320px]"
                 >
                     <PieChart>
                         <ChartTooltip
@@ -99,7 +97,7 @@ export function GeneralizedPieChart({
                                                 <tspan
                                                     x={viewBox.cx}
                                                     y={viewBox.cy}
-                                                    className="fill-foreground text-3xl font-bold"
+                                                    className="fill-foreground text-2xl font-bold sm:text-3xl"
                                                 >
                                                     {totalValues.toLocaleString()}
                                                 </tspan>
