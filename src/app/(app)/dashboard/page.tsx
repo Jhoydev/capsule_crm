@@ -4,6 +4,7 @@ import * as React from 'react';
 import {PropertyStatus} from "@/app/(app)/dashboard/components/PropertyStatus";
 import {PropertyTypes} from "@/app/(app)/dashboard/components/PropertyTypes";
 import {ContactContactMedium} from "@/app/(app)/dashboard/components/ContactContactMedium";
+import { DashboardSkeleton } from '@/app/(app)/dashboard/components/DashboardSkeleton';
 import { useDashboard } from '@/app/(app)/dashboard/hooks/useDashboard';
 
 const Dashboard = () => {
@@ -14,7 +15,7 @@ const Dashboard = () => {
     } = useDashboard();
 
     if (loading) {
-        return <div className="p-4 text-center text-muted-foreground">Loading dashboard...</div>;
+        return <DashboardSkeleton />;
     }
 
     if (error) {
