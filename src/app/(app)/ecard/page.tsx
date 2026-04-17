@@ -5,6 +5,7 @@ import { fetchEcardConfig } from '@/services/ecard.service';
 import { EcardPreview } from './components/EcardPreview';
 import { EcardEditor } from './components/EcardEditor';
 import { EcardToolbar } from './components/EcardToolbar';
+import { EcardSkeleton } from './components/EcardSkeleton';
 import { useAuth } from '@/hooks/auth';
 import { getActiveTheme } from '@/app/(app)/ecard/utils/getActiveTheme';
 import { EcardConfig } from '@/types/ecard.types';
@@ -43,7 +44,7 @@ export default function EcardPage() {
     }, [user?.id]);
 
     if (loading || !config) {
-        return <p className="text-center p-10">Cargando configuración...</p>;
+        return <EcardSkeleton />;
     }
 
     return (
