@@ -31,23 +31,23 @@ const ContactView: React.FC<ContactViewProps> = ({ editFunction, data }) => {
                     </Button>
                 </div>
             </div>
-            <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow overflow-hidden">
-                <div className="row-span-2 col-span-1">
-                    <div className='flex h-[250px] justify-center items-center'>
-                        <div className='flex'>
+            <div className="grid grid-rows-2 sm:grid-cols-1 md:grid-cols-4 flex-grow overflow-hidden min-w-0">
+                <div className="row-span-2 col-span-1 min-w-0">
+                    <div className='flex h-[250px] justify-center items-center px-4 overflow-hidden'>
+                        <div className='flex max-w-full min-w-0 items-center gap-5'>
                             <Avatar className="h-[80px] w-[80px]">
                                 <AvatarImage src={data.avatar_url}/>
                                 <AvatarFallback>{data.first_name[0]}{data.last_name[0]}</AvatarFallback>
                             </Avatar>
-                            <div className="ml-5">
-                                <p className='text-xl font-bold'>{data.first_name} {data.last_name}</p>
-                                <p>{data.email}</p>
-                                <p>{data.phone}</p>
+                            <div className="min-w-0 flex-1">
+                                <p className='text-xl font-bold break-words'>{data.first_name} {data.last_name}</p>
+                                <p className="break-all text-sm text-muted-foreground">{data.email}</p>
+                                <p className="break-words text-sm text-muted-foreground">{data.phone}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="row-span-2 col-span-3">
+                <div className="row-span-2 col-span-3 min-w-0">
                     <TabContact contact={data}/>
                 </div>
             </div>
