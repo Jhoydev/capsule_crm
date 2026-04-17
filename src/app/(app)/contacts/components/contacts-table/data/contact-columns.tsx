@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Contact } from "../data/schema"
 import { DataTableColumnHeader } from "./../data-table-column-header"
 import { DataTableRowActions } from "./../data-table-row-actions"
@@ -46,10 +47,18 @@ export const contactColumns: ColumnDef<Contact>[] = [
             <DataTableColumnHeader column={column} title="" />
         ),
         cell: ({ row }) => {
+            const initials = row.original.name
+                .split(' ')
+                .filter(Boolean)
+                .slice(0, 2)
+                .map((part) => part[0]?.toUpperCase() ?? '')
+                .join('') || 'NA';
+
             return (
-                <span className="relative flex shrink-0 overflow-hidden rounded-full h-9 w-9">
-                    <img className="aspect-square h-full w-full" alt="Avatar" src={row.original.avatar_url ?? '/images/default-avatar.png'}/>
-                </span>
+                <Avatar className="h-9 w-9">
+                    <AvatarImage src={row.original.avatar_url} alt="Avatar" />
+                    <AvatarFallback>{initials}</AvatarFallback>
+                </Avatar>
             )
         },
         enableSorting: false,
