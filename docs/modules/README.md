@@ -11,6 +11,7 @@ Esta carpeta documenta los módulos funcionales de Capsule CRM desde la perspect
 - [E-Cards](./ecards.md)
 - [Registro Multi-Paso](./registro-multi-paso.md)
 - [Usuarios](./usuarios.md)
+- [Timeline](./timeline.md)
 
 ## Mapa general
 
