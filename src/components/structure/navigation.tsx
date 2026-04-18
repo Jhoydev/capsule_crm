@@ -75,8 +75,7 @@ const Navigation = ({ user }: { user: UserType }) => {
                                     <DropdownMenuItem>
                                         <button
                                             onClick={() => setOpen(true)}
-                                            className="w-full justify-start flex text-red-500 rounded-md p-2 transition-all
-                                                duration-75 hover:bg-neutral-100"
+                                            className="flex w-full justify-start rounded-md p-2 text-foreground transition-all duration-75 hover:bg-accent hover:text-accent-foreground"
                                         >
                                             Profile
                                         </button>

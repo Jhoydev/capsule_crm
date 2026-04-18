@@ -152,8 +152,9 @@ const AvatarDropdownMenu = ({ user }: { user: UserType }) => {
                         </Dialog>
                     </div>
                     <DialogFooter>
-                        <Button type="submit"
-                                disabled={isSubmitting}>{isSubmitting ? "Saving..." : "Save changes"}</Button>
+                        <Button type="submit" variant="secondary" disabled={isSubmitting}>
+                            {isSubmitting ? "Saving..." : "Save changes"}
+                        </Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
