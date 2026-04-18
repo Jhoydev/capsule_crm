@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
+import Link from 'next/link';
 import Breadcrumbs from '@/components/shared/breadCrumbs';
 import { SkeletonCard } from '@/app/(app)/properties/components/skeleton';
 import PropertyEdition from '@/app/(app)/properties/components/propertyEdition';
@@ -8,7 +9,7 @@ import { usePropertyData } from '@/hooks/property/usePropertyData';
 import { usePropertyContact } from '@/hooks/property/usePropertyContact';
 import { usePropertyHandlers } from '@/hooks/property/usePropertyHandlers';
 import { Button } from '@/components/ui/button';
-import { FaEdit } from 'react-icons/fa';
+import { FaEdit, FaPrint } from 'react-icons/fa';
 import PropertyDetail from '@/app/(app)/properties/components/PropertyDetail';
 
 const Property = () => {
@@ -54,10 +55,18 @@ const Property = () => {
         <>
           <div className="flex justify-between items-center">
             <Breadcrumbs />
-            <Button type="button" variant="secondary" onClick={() => setMode('edit')}>
-              <FaEdit />
-              <span className="ml-2">Edit</span>
-            </Button>
+            <div className="flex items-center gap-3">
+              <Button asChild variant="outline">
+                <Link href={`/properties/${property.id}/print`}>
+                  <FaPrint />
+                  <span className="ml-2">Imprimir ficha</span>
+                </Link>
+              </Button>
+              <Button type="button" variant="secondary" onClick={() => setMode('edit')}>
+                <FaEdit />
+                <span className="ml-2">Edit</span>
+              </Button>
+            </div>
           </div>
           <PropertyDetail data={property} />
         </>
